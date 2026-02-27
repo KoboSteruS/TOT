@@ -89,6 +89,7 @@ h2 { font-size: clamp(32px, 3.5vw, 50px); }
   border: 1px solid rgba(255,255,255,.6);
   box-shadow: var(--shadow);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .about-layout { margin-top: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
@@ -175,4 +176,16 @@ h2 { font-size: clamp(32px, 3.5vw, 50px); }
 @media (max-width: 560px) {
   .section { padding: 64px 0; }
   .steps-grid { grid-template-columns: 1fr; }
+}
+
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }

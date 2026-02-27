@@ -62,12 +62,12 @@
         <h2>Услуги</h2>
         <p class="lead">Комплексное бухгалтерское сопровождение для ИП и ООО</p>
         <div class="services-grid">
-          <article class="service-card"><h3>Бухгалтерское сопровождение</h3><p>Ведение учёта, первичная документация, отчётность.</p><a href="#">Подробнее</a></article>
-          <article class="service-card"><h3>Налоговый учёт</h3><p>Декларации, ответы на требования, контроль рисков.</p><a href="#">Подробнее</a></article>
-          <article class="service-card"><h3>Кадровый учёт</h3><p>Трудовые договоры, приказы, расчёт зарплаты.</p><a href="#">Подробнее</a></article>
-          <article class="service-card"><h3>Консультации и аудит</h3><p>Проверка состояния учёта и рекомендации.</p><a href="#">Подробнее</a></article>
-          <article class="service-card"><h3>Восстановление учёта</h3><p>Наведение порядка и сдача уточнённой отчётности.</p><a href="#">Подробнее</a></article>
-          <article class="service-card"><h3>Регистрация бизнеса</h3><p>Открытие ИП/ООО и внесение изменений.</p><a href="#">Подробнее</a></article>
+          <article class="service-card"><h3>Бухгалтерское сопровождение</h3><p>Ведение учёта, первичная документация, отчётность.</p><a href="#final-cta">Подробнее</a></article>
+          <article class="service-card"><h3>Налоговый учёт</h3><p>Декларации, ответы на требования, контроль рисков.</p><a href="#final-cta">Подробнее</a></article>
+          <article class="service-card"><h3>Кадровый учёт</h3><p>Трудовые договоры, приказы, расчёт зарплаты.</p><a href="#final-cta">Подробнее</a></article>
+          <article class="service-card"><h3>Консультации и аудит</h3><p>Проверка состояния учёта и рекомендации.</p><a href="#final-cta">Подробнее</a></article>
+          <article class="service-card"><h3>Восстановление учёта</h3><p>Наведение порядка и сдача уточнённой отчётности.</p><a href="#final-cta">Подробнее</a></article>
+          <article class="service-card"><h3>Регистрация бизнеса</h3><p>Открытие ИП/ООО и внесение изменений.</p><a href="#final-cta">Подробнее</a></article>
         </div>
       </div>
     </section>
@@ -172,11 +172,14 @@
         <h2>Передайте бухгалтерию профессионалам — сосредоточьтесь на бизнесе</h2>
         <div class="final-layout glass-card">
           <div class="final-image"></div>
-          <form class="final-form">
+          <form class="final-form" action="#" method="post">
             <h3>Получите бесплатную консультацию</h3>
-            <input type="text" placeholder="Ваше имя" />
-            <input type="tel" placeholder="+7 — Телефон" />
-            <textarea placeholder="Комментарий"></textarea>
+            <label class="sr-only" for="name">Имя</label>
+            <input id="name" name="name" type="text" placeholder="Ваше имя" />
+            <label class="sr-only" for="phone">Телефон</label>
+            <input id="phone" name="phone" type="tel" placeholder="+7 — Телефон" />
+            <label class="sr-only" for="comment">Комментарий</label>
+            <textarea id="comment" name="comment" placeholder="Комментарий"></textarea>
             <button class="btn btn-primary" type="button">Получить консультацию</button>
             <ul>
               <li>✔ Работаем по договору</li>
