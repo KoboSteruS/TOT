@@ -1,15 +1,12 @@
-# Image placeholders
+# Куда положить присланные изображения
 
-Put your images here and keep the filenames used in templates/styles:
+Я подготовил пути в вёрстке так, чтобы после добавления файлов они сразу отобразились:
 
-- `hero/mountains.jpg` — hero background image
-- `about/accountant.jpg` — "О нас" right-side photo
-- `cta/laptop.jpg` — middle CTA background
-- `partners/alfa-banner.jpg` — Alfa-Bank promo banner
-- `partners/alfa-certificate.png` — certificate image
-- `tariffs/start.jpg` — tariff card image
-- `tariffs/business.jpg` — tariff card image
-- `tariffs/individual.jpg` — tariff card image
-- `final-cta/laptop.jpg` — final form section image
+- `hero/mountains.jpg` — фон hero-блока (горы)
+- `about/accountant.jpg` — фото бухгалтера в блоке «О нас»
+- `cta/laptop.jpg` — изображение ноутбука для среднего CTA-блока
+- `final-cta/laptop.jpg` — изображение ноутбука для финального CTA с формой
+- `partners/alfa-banner.jpg` — красный баннер Альфа-Банка
+- `partners/alfa-certificate.png` — сертификат (если есть)
 
-You can replace with png/webp/jpg if you also update paths in `static/styles.css`.
+Если файла сертификата нет, блок всё равно будет работать; можно временно использовать копию баннера.
