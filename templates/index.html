@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ООО «ТОТ» — Ваша идеальная бухгалтерия</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+</head>
+<body>
+  <header class="hero" id="home">
+    <div class="hero-overlay"></div>
+    <div class="container">
+      <nav class="nav glass-panel">
+        <a class="brand" href="#home">ООО «ТОТ»</a>
+        <div class="menu">
+          <a href="#home">Главная</a>
+          <a href="#services">Услуги</a>
+          <a href="#process">Как мы работаем</a>
+          <a href="#about">О нас</a>
+          <a href="#tariffs">Тарифы</a>
+        </div>
+        <a class="btn btn-header" href="#contacts">Заказать звонок</a>
+      </nav>
+
+      <section class="hero-content">
+        <p class="hero-sub">ООО «ТОТ»</p>
+        <h1 class="hero-h1">Ваша идеальная<br />бухгалтерия</h1>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#contacts">Связаться</a>
+          <a class="btn btn-outline" href="#services">Услуги</a>
+        </div>
+      </section>
+    </div>
+  </header>
+
+  <main>
+    <section class="section" id="about">
+      <div class="container">
+        <h2 class="h2">О нас</h2>
+        <p class="p about-text">
+          ООО «ТОТ» — бухгалтерские услуги «под ключ»: берём на себя учёт, налоги и кадры.
+          Работаем прозрачно: фиксируем состав работ, сроки и ответственность.
+          Помогаем снизить риски и держать финансы в порядке.
+        </p>
+        <div class="about-grid">
+          <article class="glass-panel feature"><h3>Прозрачно</h3><p>Ясные регламенты и отчёты по работам.</p></article>
+          <article class="glass-panel feature"><h3>Оперативно</h3><p>Поддержка в мессенджерах и по телефону.</p></article>
+          <article class="glass-panel feature"><h3>Без штрафов</h3><p>Контроль сроков и дедлайнов.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="services">
+      <div class="container">
+        <h2 class="h2">Услуги</h2>
+        <p class="p section-sub">Комплексное бухгалтерское сопровождение для ИП и ООО.</p>
+        <div class="cards-2">
+          <article class="glass-panel card"><h3>Бухгалтерское сопровождение</h3><p>Ведение учёта, первичная документация, закрытие месяца, отчётность.</p></article>
+          <article class="glass-panel card"><h3>Налоговый учёт</h3><p>Декларации, расчёты, ответы на требования, контроль налоговых рисков.</p></article>
+          <article class="glass-panel card"><h3>Кадровый учёт</h3><p>Трудовые договоры, приказы, расчёт зарплаты.</p></article>
+          <article class="glass-panel card"><h3>Консультации и аудит</h3><p>Проверка состояния учёта и рекомендации по оптимизации.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="process">
+      <div class="container">
+        <h2 class="h2">Как мы работаем</h2>
+        <div class="steps">
+          <article class="glass-panel step"><span>1</span><h3>Консультация</h3><p>Уточняем задачи и формат сотрудничества.</p></article>
+          <article class="glass-panel step"><span>2</span><h3>Договор</h3><p>Фиксируем стоимость, состав работ и сроки.</p></article>
+          <article class="glass-panel step"><span>3</span><h3>Ведение учёта</h3><p>Берём на себя рутину: учёт, налоги, кадры.</p></article>
+          <article class="glass-panel step"><span>4</span><h3>Отчётность</h3><p>Сдаём отчёты вовремя и сопровождаем проверки.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section cta" id="contacts">
+      <div class="container">
+        <div class="glass-panel cta-block">
+          <div>
+            <h2 class="h2">Получите бесплатную консультацию</h2>
+            <p class="p">Подберём формат сопровождения под ваш бизнес и систему налогообложения.</p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="tel:+79214604646">Позвонить</a>
+              <a class="btn btn-outline dark" href="https://vk.com/oootot" target="_blank" rel="noreferrer">Написать во ВКонтакте</a>
+            </div>
+          </div>
+          <ul class="contacts-list">
+            <li><strong>Телефоны:</strong><br>+7 (921) 460-46-46<br>+7 (964) 319-46-46</li>
+            <li><strong>График:</strong><br>Пн–Пт 09:00–18:00</li>
+            <li><strong>Адрес:</strong><br>ул. Федосовой, 31 (офис 6)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <strong>ООО «ТОТ»</strong>
+        <p>Ваша идеальная бухгалтерия</p>
+      </div>
+      <div>
+        <a href="https://vk.com/oootot" target="_blank" rel="noreferrer">vk.com/oootot</a>
+        <p>+7 (921) 460-46-46 · +7 (964) 319-46-46</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
