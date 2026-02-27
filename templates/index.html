@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ООО «ТОТ» — Ваша идеальная бухгалтерия</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+</head>
+<body>
+  <header class="site-header" id="home">
+    <div class="container header-inner">
+      <a href="#home" class="brand">
+        <span class="logo-icon">🏙️</span>
+        <span>
+          <strong>ООО «ТОТ»</strong>
+          <small>Ваша идеальная бухгалтерия</small>
+        </span>
+      </a>
+      <nav class="main-nav">
+        <a href="#home">Главная</a>
+        <a href="#services">Услуги</a>
+        <a href="#process">Как мы работаем</a>
+        <a href="#about">О нас</a>
+      </nav>
+      <a class="btn btn-header" href="#final-cta">Заказать звонок</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <h1>ВАША ИДЕАЛЬНАЯ<br>БУХГАЛТЕРИЯ</h1>
+      <p>ООО «ТОТ»</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="#final-cta">Связаться</a>
+        <a class="btn btn-outline" href="#services">Услуги</a>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section class="section" id="about">
+      <div class="container">
+        <h2>О нас</h2>
+        <p class="lead">ООО «ТОТ» — бухгалтерские услуги «под ключ»: берём на себя учёт, налоги и кадры. Работаем прозрачно: фиксируем состав работ, сроки и ответственность. Помогаем снизить риски и держать финансы в порядке.</p>
+        <div class="about-layout">
+          <div class="about-features">
+            <article class="glass-card"><h3>Прозрачно</h3><p>Ясные регламенты и отчёты.</p></article>
+            <article class="glass-card"><h3>Оперативно</h3><p>Поддержка в мессенджерах.</p></article>
+            <article class="glass-card"><h3>Без штрафов</h3><p>Контроль сроков и дедлайнов.</p></article>
+          </div>
+          <div class="about-photo" aria-label="Бухгалтер за столом"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="services">
+      <div class="container">
+        <h2>Услуги</h2>
+        <p class="lead">Комплексное бухгалтерское сопровождение для ИП и ООО</p>
+        <div class="services-grid">
+          <article class="service-card"><h3>Бухгалтерское сопровождение</h3><p>Ведение учёта, первичная документация, отчётность.</p><a href="#">Подробнее</a></article>
+          <article class="service-card"><h3>Налоговый учёт</h3><p>Декларации, ответы на требования, контроль рисков.</p><a href="#">Подробнее</a></article>
+          <article class="service-card"><h3>Кадровый учёт</h3><p>Трудовые договоры, приказы, расчёт зарплаты.</p><a href="#">Подробнее</a></article>
+          <article class="service-card"><h3>Консультации и аудит</h3><p>Проверка состояния учёта и рекомендации.</p><a href="#">Подробнее</a></article>
+          <article class="service-card"><h3>Восстановление учёта</h3><p>Наведение порядка и сдача уточнённой отчётности.</p><a href="#">Подробнее</a></article>
+          <article class="service-card"><h3>Регистрация бизнеса</h3><p>Открытие ИП/ООО и внесение изменений.</p><a href="#">Подробнее</a></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="cta-laptop glass-card">
+          <div>
+            <h2>Не знаете, какой формат подойдёт?</h2>
+            <p>Подберём оптимальный формат сопровождения под ваш бизнес.</p>
+            <a class="btn btn-primary" href="#final-cta">Получить консультацию</a>
+            <ul>
+              <li>✔ Первая консультация бесплатно</li>
+              <li>✔ Ответ в течение рабочего дня</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="process">
+      <div class="container">
+        <h2>Как мы работаем</h2>
+        <p class="lead">Прозрачно выстраиваем сотрудничество в 4 шага</p>
+        <div class="steps-grid">
+          <article class="step-card"><span>1</span><h3>Консультация</h3><p>Уточняем задачи и формат работы.</p></article>
+          <article class="step-card"><span>2</span><h3>Заключение договора</h3><p>Фиксируем стоимость и сроки.</p></article>
+          <article class="step-card"><span>3</span><h3>Ведение бухгалтерии</h3><p>Берём учёт, налоги и кадры на себя.</p></article>
+          <article class="step-card"><span>4</span><h3>Отчётность вовремя</h3><p>Сдаём отчёты и готовим к проверкам.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="partner">
+      <div class="container">
+        <h2>Работаем с надёжным банком-партнёром</h2>
+        <div class="partner-layout">
+          <div class="glass-card partner-text">
+            <h3>Альфа-Банк — наш официальный партнёр</h3>
+            <a class="btn btn-primary" href="#final-cta">Открыть счёт через нас</a>
+            <ul>
+              <li>✔ Открытие счёта за 5 минут</li>
+              <li>✔ Бесплатная консультация</li>
+              <li>✔ Помощь в документах</li>
+              <li>✔ Персональный менеджер</li>
+            </ul>
+          </div>
+          <div class="partner-images">
+            <div class="banner"></div>
+            <div class="cert"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="business-scales">
+      <div class="container">
+        <h2>Работаем с бизнесом любого масштаба</h2>
+        <div class="scale-grid">
+          <article class="scale-card"><h3>ИП</h3><p>УСН 6/15%, отчётность, консультации.</p></article>
+          <article class="scale-card"><h3>ООО</h3><p>ОСН/УСН, бухгалтерия, кадровый учёт.</p></article>
+          <article class="scale-card"><h3>Стартапы</h3><p>Регистрация, счёт, старт учёта.</p></article>
+          <article class="scale-card"><h3>Онлайн-бизнес</h3><p>Агрегаторы, онлайн-кассы, ЭДО.</p></article>
+          <article class="scale-card"><h3>Физлица</h3><p>Консультации и налоговые вопросы.</p></article>
+          <article class="scale-card"><h3>Переход системы</h3><p>Смена режима и оптимизация нагрузки.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="tariffs">
+      <div class="container">
+        <h2>Прозрачные тарифы без скрытых платежей</h2>
+        <div class="tariffs-grid">
+          <article class="tariff-card">
+            <div class="tariff-img start"></div>
+            <h3>Старт</h3>
+            <p>Для ИП без сотрудников</p>
+            <ul><li>Ведение бухгалтерии</li><li>Сдача отчётности</li><li>Поддержка в мессенджере</li></ul>
+            <a class="btn btn-primary" href="#final-cta">Оставить заявку</a>
+          </article>
+          <article class="tariff-card popular">
+            <div class="badge">Популярный</div>
+            <div class="tariff-img business"></div>
+            <h3>Бизнес</h3>
+            <p>Для ИП и ООО</p>
+            <ul><li>Полное сопровождение</li><li>Кадровый учёт</li><li>Подготовка к проверкам</li></ul>
+            <a class="btn btn-primary" href="#final-cta">Получить расчёт</a>
+          </article>
+          <article class="tariff-card">
+            <div class="tariff-img individual"></div>
+            <h3>Индивидуальный</h3>
+            <p>Для компаний с объёмной отчётностью</p>
+            <ul><li>Персональный бухгалтер</li><li>Финконтроль</li><li>Работа с банками и проверками</li></ul>
+            <a class="btn btn-primary" href="#final-cta">Обсудить условия</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="final-cta">
+      <div class="container">
+        <h2>Передайте бухгалтерию профессионалам — сосредоточьтесь на бизнесе</h2>
+        <div class="final-layout glass-card">
+          <div class="final-image"></div>
+          <form class="final-form">
+            <h3>Получите бесплатную консультацию</h3>
+            <input type="text" placeholder="Ваше имя" />
+            <input type="tel" placeholder="+7 — Телефон" />
+            <textarea placeholder="Комментарий"></textarea>
+            <button class="btn btn-primary" type="button">Получить консультацию</button>
+            <ul>
+              <li>✔ Работаем по договору</li>
+              <li>✔ Несём ответственность</li>
+              <li>✔ Персональный специалист</li>
+            </ul>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div><strong>ООО «ТОТ»</strong><p>Ваша идеальная бухгалтерия</p></div>
+      <div>
+        <a href="https://vk.com/oootot" target="_blank" rel="noreferrer">vk.com/oootot</a>
+        <p>+7 (921) 460-46-46 · +7 (964) 319-46-46</p>
+        <p>Пн–Пт 09:00–18:00 · ул. Федосовой, 31 (офис 6)</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
