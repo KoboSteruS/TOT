@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ООО «ТОТ» — Ваша идеальная бухгалтерия</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+</head>
+<body>
+  <header class="site-header" id="home">
+    <div class="container header-inner">
+      <a href="#home" class="brand">
+        <span class="logo-icon">TOT</span>
+        <span>
+          <strong>ООО «ТОТ»</strong>
+          <small>Ваша идеальная бухгалтерия</small>
+        </span>
+      </a>
+      <nav class="main-nav">
+        <a href="#home">Главная</a>
+        <a href="#services">Услуги</a>
+        <a href="#process">Как мы работаем</a>
+        <a href="#about">О нас</a>
+      </nav>
+      <a class="btn btn-header" href="#final-cta">Заказать звонок</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <h1>ВАША ИДЕАЛЬНАЯ<br>БУХГАЛТЕРИЯ</h1>
+      <p>ООО «ТОТ»</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="#final-cta">Связаться</a>
+        <a class="btn btn-outline" href="#services">Услуги</a>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section class="section" id="about">
+      <div class="container">
+        <h2>О нас</h2>
+        <p class="lead">ООО «ТОТ» — бухгалтерские услуги «под ключ»: берём на себя учёт, налоги и кадры. Работаем прозрачно: фиксируем состав работ, сроки и ответственность. Помогаем снизить риски и держать финансы в порядке.</p>
+        <div class="about-layout">
+          <div class="about-features">
+            <article class="glass-card feature-card">
+              <div class="card-head">
+                <span class="icon-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8"/><path d="M8 17h6"/></svg></span>
+                <h3>Прозрачно</h3>
+              </div>
+              <p>Ясные регламенты и отчёты.</p>
+            </article>
+            <article class="glass-card feature-card">
+              <div class="card-head">
+                <span class="icon-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v5l3 2"/><path d="M9 2h6"/></svg></span>
+                <h3>Оперативно</h3>
+              </div>
+              <p>Поддержка в мессенджерах.</p>
+            </article>
+            <article class="glass-card feature-card">
+              <div class="card-head">
+                <span class="icon-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3.4 8-7 9-3.6-1-7-4-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></span>
+                <h3>Без штрафов</h3>
+              </div>
+              <p>Контроль сроков и дедлайнов.</p>
+            </article>
+          </div>
+          <div class="about-photo" aria-label="Бухгалтер за столом"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="services">
+      <div class="container">
+        <h2>Услуги</h2>
+        <p class="lead">Комплексное бухгалтерское сопровождение для ИП и ООО</p>
+        <div class="services-grid">
+          <article class="service-card">
+            <div class="card-head">
+              <span class="icon-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="20" x2="20" y2="20"/><rect x="6" y="11" width="3" height="6"/><rect x="11" y="8" width="3" height="9"/><rect x="16" y="5" width="3" height="12"/></svg></span>
+              <h3>Бухгалтерское сопровождение</h3>
+            </div>
+            <p>Ведение учёта, первичная документация, отчётность.</p>
+            <a href="#final-cta">Подробнее</a>
+          </article>
+          <article class="service-card">
+            <div class="card-head">
+              <span class="icon-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h4"/><path d="M8 17h3"/><path d="M17 13c1.5 1.5 1.5 3.5 0 5"/><path d="M14.5 13h0"/></svg></span>
+              <h3>Налоговый учёт</h3>
+            </div>
+            <p>Декларации, ответы на требования, контроль рисков.</p>
+            <a href="#final-cta">Подробнее</a>
+          </article>
+          <article class="service-card">
+            <div class="card-head">
+              <span class="icon-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/><path d="M17 9l1.5 1.5L21 8"/></svg></span>
+              <h3>Кадровый учёт</h3>
+            </div>
+            <p>Трудовые договоры, приказы, расчёт зарплаты.</p>
+            <a href="#final-cta">Подробнее</a>
+          </article>
+          <article class="service-card">
+            <div class="card-head">
+              <span class="icon-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-17 0A8.38 8.38 0 0 1 4.4 9H8l2-2h4"/><path d="M8 15h3"/><circle cx="17" cy="17" r="3"/><line x1="19.2" y1="19.2" x2="22" y2="22"/></svg></span>
+              <h3>Консультации и аудит</h3>
+            </div>
+            <p>Проверка состояния учёта и рекомендации.</p>
+            <a href="#final-cta">Подробнее</a>
+          </article>
+          <article class="service-card">
+            <div class="card-head">
+              <span class="icon-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h7l2 2h9v10a2 2 0 0 1-2 2H3z"/><path d="M3 7V5a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2"/><path d="M12 12a3 3 0 1 1-2.5 4.7"/><path d="M12 12v-2"/></svg></span>
+              <h3>Восстановление учёта</h3>
+            </div>
+            <p>Наведение порядка и сдача уточнённой отчётности.</p>
+            <a href="#final-cta">Подробнее</a>
+          </article>
+          <article class="service-card">
+            <div class="card-head">
+              <span class="icon-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8"/><path d="M8 11h8"/><path d="M8 15h5"/><path d="M15 17l2 2 3-3"/></svg></span>
+              <h3>Регистрация бизнеса</h3>
+            </div>
+            <p>Открытие ИП/ООО и внесение изменений.</p>
+            <a href="#final-cta">Подробнее</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="cta-laptop glass-card">
+          <div>
+            <h2>Не знаете, какой формат подойдёт?</h2>
+            <p>Подберём оптимальный формат сопровождения под ваш бизнес.</p>
+            <a class="btn btn-primary" href="#final-cta">Получить консультацию</a>
+            <ul>
+              <li>Первая консультация бесплатно</li>
+              <li>Ответ в течение рабочего дня</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="process">
+      <div class="container">
+        <h2>Как мы работаем</h2>
+        <p class="lead">Прозрачно выстраиваем сотрудничество в 4 шага</p>
+        <div class="steps-grid">
+          <article class="step-card">
+            <span class="step-index">1</span>
+            <div class="card-head"><span class="icon-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><line x1="8" y1="9" x2="16" y2="9"/><line x1="8" y1="13" x2="13" y2="13"/></svg></span><h3>Консультация</h3></div>
+            <p>Уточняем задачи и формат работы.</p>
+          </article>
+          <article class="step-card">
+            <span class="step-index">2</span>
+            <div class="card-head"><span class="icon-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 11l3 3 3-3"/><path d="M3 12h5"/><path d="M16 12h5"/><path d="M7 7l2 2"/><path d="M17 17l-2-2"/><path d="M17 7l-2 2"/><path d="M7 17l2-2"/></svg></span><h3>Заключение договора</h3></div>
+            <p>Фиксируем стоимость и сроки.</p>
+          </article>
+          <article class="step-card">
+            <span class="step-index">3</span>
+            <div class="card-head"><span class="icon-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="10" height="18" rx="2"/><path d="M8 7h2"/><path d="M8 11h2"/><path d="M8 15h2"/><rect x="16" y="10" width="5" height="11" rx="1"/><path d="M18.5 13v5"/><path d="M17 15.5h3"/></svg></span><h3>Ведение бухгалтерии</h3></div>
+            <p>Берём учёт, налоги и кадры на себя.</p>
+          </article>
+          <article class="step-card">
+            <span class="step-index">4</span>
+            <div class="card-head"><span class="icon-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6"/><path d="M10 21h4"/><rect x="6" y="3" width="12" height="18" rx="2"/><path d="M9 8h6"/><path d="M9 12h6"/><path d="M9 16h4"/><path d="M14 16l2 2 3-3"/></svg></span><h3>Отчётность вовремя</h3></div>
+            <p>Сдаём отчёты и готовим к проверкам.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="partner">
+      <div class="container">
+        <h2>Работаем с надёжным банком-партнёром</h2>
+        <div class="partner-layout">
+          <div class="glass-card partner-text">
+            <h3>Альфа-Банк — наш официальный партнёр</h3>
+            <a class="btn btn-primary" href="#final-cta">Открыть счёт через нас</a>
+            <ul>
+              <li>Открытие счёта за 5 минут</li>
+              <li>Бесплатная консультация</li>
+              <li>Помощь в документах</li>
+              <li>Персональный менеджер</li>
+            </ul>
+          </div>
+          <div class="partner-images">
+            <div class="banner"></div>
+            <div class="cert"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="business-scales">
+      <div class="container">
+        <h2>Работаем с бизнесом любого масштаба</h2>
+        <p class="lead">Берём на себя бухгалтерию, налоги и отчётность — от регистрации до полного сопровождения.</p>
+        <div class="scale-grid">
+          <article class="scale-card"><div class="card-head"><span class="icon-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M7 15l3-3 2 2 4-4"/></svg></span><h3>Индивидуальные предприниматели (ИП)</h3></div><p>УСН 6% / 15%</p><p>ОСН</p><p>Подготовка и сдача отчётности</p><p>Консультации по налоговой нагрузке</p></article>
+          <article class="scale-card"><div class="card-head"><span class="icon-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="10" height="16" rx="2"/><path d="M6 8h4"/><path d="M6 12h4"/><rect x="15" y="8" width="6" height="12" rx="1"/><path d="M16.5 12h3"/><path d="M16.5 15h3"/><path d="M18 18v0"/></svg></span><h3>Общества с ограниченной ответственностью (ООО)</h3></div><p>ОСН / УСН</p><p>Полное бухгалтерское сопровождение</p><p>Кадровый учёт</p><p>Подготовка к проверкам</p></article>
+          <article class="scale-card"><div class="card-head"><span class="icon-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 14l5-5 5 5-5 5-5-5z"/><path d="M10 9V4"/><path d="M9 4h2"/><path d="M14 14h6"/><path d="M16 18l4-4-4-4"/></svg></span><h3>Стартапы и новый бизнес</h3></div><p>Регистрация ИП / ООО</p><p>Открытие расчётного счёта</p><p>Подбор системы налогообложения</p><p>Первичная постановка учёта</p></article>
+          <article class="scale-card"><div class="card-head"><span class="icon-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v4H3z"/><path d="M5 9v10h14V9"/><path d="M8 13h8"/><path d="M9 16h6"/></svg></span><h3>Онлайн-бизнес и маркетплейсы</h3></div><p>Работа с агрегаторами</p><p>Учёт онлайн-касс</p><p>Отчётность по электронным каналам</p></article>
+          <article class="scale-card"><div class="card-head"><span class="icon-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3.4 8-7 9-3.6-1-7-4-7-9V6l7-3z"/><circle cx="12" cy="11" r="2.5"/><path d="M8.8 16a4 4 0 0 1 6.4 0"/></svg></span><h3>Физические лица</h3></div><p>Юридические консультации</p><p>Налоговые вопросы</p><p>Электронная подпись (ЭЦП)</p></article>
+          <article class="scale-card"><div class="card-head"><span class="icon-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 1-15.5 6.3"/><polyline points="3 12 3 18 9 18"/><path d="M3 12a9 9 0 0 1 15.5-6.3"/><polyline points="21 12 21 6 15 6"/></svg></span><h3>Бизнес, которому нужен переход</h3></div><p>Смена системы налогообложения</p><p>Оптимизация налоговой нагрузки</p><p>Восстановление учёта</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="tariffs">
+      <div class="container">
+        <h2>Прозрачные тарифы без скрытых платежей</h2>
+        <div class="tariffs-grid">
+          <article class="tariff-card">
+            <div class="tariff-img start"></div>
+            <h3>Старт</h3>
+            <p>Для ИП без сотрудников</p>
+            <ul><li>Ведение бухгалтерии</li><li>Сдача отчётности</li><li>Поддержка в мессенджере</li></ul>
+            <a class="btn btn-primary" href="#final-cta">Оставить заявку</a>
+          </article>
+          <article class="tariff-card popular">
+            <div class="badge">Популярный</div>
+            <div class="tariff-img business"></div>
+            <h3>Бизнес</h3>
+            <p>Для ИП и ООО</p>
+            <ul><li>Полное сопровождение</li><li>Кадровый учёт</li><li>Подготовка к проверкам</li></ul>
+            <a class="btn btn-primary" href="#final-cta">Получить расчёт</a>
+          </article>
+          <article class="tariff-card">
+            <div class="tariff-img individual"></div>
+            <h3>Индивидуальный</h3>
+            <p>Для компаний с объёмной отчётностью</p>
+            <ul><li>Персональный бухгалтер</li><li>Финконтроль</li><li>Работа с банками и проверками</li></ul>
+            <a class="btn btn-primary" href="#final-cta">Обсудить условия</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="final-cta">
+      <div class="container">
+        <h2>Передайте бухгалтерию профессионалам — сосредоточьтесь на бизнесе</h2>
+        <div class="final-layout glass-card">
+          <div class="final-image"></div>
+          <form class="final-form" action="#" method="post">
+            <h3>Получите бесплатную консультацию</h3>
+            <label class="sr-only" for="name">Имя</label>
+            <input id="name" name="name" type="text" placeholder="Ваше имя" />
+            <label class="sr-only" for="phone">Телефон</label>
+            <input id="phone" name="phone" type="tel" placeholder="+7 — Телефон" />
+            <label class="sr-only" for="comment">Комментарий</label>
+            <textarea id="comment" name="comment" placeholder="Комментарий"></textarea>
+            <button class="btn btn-primary" type="button">Получить консультацию</button>
+            <ul>
+              <li>Работаем по договору</li>
+              <li>Несём ответственность</li>
+              <li>Персональный специалист</li>
+            </ul>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div><strong>ООО «ТОТ»</strong><p>Ваша идеальная бухгалтерия</p></div>
+      <div>
+        <a href="https://vk.com/oootot" target="_blank" rel="noreferrer">vk.com/oootot</a>
+        <p>+7 (921) 460-46-46 · +7 (964) 319-46-46</p>
+        <p>Пн–Пт 09:00–18:00 · ул. Федосовой, 31 (офис 6)</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
