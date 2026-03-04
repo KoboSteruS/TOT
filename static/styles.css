@@ -289,11 +289,53 @@ h2 { font-size: clamp(32px, 3.5vw, 50px); }
   border-top: 1px solid #d8e2f4;
   background: #fff;
 }
+.chat-input-wrap {
+  position: relative;
+}
+
 .chat-form input {
+  width: 100%;
   border: 1px solid #cfdcf5;
   border-radius: 10px;
   padding: 9px;
   font: inherit;
+}
+
+.chat-suggestions {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(100% + 6px);
+  display: none;
+  max-height: 160px;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid #d8e2f4;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(16, 36, 80, .16);
+  padding: 4px;
+  z-index: 2;
+}
+
+.chat-suggestions.show {
+  display: block;
+}
+
+.chat-suggestion-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #1f2b3d;
+  font: inherit;
+  padding: 7px 9px;
+  cursor: pointer;
+}
+
+.chat-suggestion-item:hover {
+  background: #eef3ff;
 }
 .chat-form button {
   border: 0;

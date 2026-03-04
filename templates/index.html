@@ -221,7 +221,10 @@
       </header>
       <div class="chat-messages" id="chatMessages"></div>
       <form class="chat-form" id="chatForm">
-        <input id="chatInput" type="text" placeholder="Введите вопрос..." autocomplete="off" />
+        <div class="chat-input-wrap">
+          <input id="chatInput" type="text" placeholder="Введите вопрос..." autocomplete="off" />
+          <div class="chat-suggestions" id="chatSuggestions" aria-live="polite"></div>
+        </div>
         <button type="submit">Отправить</button>
       </form>
     </section>
@@ -262,9 +265,62 @@
     const chatMessages = document.getElementById('chatMessages');
     const chatForm = document.getElementById('chatForm');
     const chatInput = document.getElementById('chatInput');
+    const chatSuggestions = document.getElementById('chatSuggestions');
     let faqItems = [];
 
+    const suggestionLimit = 5;
+
     const normalize = (text) => text.toLowerCase().replace(/ё/g, 'е').trim();
+
+    const getKeywordSuggestions = (query) => {
+      const normalized = normalize(query);
+      const keywordPool = [...new Set(
+        faqItems
+          .flatMap((entry) => entry.keywords || [])
+          .filter(Boolean)
+      )];
+
+      if (!normalized) {
+        return keywordPool.slice(0, suggestionLimit);
+      }
+
+      if (normalized.length < 2) return [];
+
+      return keywordPool
+        .filter((keyword) => normalize(keyword).includes(normalized))
+        .slice(0, suggestionLimit);
+    };
+
+    const hideSuggestions = () => {
+      if (!chatSuggestions) return;
+      chatSuggestions.innerHTML = '';
+      chatSuggestions.classList.remove('show');
+    };
+
+    const showSuggestions = (query) => {
+      if (!chatSuggestions) return;
+
+      const suggestions = getKeywordSuggestions(query);
+      if (!suggestions.length) {
+        hideSuggestions();
+        return;
+      }
+
+      chatSuggestions.innerHTML = '';
+      suggestions.forEach((item) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'chat-suggestion-item';
+        button.textContent = item;
+        button.addEventListener('click', () => {
+          chatInput.value = item;
+          hideSuggestions();
+          chatInput.focus();
+        });
+        chatSuggestions.appendChild(button);
+      });
+      chatSuggestions.classList.add('show');
+    };
 
     const renderMessage = (text, role = 'bot') => {
       const item = document.createElement('div');
@@ -291,10 +347,25 @@
       chatWidget.classList.toggle('open');
       if (chatWidget.classList.contains('open')) {
         chatInput.focus();
+      } else {
+        hideSuggestions();
       }
     });
 
-    chatClose.addEventListener('click', () => chatWidget.classList.remove('open'));
+    chatClose.addEventListener('click', () => {
+      chatWidget.classList.remove('open');
+      hideSuggestions();
+    });
+
+    chatInput.addEventListener('input', () => showSuggestions(chatInput.value));
+
+    chatInput.addEventListener('focus', () => {
+      if (!chatInput.value.trim()) showSuggestions('');
+    });
+
+    chatInput.addEventListener('blur', () => {
+      setTimeout(hideSuggestions, 120);
+    });
 
     chatForm.addEventListener('submit', (event) => {
       event.preventDefault();
@@ -302,6 +373,7 @@
       if (!message) return;
       renderMessage(message, 'user');
       chatInput.value = '';
+      hideSuggestions();
       setTimeout(() => renderMessage(findResponse(message), 'bot'), 200);
     });
 
