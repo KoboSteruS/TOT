@@ -10,10 +10,7 @@
 - `partners/alfa-certificate.png` — сертификат (если есть)
 
 Если файла сертификата нет, блок всё равно будет работать; можно временно использовать копию баннера.
-<<<<<<< codex/create-flask-application-with-css-styling-pdo3hz
 
 - `tariffs/start.(jpg|jpeg|png|webp)` — изображение для тарифа «Старт»
 - `tariffs/business.(jpg|jpeg|png|webp)` — изображение для тарифа «Бизнес»
 - `tariffs/individual.(jpg|jpeg|png|webp)` — изображение для тарифа «Индивидуальный»
-=======
->>>>>>> main
