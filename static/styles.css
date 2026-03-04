@@ -40,7 +40,11 @@ h2 { font-size: clamp(32px, 3.5vw, 50px); }
 .site-header.scrolled { background: rgba(11, 25, 58, .9); box-shadow: 0 12px 24px rgba(2,8,24,.35); }
 .header-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 78px; }
 .brand { color: #fff; display: flex; gap: 10px; align-items: center; }
+<<<<<<< codex/create-flask-application-with-css-styling-pdo3hz
 .logo-icon { font-size: 12px; letter-spacing: .08em; font-weight: 700; padding: 8px 10px; border-radius: 10px; border: 1px solid rgba(255,255,255,.45); background: rgba(255,255,255,.08); }
+=======
+.logo-icon { font-size: 12px; letter-spacing: .08em; font-weight: 700; padding: 8px 10px;}
+>>>>>>> main
 .brand small { display: block; opacity: .86; }
 .main-nav { display: flex; gap: 24px; color: #eef4ff; font-weight: 500; }
 .main-nav a { position: relative; }
@@ -49,6 +53,17 @@ h2 { font-size: clamp(32px, 3.5vw, 50px); }
 .nav-toggle { display: none; border: 0; background: transparent; cursor: pointer; }
 .nav-toggle span { display: block; width: 22px; height: 2px; background: #fff; margin: 5px 0; }
 
+<<<<<<< codex/create-flask-application-with-css-styling-pdo3hz
+=======
+
+.logo-icon img{
+  width: 100%;
+  object-fit: cover;
+  max-width: 150px;
+}
+
+
+>>>>>>> main
 .hero {
   min-height: 90vh;
   padding-top: 130px;
@@ -154,13 +169,18 @@ h2 { font-size: clamp(32px, 3.5vw, 50px); }
 .partner-text { padding: 24px; }
 .partner-images { display: grid; gap: 12px; }
 .banner, .cert { border-radius: var(--radius); box-shadow: var(--shadow); background-size: cover; background-position: center; }
+<<<<<<< codex/create-flask-application-with-css-styling-pdo3hz
 .banner { min-height: 250px; background-image: url('/static/images/partners/alfa-banner.jpg'); }
+=======
+.banner { min-height: 250px; background-image: url('/static/images/partners/alfa-banner.png'); }
+>>>>>>> main
 .cert { min-height: 260px; background-image: url('/static/images/partners/alfa-certificate.png'); }
 
 .scale-grid { margin-top: 24px; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; }
 .scale-card { border-radius: var(--radius); padding: 20px; background: #f6f7fe; box-shadow: var(--shadow); }
 
 .tariffs-grid { margin-top: 24px; display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; }
+<<<<<<< codex/create-flask-application-with-css-styling-pdo3hz
 .tariff-card { position: relative; border-radius: var(--radius); background: #fff; box-shadow: var(--shadow); padding: 16px; }
 .tariff-card.popular { outline: 2px solid #6d92df; transform: translateY(-4px); }
 .badge { position: absolute; top: -12px; right: 16px; background: var(--primary); color: #fff; padding: 6px 12px; border-radius: 999px; font-size: 13px; }
@@ -199,6 +219,16 @@ h2 { font-size: clamp(32px, 3.5vw, 50px); }
     url('/static/images/tariffs/individual.png'),
     url('/static/images/tariffs/individual.webp');
 }
+=======
+.tariff-card { position: relative; border-radius: var(--radius); background: #fff; box-shadow: var(--shadow); padding: 14px; }
+.tariff-card.popular { outline: 2px solid #6d92df; transform: translateY(-4px); }
+.badge { position: absolute; top: -12px; right: 16px; background: var(--primary); color: #fff; padding: 6px 12px; border-radius: 999px; font-size: 13px; }
+.tariff-img { height: 170px; border-radius: 14px; background-size: cover; background-position: center; margin-bottom: 10px; transition: transform .3s ease; }
+.tariff-card:hover .tariff-img { transform: scale(1.03); }
+.start { background-image: url('/static/images/tariffs/start.jpg'); }
+.business { background-image: url('/static/images/tariffs/business.jpg'); }
+.individual { background-image: url('/static/images/tariffs/individual.jpg'); }
+>>>>>>> main
 
 .final-layout { margin-top: 24px; display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; }
 .final-image { min-height: 420px; background: url('/static/images/final-cta/laptop.jpg') center/cover no-repeat; }
@@ -271,8 +301,13 @@ h2 { font-size: clamp(32px, 3.5vw, 50px); }
 }
 .chat-window {
   width: 15vw;
+<<<<<<< codex/create-flask-application-with-css-styling-pdo3hz
   min-width: 280px;
   max-width: 360px;
+=======
+  min-width: 380px;
+  max-width: 460px;
+>>>>>>> main
   height: 55vh;
   min-height: 420px;
   background: #fff;
