@@ -40,7 +40,7 @@ h2 { font-size: clamp(32px, 3.5vw, 50px); }
 .site-header.scrolled { background: rgba(11, 25, 58, .9); box-shadow: 0 12px 24px rgba(2,8,24,.35); }
 .header-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 78px; }
 .brand { color: #fff; display: flex; gap: 10px; align-items: center; }
-.logo-icon { font-size: 12px; letter-spacing: .08em; font-weight: 700; padding: 8px 10px; border-radius: 10px; border: 1px solid rgba(255,255,255,.45); background: rgba(255,255,255,.08); }
+.logo-icon { font-size: 12px; letter-spacing: .08em; font-weight: 700; padding: 8px 10px;}
 .brand small { display: block; opacity: .86; }
 .main-nav { display: flex; gap: 24px; color: #eef4ff; font-weight: 500; }
 .main-nav a { position: relative; }
@@ -48,6 +48,14 @@ h2 { font-size: clamp(32px, 3.5vw, 50px); }
 .main-nav a:hover::after { width: 100%; }
 .nav-toggle { display: none; border: 0; background: transparent; cursor: pointer; }
 .nav-toggle span { display: block; width: 22px; height: 2px; background: #fff; margin: 5px 0; }
+
+
+.logo-icon img{
+  width: 100%;
+  object-fit: cover;
+  max-width: 150px;
+}
+
 
 .hero {
   min-height: 90vh;
@@ -154,7 +162,7 @@ h2 { font-size: clamp(32px, 3.5vw, 50px); }
 .partner-text { padding: 24px; }
 .partner-images { display: grid; gap: 12px; }
 .banner, .cert { border-radius: var(--radius); box-shadow: var(--shadow); background-size: cover; background-position: center; }
-.banner { min-height: 250px; background-image: url('/static/images/partners/alfa-banner.jpg'); }
+.banner { min-height: 250px; background-image: url('/static/images/partners/alfa-banner.png'); }
 .cert { min-height: 260px; background-image: url('/static/images/partners/alfa-certificate.png'); }
 
 .scale-grid { margin-top: 24px; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; }
@@ -241,8 +249,8 @@ h2 { font-size: clamp(32px, 3.5vw, 50px); }
 }
 .chat-window {
   width: 15vw;
-  min-width: 280px;
-  max-width: 360px;
+  min-width: 380px;
+  max-width: 460px;
   height: 55vh;
   min-height: 420px;
   background: #fff;
