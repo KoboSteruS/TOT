@@ -273,7 +273,27 @@
         </div>
         <button class="chat-close" id="chatClose" type="button" aria-label="Закрыть чат">×</button>
       </header>
-      <div class="chat-messages" id="chatMessages"></div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="chat-welcome">
+          <div class="bot-avatar">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+              <circle cx="20" cy="20" r="20" fill="url(#botGradient)"/>
+              <path d="M20 10c-5.5 0-10 4.5-10 10s4.5 10 10 10 10-4.5 10-10-4.5-10-10-10zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8z" fill="white"/>
+              <circle cx="16" cy="18" r="2" fill="white"/>
+              <circle cx="24" cy="18" r="2" fill="white"/>
+              <path d="M16 24c0-2.2 1.8-4 4-4s4 1.8 4 4" stroke="white" stroke-width="2" stroke-linecap="round"/>
+              <defs>
+                <linearGradient id="botGradient" x1="0" y1="0" x2="40" y2="40">
+                  <stop offset="0%" stop-color="#5a7fff"/>
+                  <stop offset="100%" stop-color="#3d5afe"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <p class="welcome-text">Здравствуйте! Я чат-бот ООО «ТОТ». Выберите популярный вопрос или задайте свой:</p>
+          <div class="quick-questions" id="quickQuestions"></div>
+        </div>
+      </div>
       <form class="chat-form" id="chatForm">
         <div class="chat-input-wrap">
           <input id="chatInput" type="text" placeholder="Введите вопрос..." autocomplete="off" />
@@ -284,8 +304,6 @@
     </section>
   </div>
 
-  <script src="https://api-maps.yandex.ru/2.1/?apikey=YOUR_API_KEY&lang=ru_RU" type="text/javascript"></script>
-  <script>
   <script src="https://api-maps.yandex.ru/2.1/?apikey=YOUR_API_KEY&lang=ru_RU" type="text/javascript"></script>
   <script>
     const header = document.querySelector('.site-header');
@@ -340,11 +358,39 @@
     const chatForm = document.getElementById('chatForm');
     const chatInput = document.getElementById('chatInput');
     const chatSuggestions = document.getElementById('chatSuggestions');
+    const quickQuestions = document.getElementById('quickQuestions');
     let faqItems = [];
 
     const suggestionLimit = 5;
+    const popularQuestions = [
+      'открыть ип',
+      'регистрация ооо',
+      '3-ндфл',
+      'налоговый учёт',
+      'кадровый учёт',
+      'консультация бухгалтера'
+    ];
 
     const normalize = (text) => text.toLowerCase().replace(/ё/g, 'е').trim();
+
+    const renderQuickQuestion = (question) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'quick-question-btn';
+      btn.textContent = question;
+      btn.addEventListener('click', () => {
+        chatInput.value = question;
+        handleUserMessage(question);
+      });
+      return btn;
+    };
+
+    const initQuickQuestions = () => {
+      if (!quickQuestions) return;
+      popularQuestions.forEach(q => {
+        quickQuestions.appendChild(renderQuickQuestion(q));
+      });
+    };
 
     const getKeywordSuggestions = (query) => {
       const normalized = normalize(query);
@@ -397,11 +443,23 @@
     };
 
     const renderMessage = (text, role = 'bot') => {
+      const welcomeEl = document.querySelector('.chat-welcome');
+      if (welcomeEl) {
+        welcomeEl.style.display = 'none';
+      }
+      
       const item = document.createElement('div');
       item.className = `chat-message ${role}`;
       item.textContent = text;
       chatMessages.appendChild(item);
       chatMessages.scrollTop = chatMessages.scrollHeight;
+    };
+
+    const handleUserMessage = (message) => {
+      renderMessage(message, 'user');
+      chatInput.value = '';
+      hideSuggestions();
+      setTimeout(() => renderMessage(findResponse(message), 'bot'), 200);
     };
 
     const findResponse = (question) => {
@@ -445,20 +503,20 @@
       event.preventDefault();
       const message = chatInput.value.trim();
       if (!message) return;
-      renderMessage(message, 'user');
-      chatInput.value = '';
-      hideSuggestions();
-      setTimeout(() => renderMessage(findResponse(message), 'bot'), 200);
+      handleUserMessage(message);
     });
 
     fetch('/static/faq.json')
       .then((r) => r.json())
       .then((data) => {
         faqItems = data.faq || [];
-        renderMessage('Здравствуйте! Я чат-бот ООО «ТОТ». Задайте вопрос по бухгалтерским услугам.');
+        initQuickQuestions();
       })
       .catch(() => {
-        renderMessage('Здравствуйте! Техническая ошибка загрузки базы ответов. Позвоните: +7 (964) 319-46-46.');
+        const welcomeText = document.querySelector('.welcome-text');
+        if (welcomeText) {
+          welcomeText.textContent = 'Здравствуйте! Техническая ошибка. Позвоните: +7 (964) 319-46-46.';
+        }
       });
   </script>
 </body>

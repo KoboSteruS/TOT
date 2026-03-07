@@ -41,7 +41,7 @@ a {
 }
 
 .container {
-  width: min(1160px, 92%);
+  width: min(1260px, 92%);
   margin: 0 auto;
 }
 
@@ -573,7 +573,6 @@ h2 {
 .banner-image {
   width: 100%;
   height: 100%;
-  object-fit: contain;
   object-position: center;
   display: block;
   border-radius: var(--radius-lg);
@@ -582,7 +581,6 @@ h2 {
 
 .banner-image:hover {
   transform: scale(1.02);
-  box-shadow: 0 20px 56px rgba(0, 0, 0, .18);
 }
 
 .partner-cert-left {
@@ -597,7 +595,7 @@ h2 {
 
 .cert-image {
   width: 100%;
-  max-width: 500px;
+  max-width: 700px;
   height: auto;
   display: block;
   border-radius: var(--radius-lg);
@@ -1135,6 +1133,86 @@ h2 {
   flex-direction: column;
   gap: 12px;
   background: linear-gradient(180deg, #f8f9fb 0%, #ffffff 100%);
+}
+
+.chat-welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.bot-avatar {
+  margin-bottom: 16px;
+  animation: bounceIn .6s ease;
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.welcome-text {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text);
+  margin: 0 0 20px;
+  max-width: 90%;
+}
+
+.quick-questions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.quick-question-btn {
+  background: #fff;
+  border: 1.5px solid #e8eaf6;
+  border-radius: 14px;
+  padding: 14px 18px;
+  font: inherit;
+  font-size: 14px;
+  color: var(--text);
+  cursor: pointer;
+  transition: all .2s ease;
+  text-align: left;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .04);
+}
+
+.quick-question-btn:hover {
+  border-color: var(--primary);
+  background: #f8faff;
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(61, 90, 254, .12);
+}
+
+.quick-question-btn::after {
+  content: "→";
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--primary);
+  opacity: 0;
+  transition: all .2s ease;
+}
+
+.quick-question-btn:hover::after {
+  opacity: 1;
+  right: 14px;
 }
 
 .chat-messages::-webkit-scrollbar {
