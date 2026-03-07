@@ -148,8 +148,13 @@
 
     <section class="section" id="partner" data-animate>
       <div class="container">
-        <h2>Работаем с надёжным банком-партнёром</h2>
-        <p class="lead">Официальный статус партнёра Альфа-Банка подтверждён сертификатом.</p>
+        <div class="partner-header">
+          <div class="partner-header-text">
+            <h2>Работаем с надёжным банком-партнёром</h2>
+            <p class="lead">Официальный статус партнёра Альфа-Банка подтверждён сертификатом.</p>
+          </div>
+          <div class="partner-header-spacer"></div>
+        </div>
         <div class="partner-top">
           <div class="glass-card partner-text">
             <h3>Альфа-Банк — наш официальный партнёр</h3>
@@ -167,7 +172,7 @@
           </div>
         </div>
         <div class="partner-cert-full">
-          <div class="cert-full"></div>
+          <img src="{{ url_for('static', filename='images/partners/alfa-certificate.png') }}" alt="Сертификат партнёра Альфа-Банк" class="cert-image">
         </div>
       </div>
     </section>
