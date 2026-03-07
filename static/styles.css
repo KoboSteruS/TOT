@@ -1318,18 +1318,18 @@ h2 {
   border-radius: 14px;
   box-shadow: 0 12px 32px rgba(0, 0, 0, .12);
   padding: 8px;
-  z-index: 3;
+  z-index: 10;
 }
 
 .chat-suggestions.show {
   display: block;
-  animation: suggestionsSlideUp .2s ease;
+  animation: slideUpFade .2s ease;
 }
 
-@keyframes suggestionsSlideUp {
+@keyframes slideUpFade {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;

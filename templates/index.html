@@ -411,12 +411,6 @@
         .slice(0, suggestionLimit);
     };
 
-    const hideSuggestions = () => {
-      if (!chatSuggestions) return;
-      chatSuggestions.innerHTML = '';
-      chatSuggestions.classList.remove('show');
-    };
-
     const showSuggestions = (query) => {
       if (!chatSuggestions) return;
 
@@ -440,6 +434,22 @@
         chatSuggestions.appendChild(button);
       });
       chatSuggestions.classList.add('show');
+      
+      const welcomeQuestions = document.querySelector('.quick-questions');
+      if (welcomeQuestions) {
+        welcomeQuestions.style.display = 'none';
+      }
+    };
+
+    const hideSuggestions = () => {
+      if (!chatSuggestions) return;
+      chatSuggestions.innerHTML = '';
+      chatSuggestions.classList.remove('show');
+      
+      const welcomeQuestions = document.querySelector('.quick-questions');
+      if (welcomeQuestions && !chatInput.value.trim()) {
+        welcomeQuestions.style.display = 'flex';
+      }
     };
 
     const renderMessage = (text, role = 'bot') => {
@@ -489,10 +499,19 @@
       hideSuggestions();
     });
 
-    chatInput.addEventListener('input', () => showSuggestions(chatInput.value));
+    chatInput.addEventListener('input', () => {
+      const query = chatInput.value.trim();
+      if (query.length >= 2) {
+        showSuggestions(chatInput.value);
+      } else {
+        hideSuggestions();
+      }
+    });
 
     chatInput.addEventListener('focus', () => {
-      if (!chatInput.value.trim()) showSuggestions('');
+      if (chatInput.value.trim().length >= 2) {
+        showSuggestions(chatInput.value);
+      }
     });
 
     chatInput.addEventListener('blur', () => {
