@@ -898,7 +898,8 @@ h2 {
   }
 
   .partner-grid {
-    grid-template-rows: auto auto auto;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
   }
 
   .partner-header-text {
@@ -909,6 +910,11 @@ h2 {
   .partner-text {
     grid-column: 1;
     grid-row: 3;
+  }
+
+  .partner-cert-left {
+    grid-column: 1;
+    grid-row: 4;
   }
 
   .partner-banner {
