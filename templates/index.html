@@ -354,11 +354,9 @@
     const chatMessages = document.getElementById('chatMessages');
     const chatForm = document.getElementById('chatForm');
     const chatInput = document.getElementById('chatInput');
-    const chatSuggestions = document.getElementById('chatSuggestions');
     const quickQuestions = document.getElementById('quickQuestions');
     let faqItems = [];
 
-    const suggestionLimit = 5;
     const popularQuestions = [
       'открыть ип',
       'регистрация ооо',
@@ -369,6 +367,40 @@
     ];
 
     const normalize = (text) => text.toLowerCase().replace(/ё/g, 'е').trim();
+
+    const updateQuickQuestions = (query) => {
+      if (!quickQuestions) return;
+      
+      quickQuestions.innerHTML = '';
+      
+      if (!query || query.length < 2) {
+        popularQuestions.forEach(q => {
+          quickQuestions.appendChild(renderQuickQuestion(q));
+        });
+        return;
+      }
+      
+      const normalized = normalize(query);
+      const keywordPool = [...new Set(
+        faqItems
+          .flatMap((entry) => entry.keywords || [])
+          .filter(Boolean)
+      )];
+      
+      const filtered = keywordPool
+        .filter((keyword) => normalize(keyword).includes(normalized))
+        .slice(0, 6);
+      
+      if (filtered.length > 0) {
+        filtered.forEach(q => {
+          quickQuestions.appendChild(renderQuickQuestion(q));
+        });
+      } else {
+        popularQuestions.slice(0, 3).forEach(q => {
+          quickQuestions.appendChild(renderQuickQuestion(q));
+        });
+      }
+    };
 
     const renderQuickQuestion = (question) => {
       const btn = document.createElement('button');
@@ -383,29 +415,7 @@
     };
 
     const initQuickQuestions = () => {
-      if (!quickQuestions) return;
-      popularQuestions.forEach(q => {
-        quickQuestions.appendChild(renderQuickQuestion(q));
-      });
-    };
-
-    const getKeywordSuggestions = (query) => {
-      const normalized = normalize(query);
-      const keywordPool = [...new Set(
-        faqItems
-          .flatMap((entry) => entry.keywords || [])
-          .filter(Boolean)
-      )];
-
-      if (!normalized) {
-        return keywordPool.slice(0, suggestionLimit);
-      }
-
-      if (normalized.length < 2) return [];
-
-      return keywordPool
-        .filter((keyword) => normalize(keyword).includes(normalized))
-        .slice(0, suggestionLimit);
+      updateQuickQuestions('');
     };
 
     const handleUserMessage = (message) => {
