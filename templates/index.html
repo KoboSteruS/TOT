@@ -3,7 +3,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ООО «ТОТ» — Ваша идеальная бухгалтерия</title>
+  <title>ООО «ТОТ» — Ваша идеальная бухгалтерия | Бухгалтерские услуги для ИП и ООО</title>
+  
+  <meta name="description" content="ООО «ТОТ» — профессиональные бухгалтерские услуги для ИП и ООО. Ведение учёта, налоговая отчётность, кадровый учёт. Работаем прозрачно, оперативно, без штрафов." />
+  <meta name="keywords" content="бухгалтерские услуги, бухгалтерия для ИП, бухгалтерия для ООО, налоговый учёт, кадровый учёт, аутсорсинг бухгалтерии" />
+  <meta name="author" content="ООО «ТОТ»" />
+  <meta name="robots" content="index, follow" />
+  
+  <meta property="og:title" content="ООО «ТОТ» — Ваша идеальная бухгалтерия" />
+  <meta property="og:description" content="Профессиональные бухгалтерские услуги для ИП и ООО. Ведение учёта, налоговая отчётность, кадровый учёт." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://oootot.ru" />
+  <meta property="og:image" content="https://oootot.ru/static/images/og-image.jpg" />
+  <meta property="og:locale" content="ru_RU" />
+  
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="ООО «ТОТ» — Ваша идеальная бухгалтерия" />
+  <meta name="twitter:description" content="Профессиональные бухгалтерские услуги для ИП и ООО." />
+  <meta name="twitter:image" content="https://oootot.ru/static/images/og-image.jpg" />
+  
+  <link rel="canonical" href="https://oootot.ru" />
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}" />
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -180,9 +201,9 @@
           <form class="final-form" action="#" method="post">
             <h3>Получите бесплатную консультацию</h3>
             <label class="sr-only" for="name">Имя</label>
-            <input id="name" name="name" type="text" placeholder="Ваше имя" />
+            <input id="name" name="name" type="text" placeholder="Ваше имя" required />
             <label class="sr-only" for="phone">Телефон</label>
-            <input id="phone" name="phone" type="tel" placeholder="+7 — Телефон" />
+            <input id="phone" name="phone" type="tel" placeholder="+7 — Телефон" required />
             <label class="sr-only" for="comment">Комментарий</label>
             <textarea id="comment" name="comment" placeholder="Комментарий"></textarea>
             <button class="btn btn-primary" type="button">Получить консультацию</button>
@@ -195,12 +216,39 @@
         </div>
       </div>
     </section>
+
+    <section class="section" id="map" data-animate>
+      <div class="container">
+        <h2>Как нас найти</h2>
+        <p class="lead">Наш офис находится по адресу: ул. Федосовой, 31 (ЖК «Свой берег»), помещение 6</p>
+        <div class="map-wrapper">
+          <div id="yandex-map" style="width: 100%; height: 480px; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md);"></div>
+        </div>
+        <div class="contact-info">
+          <div class="contact-card">
+            <h3>Контакты</h3>
+            <p><strong>Телефон:</strong> +7 (921) 460-46-46, +7 (964) 319-46-46</p>
+            <p><strong>Режим работы:</strong> Пн–Пт 09:00–18:00</p>
+            <p><strong>Email:</strong> <a href="mailto:info@oootot.ru">info@oootot.ru</a></p>
+          </div>
+          <div class="contact-card">
+            <h3>Социальные сети</h3>
+            <p><a href="https://vk.com/oootot" target="_blank" rel="noreferrer">vk.com/oootot</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer class="footer">
     <div class="container footer-inner">
-      <div><strong>ООО «ТОТ»</strong><p>Ваша идеальная бухгалтерия</p></div>
       <div>
+        <strong>ООО «ТОТ»</strong>
+        <p>Ваша идеальная бухгалтерия</p>
+        <p>&copy; 2026 ООО «ТОТ». Все права защищены.</p>
+      </div>
+      <div>
+        <p><strong>Контакты</strong></p>
         <a href="https://vk.com/oootot" target="_blank" rel="noreferrer">vk.com/oootot</a>
         <p>+7 (921) 460-46-46 · +7 (964) 319-46-46</p>
         <p>Пн–Пт 09:00–18:00 · ул. Федосовой, 31 (офис 6)</p>
@@ -208,28 +256,9 @@
     </div>
   </footer>
 
-
-  <div class="chat-widget" id="chatWidget">
-    <button class="chat-launcher" id="chatLauncher" aria-label="Открыть чат">Чат</button>
-    <section class="chat-window" aria-label="Чат поддержки">
-      <header class="chat-header">
-        <div>
-          <strong>Онлайн-консультант</strong>
-          <p>ООО «ТОТ»</p>
-        </div>
-        <button class="chat-close" id="chatClose" type="button" aria-label="Закрыть чат">×</button>
-      </header>
-      <div class="chat-messages" id="chatMessages"></div>
-      <form class="chat-form" id="chatForm">
-        <div class="chat-input-wrap">
-          <input id="chatInput" type="text" placeholder="Введите вопрос..." autocomplete="off" />
-          <div class="chat-suggestions" id="chatSuggestions" aria-live="polite"></div>
-        </div>
-        <button type="submit">Отправить</button>
-      </form>
-    </section>
-  </div>
-
+  <script src="https://api-maps.yandex.ru/2.1/?apikey=YOUR_API_KEY&lang=ru_RU" type="text/javascript"></script>
+  <script>
+  <script src="https://api-maps.yandex.ru/2.1/?apikey=YOUR_API_KEY&lang=ru_RU" type="text/javascript"></script>
   <script>
     const header = document.querySelector('.site-header');
     const toggle = document.querySelector('.nav-toggle');
@@ -255,9 +284,26 @@
           entry.target.classList.add('visible');
         }
       });
-    }, { threshold: 0.2 });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
     document.querySelectorAll('[data-animate]').forEach((el) => observer.observe(el));
+
+    ymaps.ready(function() {
+      const map = new ymaps.Map('yandex-map', {
+        center: [59.893048, 30.318788],
+        zoom: 16,
+        controls: ['zoomControl', 'fullscreenControl']
+      });
+
+      const placemark = new ymaps.Placemark([59.893048, 30.318788], {
+        balloonContent: '<strong>ООО «ТОТ»</strong><br>ул. Федосовой, 31, помещение 6<br>+7 (921) 460-46-46'
+      }, {
+        preset: 'islands#blueDotIcon'
+      });
+
+      map.geoObjects.add(placemark);
+      map.behaviors.disable('scrollZoom');
+    });
 
     const chatWidget = document.getElementById('chatWidget');
     const chatLauncher = document.getElementById('chatLauncher');
@@ -387,5 +433,26 @@
         renderMessage('Здравствуйте! Техническая ошибка загрузки базы ответов. Позвоните: +7 (964) 319-46-46.');
       });
   </script>
+
+  <div class="chat-widget" id="chatWidget">
+    <button class="chat-launcher" id="chatLauncher" aria-label="Открыть чат">💬 Чат</button>
+    <section class="chat-window" aria-label="Чат поддержки">
+      <header class="chat-header">
+        <div>
+          <strong>Онлайн-консультант</strong>
+          <p>ООО «ТОТ»</p>
+        </div>
+        <button class="chat-close" id="chatClose" type="button" aria-label="Закрыть чат">×</button>
+      </header>
+      <div class="chat-messages" id="chatMessages"></div>
+      <form class="chat-form" id="chatForm">
+        <div class="chat-input-wrap">
+          <input id="chatInput" type="text" placeholder="Введите вопрос..." autocomplete="off" />
+          <div class="chat-suggestions" id="chatSuggestions" aria-live="polite"></div>
+        </div>
+        <button type="submit">➤</button>
+      </form>
+    </section>
+  </div>
 </body>
 </html>
