@@ -60,6 +60,7 @@
     <div class="container hero-content">
       <p class="hero-kicker">ООО «ТОТ»</p>
       <h1>ВАША ИДЕАЛЬНАЯ<br>БУХГАЛТЕРИЯ</h1>
+      <p class="hero-description">Берём на себя учёт, налоги и кадры. Работаем прозрачно: фиксируем состав работ, сроки и ответственность. Помогаем снизить риски и держать финансы в порядке.</p>
       <div class="actions">
         <a class="btn btn-primary" href="#final-cta">Связаться</a>
         <a class="btn btn-outline" href="#services">Услуги</a>
@@ -256,6 +257,27 @@
     </div>
   </footer>
 
+  <div class="chat-widget" id="chatWidget">
+    <button class="chat-launcher" id="chatLauncher" aria-label="Открыть чат">💬 Чат</button>
+    <section class="chat-window" aria-label="Чат поддержки">
+      <header class="chat-header">
+        <div>
+          <strong>Онлайн-консультант</strong>
+          <p>ООО «ТОТ»</p>
+        </div>
+        <button class="chat-close" id="chatClose" type="button" aria-label="Закрыть чат">×</button>
+      </header>
+      <div class="chat-messages" id="chatMessages"></div>
+      <form class="chat-form" id="chatForm">
+        <div class="chat-input-wrap">
+          <input id="chatInput" type="text" placeholder="Введите вопрос..." autocomplete="off" />
+          <div class="chat-suggestions" id="chatSuggestions" aria-live="polite"></div>
+        </div>
+        <button type="submit">➤</button>
+      </form>
+    </section>
+  </div>
+
   <script src="https://api-maps.yandex.ru/2.1/?apikey=YOUR_API_KEY&lang=ru_RU" type="text/javascript"></script>
   <script>
   <script src="https://api-maps.yandex.ru/2.1/?apikey=YOUR_API_KEY&lang=ru_RU" type="text/javascript"></script>
@@ -433,26 +455,5 @@
         renderMessage('Здравствуйте! Техническая ошибка загрузки базы ответов. Позвоните: +7 (964) 319-46-46.');
       });
   </script>
-
-  <div class="chat-widget" id="chatWidget">
-    <button class="chat-launcher" id="chatLauncher" aria-label="Открыть чат">💬 Чат</button>
-    <section class="chat-window" aria-label="Чат поддержки">
-      <header class="chat-header">
-        <div>
-          <strong>Онлайн-консультант</strong>
-          <p>ООО «ТОТ»</p>
-        </div>
-        <button class="chat-close" id="chatClose" type="button" aria-label="Закрыть чат">×</button>
-      </header>
-      <div class="chat-messages" id="chatMessages"></div>
-      <form class="chat-form" id="chatForm">
-        <div class="chat-input-wrap">
-          <input id="chatInput" type="text" placeholder="Введите вопрос..." autocomplete="off" />
-          <div class="chat-suggestions" id="chatSuggestions" aria-live="polite"></div>
-        </div>
-        <button type="submit">➤</button>
-      </form>
-    </section>
-  </div>
 </body>
 </html>
