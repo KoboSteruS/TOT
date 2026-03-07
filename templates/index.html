@@ -295,10 +295,7 @@
         </div>
       </div>
       <form class="chat-form" id="chatForm">
-        <div class="chat-input-wrap">
-          <input id="chatInput" type="text" placeholder="Введите вопрос..." autocomplete="off" />
-          <div class="chat-suggestions" id="chatSuggestions" aria-live="polite"></div>
-        </div>
+        <input id="chatInput" type="text" placeholder="Введите вопрос..." autocomplete="off" />
         <button type="submit">➤</button>
       </form>
     </section>
@@ -411,65 +408,28 @@
         .slice(0, suggestionLimit);
     };
 
-    const showSuggestions = (query) => {
-      if (!chatSuggestions) return;
-
-      const suggestions = getKeywordSuggestions(query);
-      if (!suggestions.length) {
-        hideSuggestions();
-        return;
-      }
-
-      chatSuggestions.innerHTML = '';
-      suggestions.forEach((item) => {
-        const button = document.createElement('button');
-        button.type = 'button';
-        button.className = 'chat-suggestion-item';
-        button.textContent = item;
-        button.addEventListener('click', () => {
-          chatInput.value = item;
-          hideSuggestions();
-          chatInput.focus();
-        });
-        chatSuggestions.appendChild(button);
-      });
-      chatSuggestions.classList.add('show');
-      
-      const welcomeQuestions = document.querySelector('.quick-questions');
-      if (welcomeQuestions) {
-        welcomeQuestions.style.display = 'none';
-      }
-    };
-
-    const hideSuggestions = () => {
-      if (!chatSuggestions) return;
-      chatSuggestions.innerHTML = '';
-      chatSuggestions.classList.remove('show');
-      
-      const welcomeQuestions = document.querySelector('.quick-questions');
-      if (welcomeQuestions && !chatInput.value.trim()) {
-        welcomeQuestions.style.display = 'flex';
-      }
-    };
-
-    const renderMessage = (text, role = 'bot') => {
+    const handleUserMessage = (message) => {
       const welcomeEl = document.querySelector('.chat-welcome');
       if (welcomeEl) {
         welcomeEl.style.display = 'none';
       }
       
       const item = document.createElement('div');
-      item.className = `chat-message ${role}`;
-      item.textContent = text;
+      item.className = 'chat-message user';
+      item.textContent = message;
       chatMessages.appendChild(item);
       chatMessages.scrollTop = chatMessages.scrollHeight;
-    };
-
-    const handleUserMessage = (message) => {
-      renderMessage(message, 'user');
+      
       chatInput.value = '';
-      hideSuggestions();
-      setTimeout(() => renderMessage(findResponse(message), 'bot'), 200);
+      updateQuickQuestions('');
+      
+      setTimeout(() => {
+        const botItem = document.createElement('div');
+        botItem.className = 'chat-message bot';
+        botItem.textContent = findResponse(message);
+        chatMessages.appendChild(botItem);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }, 200);
     };
 
     const findResponse = (question) => {
@@ -500,22 +460,15 @@
     });
 
     chatInput.addEventListener('input', () => {
-      const query = chatInput.value.trim();
-      if (query.length >= 2) {
-        showSuggestions(chatInput.value);
-      } else {
-        hideSuggestions();
-      }
-    });
-
-    chatInput.addEventListener('focus', () => {
-      if (chatInput.value.trim().length >= 2) {
-        showSuggestions(chatInput.value);
-      }
+      updateQuickQuestions(chatInput.value);
     });
 
     chatInput.addEventListener('blur', () => {
-      setTimeout(hideSuggestions, 120);
+      setTimeout(() => {
+        if (!chatInput.value.trim()) {
+          updateQuickQuestions('');
+        }
+      }, 150);
     });
 
     chatForm.addEventListener('submit', (event) => {
