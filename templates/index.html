@@ -175,7 +175,7 @@
         </div>
         
         <div style="text-align: center; margin-top: 32px;">
-          <button class="btn btn-outline" id="showAllServicesBtn">
+          <button class="btn btn-primary" id="showAllServicesBtn">
             Посмотреть все услуги
             <svg style="width: 18px; height: 18px; margin-left: 8px; display: inline-block; vertical-align: middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="9 18 15 12 9 6"/>
@@ -231,12 +231,74 @@
     <section class="section alt" id="process" data-animate>
       <div class="container">
         <h2>Как мы работаем</h2>
-        <p class="lead">Прозрачно выстраиваем сотрудничество в 4 шага</p>
-        <div class="steps-grid">
-          <article class="step-card hover-lift"><span class="step-index">1</span><div class="card-head"><span class="icon-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><line x1="8" y1="9" x2="16" y2="9"/><line x1="8" y1="13" x2="13" y2="13"/></svg></span><h3>Консультация</h3></div><p>Уточняем задачи и формат работы.</p></article>
-          <article class="step-card hover-lift"><span class="step-index">2</span><div class="card-head"><span class="icon-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 11l3 3 3-3"/><path d="M3 12h5"/><path d="M16 12h5"/></svg></span><h3>Заключение договора</h3></div><p>Фиксируем стоимость и сроки.</p></article>
-          <article class="step-card hover-lift"><span class="step-index">3</span><div class="card-head"><span class="icon-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="10" height="18" rx="2"/><rect x="16" y="10" width="5" height="11" rx="1"/><path d="M17 15.5h3"/></svg></span><h3>Ведение бухгалтерии</h3></div><p>Берём учёт, налоги и кадры на себя.</p></article>
-          <article class="step-card hover-lift"><span class="step-index">4</span><div class="card-head"><span class="icon-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="3" width="12" height="18" rx="2"/><path d="M9 8h6"/><path d="M9 12h6"/><path d="M14 16l2 2 3-3"/></svg></span><h3>Отчётность вовремя</h3></div><p>Сдаём отчёты и готовим к проверкам.</p></article>
+        <p class="lead">Простой и прозрачный процесс работы в 4 шага</p>
+        <div class="process-timeline">
+          <div class="timeline-item" data-step="1">
+            <div class="timeline-number">1</div>
+            <div class="timeline-content">
+              <div class="timeline-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                  <line x1="8" y1="9" x2="16" y2="9"/>
+                  <line x1="8" y1="13" x2="13" y2="13"/>
+                </svg>
+              </div>
+              <div class="timeline-text">
+                <h3>Бесплатная консультация</h3>
+                <p>Разбираем вашу ситуацию и задачи бизнеса</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="timeline-item" data-step="2">
+            <div class="timeline-number">2</div>
+            <div class="timeline-content">
+              <div class="timeline-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <path d="M14 2v6h6"/>
+                  <path d="M8 13h8"/>
+                  <path d="M8 17h6"/>
+                </svg>
+              </div>
+              <div class="timeline-text">
+                <h3>Заключаем договор</h3>
+                <p>Фиксируем стоимость, сроки и формат работы</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="timeline-item" data-step="3">
+            <div class="timeline-number">3</div>
+            <div class="timeline-content">
+              <div class="timeline-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="7" width="20" height="14" rx="2"/>
+                  <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                </svg>
+              </div>
+              <div class="timeline-text">
+                <h3>Берём бухгалтерию на себя</h3>
+                <p>Учёт, налоги и кадры — всё под контролем</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="timeline-item" data-step="4">
+            <div class="timeline-number">4</div>
+            <div class="timeline-content">
+              <div class="timeline-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                  <polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+              </div>
+              <div class="timeline-text">
+                <h3>Сдаём отчётность вовремя</h3>
+                <p>Готовим и сдаём отчёты без штрафов</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -425,6 +487,19 @@
     }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
     document.querySelectorAll('[data-animate]').forEach((el) => observer.observe(el));
+    
+    // Анимация timeline элементов
+    const timelineObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.timeline-item').forEach((item) => {
+      timelineObserver.observe(item);
+    });
 
     ymaps.ready(function() {
       const map = new ymaps.Map('yandex-map', {
