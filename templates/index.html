@@ -172,44 +172,34 @@
             <p>Открытие ИП/ООО и внесение изменений.</p>
             <button class="service-details-btn">Подробнее</button>
           </article>
-          
-          <article class="service-card hover-lift" data-service="3ndfl">
-            <div class="card-head">
-              <span class="icon-badge">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
-              </span>
-              <h3>3-НДФЛ</h3>
-            </div>
-            <p>Налоговые вычеты на лечение, обучение, имущество.</p>
-            <button class="service-details-btn">Подробнее</button>
-          </article>
-          
-          <article class="service-card hover-lift" data-service="optimization">
-            <div class="card-head">
-              <span class="icon-badge">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-              </span>
-              <h3>Налоговая оптимизация</h3>
-            </div>
-            <p>Законные способы снижения налоговой нагрузки.</p>
-            <button class="service-details-btn">Подробнее</button>
-          </article>
-          
-          <article class="service-card hover-lift" data-service="liquidation">
-            <div class="card-head">
-              <span class="icon-badge">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-              </span>
-              <h3>Ликвидация и реорганизация</h3>
-            </div>
-            <p>Закрытие бизнеса, смена ОКВЭД, изменение учредителей.</p>
-            <button class="service-details-btn">Подробнее</button>
-          </article>
+        </div>
+        
+        <div style="text-align: center; margin-top: 32px;">
+          <button class="btn btn-outline" id="showAllServicesBtn">
+            Посмотреть все услуги
+            <svg style="width: 18px; height: 18px; margin-left: 8px; display: inline-block; vertical-align: middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </button>
         </div>
       </div>
     </section>
     
-    <!-- Модальное окно для услуг -->
+    <!-- Модальное окно со списком всех услуг -->
+    <div class="service-modal" id="allServicesModal">
+      <div class="service-modal-overlay"></div>
+      <div class="service-modal-content all-services-list">
+        <button class="service-modal-close" aria-label="Закрыть">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+        <h2>Все наши услуги</h2>
+        <div class="all-services-grid" id="allServicesGrid"></div>
+      </div>
+    </div>
+    
+    <!-- Модальное окно для детальной информации об услуге -->
     <div class="service-modal" id="serviceModal">
       <div class="service-modal-overlay"></div>
       <div class="service-modal-content">
@@ -741,54 +731,102 @@
     const serviceModalClose = serviceModal.querySelector('.service-modal-close');
     const serviceModalOverlay = serviceModal.querySelector('.service-modal-overlay');
 
+    const allServicesModal = document.getElementById('allServicesModal');
+    const allServicesGrid = document.getElementById('allServicesGrid');
+    const showAllServicesBtn = document.getElementById('showAllServicesBtn');
+
+    // Открытие детальной информации об услуге
+    const openServiceDetail = (serviceKey) => {
+      const service = servicesData[serviceKey];
+      if (!service) return;
+
+      serviceModalBody.innerHTML = `
+        <h2>${service.title}</h2>
+        <p class="service-modal-description">${service.description}</p>
+        <div class="service-modal-meta">
+          <div class="service-modal-price">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/>
+            </svg>
+            <span>${service.price}</span>
+          </div>
+          <div class="service-modal-time">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+            </svg>
+            <span>${service.timeframe}</span>
+          </div>
+        </div>
+        <h3>Что входит:</h3>
+        <ul class="service-modal-features">
+          ${service.features.map(f => `<li>${f}</li>`).join('')}
+        </ul>
+        <a href="#final-cta" class="btn btn-primary service-modal-cta">Заказать услугу</a>
+      `;
+
+      closeAllServicesModal();
+      serviceModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    };
+
+    // Кнопки "Подробнее" на главных 6 услугах
     document.querySelectorAll('.service-details-btn').forEach((btn) => {
       btn.addEventListener('click', (e) => {
         const card = e.target.closest('.service-card');
         const serviceKey = card.getAttribute('data-service');
-        const service = servicesData[serviceKey];
-
-        if (!service) return;
-
-        serviceModalBody.innerHTML = `
-          <h2>${service.title}</h2>
-          <p class="service-modal-description">${service.description}</p>
-          <div class="service-modal-meta">
-            <div class="service-modal-price">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/>
-              </svg>
-              <span>${service.price}</span>
-            </div>
-            <div class="service-modal-time">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
-              </svg>
-              <span>${service.timeframe}</span>
-            </div>
-          </div>
-          <h3>Что входит:</h3>
-          <ul class="service-modal-features">
-            ${service.features.map(f => `<li>${f}</li>`).join('')}
-          </ul>
-          <a href="#final-cta" class="btn btn-primary service-modal-cta">Заказать услугу</a>
-        `;
-
-        serviceModal.classList.add('active');
-        document.body.style.overflow = 'hidden';
+        openServiceDetail(serviceKey);
       });
     });
 
-    const closeModal = () => {
+    // Открытие модального окна со всеми услугами
+    showAllServicesBtn.addEventListener('click', () => {
+      allServicesGrid.innerHTML = '';
+      
+      Object.keys(servicesData).forEach((key) => {
+        const service = servicesData[key];
+        const card = document.createElement('article');
+        card.className = 'all-service-item';
+        card.innerHTML = `
+          <h3>${service.title}</h3>
+          <p>${service.description}</p>
+          <div class="all-service-price">${service.price}</div>
+        `;
+        card.addEventListener('click', () => {
+          openServiceDetail(key);
+        });
+        allServicesGrid.appendChild(card);
+      });
+
+      allServicesModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+
+    // Закрытие модальных окон
+    const closeServiceModal = () => {
       serviceModal.classList.remove('active');
       document.body.style.overflow = '';
     };
 
-    serviceModalClose.addEventListener('click', closeModal);
-    serviceModalOverlay.addEventListener('click', closeModal);
+    const closeAllServicesModal = () => {
+      allServicesModal.classList.remove('active');
+      if (!serviceModal.classList.contains('active')) {
+        document.body.style.overflow = '';
+      }
+    };
+
+    serviceModalClose.addEventListener('click', closeServiceModal);
+    serviceModalOverlay.addEventListener('click', closeServiceModal);
+
+    allServicesModal.querySelector('.service-modal-close').addEventListener('click', closeAllServicesModal);
+    allServicesModal.querySelector('.service-modal-overlay').addEventListener('click', closeAllServicesModal);
 
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && serviceModal.classList.contains('active')) {
-        closeModal();
+      if (e.key === 'Escape') {
+        if (serviceModal.classList.contains('active')) {
+          closeServiceModal();
+        } else if (allServicesModal.classList.contains('active')) {
+          closeAllServicesModal();
+        }
       }
     });
   </script>
