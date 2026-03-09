@@ -305,27 +305,39 @@
 
     <section class="section" id="partner" data-animate>
       <div class="container">
-        <div class="partner-grid">
-          <div class="partner-header-text">
-            <h2>Работаем с надёжным банком-партнёром</h2>
-            <p class="lead">Официальный статус партнёра Альфа-Банка подтверждён сертификатом.</p>
+        <h2 style="text-align: center; margin-bottom: 12px;">Работаем с надёжным банком-партнёром</h2>
+        <p class="lead" style="text-align: center; margin-bottom: 48px;">Официальный статус партнёра Альфа-Банка подтверждён сертификатом</p>
+        
+        <div class="partner-wrapper">
+          <div class="partner-main-content">
+            <div class="partner-info-card">
+              <h3>Альфа-Банк — наш официальный партнёр</h3>
+              <p>Помогаем открыть расчётный счёт для бизнеса быстро и без лишней бирократии. Сопровождаем процесс до полного запуска.</p>
+              <a class="btn btn-primary" href="#final-cta">Открыть счёт через нас</a>
+              <ul class="partner-benefits">
+                <li>Открытие счёта за 5 минут</li>
+                <li>Бесплатная консультация</li>
+                <li>Помощь в подготовке документов</li>
+                <li>Персональный менеджер</li>
+              </ul>
+            </div>
+            
+            <div class="partner-visual">
+              <div class="partner-banner-box">
+                <img src="{{ url_for('static', filename='images/partners/alfa-banner.png') }}" alt="Альфа-Банк — счёт для бизнеса за 5 минут">
+              </div>
+            </div>
           </div>
-          <div class="glass-card partner-text">
-            <h3>Альфа-Банк — наш официальный партнёр</h3>
-            <p class="partner-subtext">Помогаем открыть расчётный счёт для бизнеса быстро и без лишней бирократии. Сопровождаем процесс до полного запуска.</p>
-            <a class="btn btn-primary" href="#final-cta">Открыть счёт через нас</a>
-            <ul>
-              <li>Открытие счёта за 5 минут</li>
-              <li>Бесплатная консультация</li>
-              <li>Помощь в подготовке документов</li>
-              <li>Персональный менеджер</li>
-            </ul>
-          </div>
-          <div class="partner-cert-left">
-            <img src="{{ url_for('static', filename='images/partners/alfa-certificate.png') }}" alt="Сертификат партнёра Альфа-Банк" class="cert-image">
-          </div>
-          <div class="partner-banner">
-            <img src="{{ url_for('static', filename='images/partners/alfa-banner.png') }}" alt="Альфа-Банк — счёт для бизнеса за 5 минут" class="banner-image">
+          
+          <div class="partner-certificate">
+            <div class="certificate-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <path d="M9 12l2 2 4-4"/>
+              </svg>
+              <span>Официальный статус подтверждён</span>
+            </div>
+            <img src="{{ url_for('static', filename='images/partners/alfa-certificate.png') }}" alt="Сертификат партнёра Альфа-Банк">
           </div>
         </div>
       </div>
