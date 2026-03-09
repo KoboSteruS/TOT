@@ -404,13 +404,185 @@ h2 {
   margin: 12px 0 14px;
 }
 
-.service-card a {
+.service-details-btn {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 10px 20px;
+  background: transparent;
+  border: 1.5px solid var(--primary);
   color: var(--primary);
   font-weight: 600;
+  font-size: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all .3s ease;
+  font-family: inherit;
 }
 
-.service-card a:hover {
-  text-decoration: underline;
+.service-details-btn:hover {
+  background: var(--primary);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(61, 90, 254, .3);
+}
+
+/* Модальное окно услуг */
+.service-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s ease;
+}
+
+.service-modal.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.service-modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(20, 32, 58, .85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.service-modal-content {
+  position: relative;
+  width: min(680px, 90%);
+  max-height: 85vh;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, .4);
+  padding: 40px;
+  transform: scale(.9);
+  transition: transform .3s ease;
+}
+
+.service-modal.active .service-modal-content {
+  transform: scale(1);
+}
+
+.service-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: all .3s ease;
+  color: var(--text);
+}
+
+.service-modal-close svg {
+  width: 24px;
+  height: 24px;
+}
+
+.service-modal-close:hover {
+  background: #f5f7fa;
+  color: var(--primary);
+}
+
+.service-modal-content h2 {
+  margin: 0 0 12px;
+  font-size: clamp(26px, 3vw, 32px);
+  color: var(--text);
+}
+
+.service-modal-description {
+  font-size: 17px;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+.service-modal-meta {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.service-modal-price,
+.service-modal-time {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  background: #f5f7fa;
+  border-radius: 10px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.service-modal-price svg,
+.service-modal-time svg {
+  width: 20px;
+  height: 20px;
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.service-modal-content h3 {
+  margin: 28px 0 16px;
+  font-size: 20px;
+  color: var(--text);
+}
+
+.service-modal-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 32px;
+}
+
+.service-modal-features li {
+  position: relative;
+  padding-left: 32px;
+  margin: 12px 0;
+  font-size: 16px;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.service-modal-features li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 22px;
+  height: 22px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.service-modal-cta {
+  width: 100%;
+  text-align: center;
+  margin-top: 24px;
 }
 
 .cta-laptop {
@@ -1335,4 +1507,38 @@ h2 {
 
 .chat-form button:active {
   transform: translateY(0) scale(0.98);
+}
+
+/* Медиазапросы */
+@media (max-width: 1024px) {
+  .services-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  
+  .service-modal-content {
+    padding: 32px 24px;
+  }
+}
+
+@media (max-width: 860px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .service-modal-content {
+    width: 94%;
+    max-height: 90vh;
+    padding: 28px 20px;
+  }
+  
+  .service-modal-meta {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .service-modal-price,
+  .service-modal-time {
+    width: 100%;
+  }
 }
