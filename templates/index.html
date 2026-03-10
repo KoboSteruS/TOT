@@ -74,61 +74,81 @@
         <h2>О нас</h2>
         <p class="lead">ООО «ТОТ» работает на рынке бухгалтерских услуг с 2013 года. Мы берём на себя учёт, налоги и кадры — вы фокусируетесь на развитии бизнеса.</p>
         
-        <div class="about-stats">
-          <div class="stat-card hover-lift">
-            <div class="stat-number">11+</div>
-            <div class="stat-label">лет на рынке</div>
-          </div>
-          <div class="stat-card hover-lift">
-            <div class="stat-number">150+</div>
-            <div class="stat-label">довольных клиентов</div>
-          </div>
-          <div class="stat-card hover-lift">
-            <div class="stat-number">100%</div>
-            <div class="stat-label">отчётность вовремя</div>
-          </div>
-          <div class="stat-card hover-lift">
-            <div class="stat-number">24/7</div>
-            <div class="stat-label">поддержка клиентов</div>
-          </div>
-        </div>
-        
-        <div class="about-layout">
-          <div class="about-features">
-            <article class="glass-card feature-card hover-lift">
-              <div class="card-head">
-                <span class="icon-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8"/><path d="M8 17h6"/></svg></span>
-                <h3>Прозрачно</h3>
+        <div class="about-content">
+          <div class="about-main">
+            <div class="about-qualities">
+              <div class="quality-item">
+                <div class="quality-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <path d="M14 2v6h6"/>
+                    <path d="M8 13h8"/>
+                    <path d="M8 17h6"/>
+                  </svg>
+                </div>
+                <div class="quality-text">
+                  <h3>Прозрачно</h3>
+                  <p>Ясные регламенты и отчёты</p>
+                </div>
               </div>
-              <p>Ясные регламенты и отчёты.</p>
-            </article>
-            <article class="glass-card feature-card hover-lift">
-              <div class="card-head">
-                <span class="icon-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v5l3 2"/><path d="M9 2h6"/></svg></span>
-                <h3>Оперативно</h3>
+              
+              <div class="quality-item">
+                <div class="quality-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="13" r="8"/>
+                    <path d="M12 9v5l3 2"/>
+                    <path d="M9 2h6"/>
+                  </svg>
+                </div>
+                <div class="quality-text">
+                  <h3>Оперативно</h3>
+                  <p>Поддержка в мессенджерах</p>
+                </div>
               </div>
-              <p>Поддержка в мессенджерах.</p>
-            </article>
-            <article class="glass-card feature-card hover-lift">
-              <div class="card-head">
-                <span class="icon-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3.4 8-7 9-3.6-1-7-4-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></span>
-                <h3>Без штрафов</h3>
+              
+              <div class="quality-item">
+                <div class="quality-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 3l7 3v6c0 5-3.4 8-7 9-3.6-1-7-4-7-9V6l7-3z"/>
+                    <path d="M9 12l2 2 4-4"/>
+                  </svg>
+                </div>
+                <div class="quality-text">
+                  <h3>Без штрафов</h3>
+                  <p>Контроль сроков и дедлайнов</p>
+                </div>
               </div>
-              <p>Контроль сроков и дедлайнов.</p>
-            </article>
+            </div>
+            
+            <div class="about-stats-compact">
+              <div class="stat-compact">
+                <div class="stat-number">11+</div>
+                <div class="stat-label">лет на рынке</div>
+              </div>
+              <div class="stat-compact">
+                <div class="stat-number">150+</div>
+                <div class="stat-label">довольных клиентов</div>
+              </div>
+              <div class="stat-compact">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">отчётность вовремя</div>
+              </div>
+              <div class="stat-compact">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">поддержка</div>
+              </div>
+            </div>
+            
+            <button class="btn-about-story" id="openAboutModal">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+              </svg>
+              <span>История компании и происхождение названия</span>
+            </button>
           </div>
+          
           <div class="about-photo hover-zoom" aria-label="Бухгалтер за столом"></div>
-        </div>
-        
-        <div class="about-cta">
-          <button class="btn btn-primary btn-about-modal" id="openAboutModal">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 20px; height: 20px; margin-right: 8px;">
-              <circle cx="12" cy="12" r="10"/>
-              <path d="M12 16v-4"/>
-              <path d="M12 8h.01"/>
-            </svg>
-            Узнать больше о компании
-          </button>
         </div>
       </div>
     </section>

@@ -351,57 +351,138 @@ h2 {
   margin: 3px 0 0;
 }
 
-/* Статистика О нас */
-.about-stats {
+/* О нас - компактный layout */
+.about-content {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  margin: 40px 0 32px;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-top: 40px;
 }
 
-.stat-card {
-  background: linear-gradient(135deg, #f8faff 0%, #f0f4ff 100%);
+.about-main {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.about-qualities {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.quality-item {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 20px;
+  background: #fff;
   border-radius: var(--radius);
-  padding: 32px 24px;
-  text-align: center;
-  border: 2px solid rgba(61, 90, 254, .1);
+  border: 2px solid #e8eaf6;
   transition: all .3s ease;
 }
 
-.stat-card:hover {
+.quality-item:hover {
   border-color: var(--primary);
-  transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(61, 90, 254, .15);
+  transform: translateX(4px);
+  box-shadow: 0 4px 16px rgba(61, 90, 254, .12);
 }
 
-.stat-number {
-  font-size: clamp(36px, 4vw, 48px);
+.quality-icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--gradient-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.quality-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.quality-text h3 {
+  margin: 0 0 4px;
+  font-size: 18px;
+  color: var(--text);
+}
+
+.quality-text p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.about-stats-compact {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  padding: 28px;
+  background: linear-gradient(135deg, #f8faff 0%, #f0f4ff 100%);
+  border-radius: var(--radius);
+  border: 2px solid rgba(61, 90, 254, .1);
+}
+
+.stat-compact {
+  text-align: center;
+}
+
+.stat-compact .stat-number {
+  font-size: clamp(28px, 3.5vw, 36px);
   font-weight: 700;
   background: var(--gradient-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
-.stat-label {
-  font-size: 14px;
+.stat-compact .stat-label {
+  font-size: 13px;
   color: var(--muted);
   font-weight: 500;
 }
 
-.about-cta {
-  margin-top: 32px;
-  text-align: center;
-}
-
-.btn-about-modal {
-  display: inline-flex;
+.btn-about-story {
+  display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 12px;
+  padding: 18px 24px;
+  background: #fff;
+  border: 2px solid var(--primary);
+  border-radius: var(--radius);
+  color: var(--primary);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .3s ease;
+  text-align: left;
 }
 
-/* Модальное окно "О нас" */
+.btn-about-story svg {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+}
+
+.btn-about-story:hover {
+  background: var(--primary);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(61, 90, 254, .25);
+}
+
+.about-photo {
+  border-radius: var(--radius-lg);
+  min-height: 600px;
+  background: url('/static/images/about/accountant.jpg') center/cover no-repeat;
+  box-shadow: var(--shadow-lg);
+}
 .about-modal {
   position: fixed;
   top: 0;
@@ -555,34 +636,6 @@ h2 {
   color: var(--muted);
 }
 
-.about-layout {
-  margin-top: 28px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-.about-features {
-  display: grid;
-  gap: 14px;
-}
-
-.feature-card {
-  padding: 20px;
-}
-
-.feature-card p {
-  margin: 10px 0 0;
-}
-
-.about-photo {
-  border-radius: var(--radius);
-  min-height: 800px;
-  background: url('/static/images/about/accountant.jpg') center/cover no-repeat;
-  box-shadow: var(--shadow);
-  background-size: cover;
-  background-position: center center;
-}
 
 .services-grid {
   margin-top: 24px;
@@ -1912,9 +1965,18 @@ h2 {
     max-width: 360px;
   }
   
-  .about-stats {
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  
+  .about-photo {
+    min-height: 400px;
+  }
+  
+  .about-stats-compact {
     grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
+    gap: 12px;
   }
   
   .about-modal-stats-grid {
@@ -2043,13 +2105,23 @@ h2 {
     padding: 28px 24px;
   }
   
-  .about-stats {
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
+  .about-photo {
+    order: -1;
+    min-height: 320px;
   }
   
-  .stat-card {
-    padding: 24px 16px;
+  .about-stats-compact {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 20px 16px;
+  }
+  
+  .stat-compact .stat-number {
+    font-size: 24px;
+  }
+  
+  .stat-compact .stat-label {
+    font-size: 12px;
   }
   
   .about-modal-content {
@@ -2134,9 +2206,9 @@ h2 {
     height: 320px;
   }
   
-  .about-stats {
+  .about-stats-compact {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 10px;
   }
   
   .about-modal-body {
