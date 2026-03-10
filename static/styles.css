@@ -645,42 +645,104 @@ h2 {
 }
 
 .service-card {
-  padding: 28px 24px;
-  border-radius: var(--radius);
+  position: relative;
+  padding: 32px 28px;
+  border-radius: var(--radius-lg);
   background: #fff;
-  box-shadow: var(--shadow);
-  border: 1px solid #e8eaf6;
-  transition: all .3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .06);
+  border: 2px solid transparent;
+  transition: all .4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(61, 90, 254, .03) 0%, rgba(61, 90, 254, .08) 100%);
+  opacity: 0;
+  transition: opacity .4s ease;
+  z-index: 0;
 }
 
 .service-card:hover {
   border-color: var(--primary);
+  box-shadow: 0 12px 40px rgba(61, 90, 254, .15);
+  transform: translateY(-8px);
 }
 
-.service-card p {
-  margin: 12px 0 14px;
+.service-card:hover::before {
+  opacity: 1;
+}
+
+.service-icon {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+  transition: all .4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.service-card:hover .service-icon {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.service-icon svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, .1));
+}
+
+.service-content {
+  position: relative;
+  z-index: 1;
+}
+
+.service-content h3 {
+  font-size: clamp(18px, 2.2vw, 22px);
+  font-weight: 700;
+  margin: 0 0 12px;
+  color: var(--text);
+  line-height: 1.3;
+  transition: color .3s ease;
+}
+
+.service-card:hover .service-content h3 {
+  color: var(--primary);
+}
+
+.service-content p {
+  margin: 0 0 20px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.6;
 }
 
 .service-details-btn {
-  display: inline-block;
-  margin-top: 8px;
-  padding: 10px 20px;
-  background: transparent;
-  border: 1.5px solid var(--primary);
-  color: var(--primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: var(--primary);
+  border: none;
+  color: #fff;
   font-weight: 600;
   font-size: 15px;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
   transition: all .3s ease;
   font-family: inherit;
+  box-shadow: 0 4px 12px rgba(61, 90, 254, .2);
 }
 
 .service-details-btn:hover {
-  background: var(--primary);
-  color: #fff;
+  background: var(--primary-dark);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(61, 90, 254, .3);
+  box-shadow: 0 8px 20px rgba(61, 90, 254, .35);
 }
 
 /* Модальное окно услуг */
