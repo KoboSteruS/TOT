@@ -72,7 +72,27 @@
     <section class="section" id="about" data-animate>
       <div class="container">
         <h2>О нас</h2>
-        <p class="lead">ООО «ТОТ» — бухгалтерские услуги «под ключ»: берём на себя учёт, налоги и кадры. Работаем прозрачно: фиксируем состав работ, сроки и ответственность. Помогаем снизить риски и держать финансы в порядке.</p>
+        <p class="lead">ООО «ТОТ» работает на рынке бухгалтерских услуг с 2013 года. Мы берём на себя учёт, налоги и кадры — вы фокусируетесь на развитии бизнеса.</p>
+        
+        <div class="about-stats">
+          <div class="stat-card hover-lift">
+            <div class="stat-number">11+</div>
+            <div class="stat-label">лет на рынке</div>
+          </div>
+          <div class="stat-card hover-lift">
+            <div class="stat-number">150+</div>
+            <div class="stat-label">довольных клиентов</div>
+          </div>
+          <div class="stat-card hover-lift">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">отчётность вовремя</div>
+          </div>
+          <div class="stat-card hover-lift">
+            <div class="stat-number">24/7</div>
+            <div class="stat-label">поддержка клиентов</div>
+          </div>
+        </div>
+        
         <div class="about-layout">
           <div class="about-features">
             <article class="glass-card feature-card hover-lift">
@@ -99,8 +119,88 @@
           </div>
           <div class="about-photo hover-zoom" aria-label="Бухгалтер за столом"></div>
         </div>
+        
+        <div class="about-cta">
+          <button class="btn btn-primary btn-about-modal" id="openAboutModal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 20px; height: 20px; margin-right: 8px;">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 16v-4"/>
+              <path d="M12 8h.01"/>
+            </svg>
+            Узнать больше о компании
+          </button>
+        </div>
       </div>
     </section>
+    
+    <!-- Модальное окно "О нас" -->
+    <div class="about-modal" id="aboutModal">
+      <div class="about-modal-overlay"></div>
+      <div class="about-modal-content">
+        <button class="about-modal-close" aria-label="Закрыть">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+        
+        <div class="about-modal-body">
+          <h2>О компании ООО «ТОТ»</h2>
+          
+          <div class="about-modal-section">
+            <h3>Наша история</h3>
+            <p>ООО «ТОТ» работает на рынке бухгалтерских услуг с 2013 года. Основным направлением в нашей деятельности является финансовый учет, однако при необходимости мы готовы оказать нашим клиентам юридические услуги.</p>
+            <p>У нас есть мечта: создать самую идеальную бухгалтерию.<br>
+            Наша задача: помочь Вам заниматься любимым делом и не отвлекаться на такие мелочи, как бухгалтерия.</p>
+            <p>А наше любимое занятие – это Ваша идеальная бухгалтерия!</p>
+            <p>Наша цель — помогать клиентам успешно вести свой бизнес. Наши двери всегда открыты для Вас и мы искренне надеемся на долгое и плодотворное сотрудничество!</p>
+          </div>
+          
+          <div class="about-modal-section">
+            <h3>Почему наша организация называется «ТОТ»?</h3>
+            <p>Учетом в Древнем Египте занимались писцы. По долгу службы они должны были владеть многими умениями, из которых землемерство, счет, иероглифическое письмо в несколько тысяч знаков и, собственно сам учет, занимали только незначительную часть.</p>
+            <p>В этом сложном деле им помогал ТОТ (по-коптски Джехути) — бог письменности, счета и мудрости: «писец божьей книги, изрекший сущее и создавший то, чего не было». Этот бог измерял длительность присутствия людей в этом мире: «он один на земле, руководитель жизни людей», записывая их дни рождения и смерти. Благодаря своим навыкам, ТОТ ведал и налогообложением: «справедливый в счете, понимающий вещи, считающий дань», и поэтому отвечал за финансовое благополучие страны — «дает доходы на небе и на земле». В основном, деятельность ТОТА была учетно-экономической.</p>
+            <p>Он был гарантом безошибочного учета, который фиксировал факты хозяйственной жизни без обмана и искажений. Не случайно его женой была богиня МААТ, олицетворявшая истину и порядок. Этот союз обеспечивал гармонию в учете и его идеальную организацию.</p>
+            <p>По представлениям древних египтян ТОТ выглядел довольно причудливо: он имел торс человека и голову ибиса, реже — торс и голову павиана. На изображениях бога сопровождают непременные атрибуты — лунный диск или страусовое перо (символ правосудия), палетка (дощечка из дерева или слоновой кости для заметок) и трость для письма.</p>
+            <p>К этому богу писцы обращали свои молитвы и просьбы: «ТОТ, владыка правды, глава книг, да даст искусство в писании, способность в иероглифах», «Приди и руководи мною. Сделай меня искусным в твоей должности».</p>
+            <p>ТОТ носил пышные титулы: «владыка слова бога», «владыка правды». Сам о себе он был также высокого мнения: «Я — ТОТ, писец совершенный, чистый руками, владыка омовений, прогоняющий зло, писец правды, для которого мерзость неправда; охраняет его письменная трость вседержителя». И не удивительно, что своему небесному патрону писцы Древнего Египта всецело доверяли.</p>
+          </div>
+          
+          <div class="about-modal-stats-grid">
+            <div class="about-modal-stat">
+              <div class="stat-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <polyline points="12 6 12 12 16 14"/>
+                </svg>
+              </div>
+              <div class="stat-value">11 лет</div>
+              <div class="stat-desc">опыта на рынке</div>
+            </div>
+            <div class="about-modal-stat">
+              <div class="stat-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                  <circle cx="9" cy="7" r="4"/>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+              </div>
+              <div class="stat-value">150+</div>
+              <div class="stat-desc">довольных клиентов</div>
+            </div>
+            <div class="about-modal-stat">
+              <div class="stat-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                </svg>
+              </div>
+              <div class="stat-value">100%</div>
+              <div class="stat-desc">отчётность вовремя</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <section class="section alt" id="services" data-animate>
       <div class="container">
@@ -327,17 +427,6 @@
                 <img src="{{ url_for('static', filename='images/partners/alfa-banner.png') }}" alt="Альфа-Банк — счёт для бизнеса за 5 минут">
               </div>
             </div>
-          </div>
-          
-          <div class="partner-certificate">
-            <div class="certificate-badge">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                <path d="M9 12l2 2 4-4"/>
-              </svg>
-              <span>Официальный статус подтверждён</span>
-            </div>
-            <img src="{{ url_for('static', filename='images/partners/alfa-certificate.png') }}" alt="Сертификат партнёра Альфа-Банк">
           </div>
         </div>
       </div>
@@ -1166,9 +1255,31 @@
           closeServiceModal();
         } else if (allServicesModal.classList.contains('active')) {
           closeAllServicesModal();
+        } else if (aboutModal.classList.contains('active')) {
+          closeAboutModal();
         }
       }
     });
+
+    // Модальное окно "О нас"
+    const aboutModal = document.getElementById('aboutModal');
+    const openAboutModalBtn = document.getElementById('openAboutModal');
+    const aboutModalClose = aboutModal.querySelector('.about-modal-close');
+    const aboutModalOverlay = aboutModal.querySelector('.about-modal-overlay');
+
+    const openAboutModal = () => {
+      aboutModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    };
+
+    const closeAboutModal = () => {
+      aboutModal.classList.remove('active');
+      document.body.style.overflow = '';
+    };
+
+    openAboutModalBtn.addEventListener('click', openAboutModal);
+    aboutModalClose.addEventListener('click', closeAboutModal);
+    aboutModalOverlay.addEventListener('click', closeAboutModal);
   </script>
 </body>
 </html>
