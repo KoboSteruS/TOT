@@ -426,31 +426,73 @@
     <section class="section" id="partner" data-animate>
       <div class="container">
         <h2 style="text-align: center; margin-bottom: 12px;">Работаем с надёжным банком-партнёром</h2>
-        <p class="lead" style="text-align: center; margin-bottom: 48px;">Официальный статус партнёра Альфа-Банка подтверждён сертификатом</p>
+        <p class="lead" style="text-align: center; margin-bottom: 40px;">Официальный статус партнёра Альфа-Банка подтверждён сертификатом</p>
         
-        <div class="partner-wrapper">
-          <div class="partner-main-content">
-            <div class="partner-info-card">
-              <h3>Альфа-Банк — наш официальный партнёр</h3>
-              <p>Помогаем открыть расчётный счёт для бизнеса быстро и без лишней бирократии. Сопровождаем процесс до полного запуска.</p>
-              <a class="btn btn-primary" href="#final-cta">Открыть счёт через нас</a>
-              <ul class="partner-benefits">
-                <li>Открытие счёта за 5 минут</li>
-                <li>Бесплатная консультация</li>
-                <li>Помощь в подготовке документов</li>
-                <li>Персональный менеджер</li>
-              </ul>
+        <div class="partner-compact">
+          <div class="partner-info">
+            <h3>Альфа-Банк — наш официальный партнёр</h3>
+            <p>Помогаем открыть расчётный счёт для бизнеса быстро и без лишней бирократии.</p>
+            <ul class="partner-benefits-compact">
+              <li>Открытие счёта за 5 минут</li>
+              <li>Бесплатная консультация</li>
+              <li>Персональный менеджер</li>
+            </ul>
+            <div class="partner-actions">
+              <a class="btn btn-primary" href="#final-cta">Открыть счёт</a>
+              <button class="btn-certificates" id="openCertificatesModal">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <path d="M14 2v6h6"/>
+                  <path d="M9 15l2 2 4-4"/>
+                </svg>
+                Наши сертификаты
+              </button>
             </div>
-            
-            <div class="partner-visual">
-              <div class="partner-banner-box">
-                <img src="{{ url_for('static', filename='images/partners/alfa-banner.png') }}" alt="Альфа-Банк — счёт для бизнеса за 5 минут">
-              </div>
-            </div>
+          </div>
+          
+          <div class="partner-banner-compact">
+            <img src="{{ url_for('static', filename='images/partners/alfa-banner.png') }}" alt="Альфа-Банк">
           </div>
         </div>
       </div>
     </section>
+    
+    <!-- Модальное окно с сертификатами -->
+    <div class="certificates-modal" id="certificatesModal">
+      <div class="certificates-modal-overlay"></div>
+      <div class="certificates-modal-content">
+        <button class="certificates-modal-close" aria-label="Закрыть">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+        
+        <h2>Наши сертификаты</h2>
+        
+        <div class="certificates-grid">
+          <div class="certificate-item" data-cert="alfa">
+            <img src="{{ url_for('static', filename='images/partners/alfa-certificate.png') }}" alt="Сертификат партнёра Альфа-Банк">
+            <div class="certificate-overlay">
+              <span>Нажмите для увеличения</span>
+            </div>
+          </div>
+          <!-- Здесь можно добавить больше сертификатов -->
+        </div>
+      </div>
+    </div>
+    
+    <!-- Модальное окно просмотра сертификата -->
+    <div class="certificate-view-modal" id="certificateViewModal">
+      <div class="certificate-view-overlay"></div>
+      <div class="certificate-view-content">
+        <button class="certificate-view-close" aria-label="Закрыть">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+        <img id="certificateViewImage" src="" alt="Сертификат">
+      </div>
+    </div>
 
     <section class="section alt" id="business-scales" data-animate>
       <div class="container">
@@ -1277,6 +1319,10 @@
           closeAllServicesModal();
         } else if (aboutModal.classList.contains('active')) {
           closeAboutModal();
+        } else if (certificatesModal.classList.contains('active')) {
+          closeCertificatesModal();
+        } else if (certificateViewModal.classList.contains('active')) {
+          closeCertificateView();
         }
       }
     });
@@ -1300,6 +1346,51 @@
     openAboutModalBtn.addEventListener('click', openAboutModal);
     aboutModalClose.addEventListener('click', closeAboutModal);
     aboutModalOverlay.addEventListener('click', closeAboutModal);
+
+    // Модальные окна сертификатов
+    const certificatesModal = document.getElementById('certificatesModal');
+    const certificateViewModal = document.getElementById('certificateViewModal');
+    const openCertificatesBtn = document.getElementById('openCertificatesModal');
+    const closeCertificatesBtn = document.querySelector('.certificates-modal-close');
+    const certificatesOverlay = document.querySelector('.certificates-modal-overlay');
+    const closeCertificateViewBtn = document.querySelector('.certificate-view-close');
+    const certificateViewOverlay = document.querySelector('.certificate-view-overlay');
+    const certificateViewImage = document.getElementById('certificateViewImage');
+
+    // Открытие галереи сертификатов
+    openCertificatesBtn.addEventListener('click', () => {
+      certificatesModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+
+    // Закрытие галереи сертификатов
+    const closeCertificatesModal = () => {
+      certificatesModal.classList.remove('active');
+      document.body.style.overflow = '';
+    };
+
+    closeCertificatesBtn.addEventListener('click', closeCertificatesModal);
+    certificatesOverlay.addEventListener('click', closeCertificatesModal);
+
+    // Открытие просмотра конкретного сертификата
+    document.querySelectorAll('.certificate-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const img = item.querySelector('img');
+        certificateViewImage.src = img.src;
+        certificateViewImage.alt = img.alt;
+        certificateViewModal.classList.add('active');
+        certificatesModal.classList.remove('active');
+      });
+    });
+
+    // Закрытие просмотра сертификата
+    const closeCertificateView = () => {
+      certificateViewModal.classList.remove('active');
+      document.body.style.overflow = '';
+    };
+
+    closeCertificateViewBtn.addEventListener('click', closeCertificateView);
+    certificateViewOverlay.addEventListener('click', closeCertificateView);
   </script>
 </body>
 </html>
