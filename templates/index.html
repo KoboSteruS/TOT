@@ -838,7 +838,22 @@
   </footer>
 
   <div class="chat-widget" id="chatWidget">
-    <button class="chat-launcher" id="chatLauncher" aria-label="Открыть чат">💬 Чат</button>
+    <button class="chat-launcher" id="chatLauncher" aria-label="Открыть чат">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+      </svg>
+      <span>Чат</span>
+    </button>
+    
+    <!-- Всплывающее уведомление -->
+    <div class="chat-notification" id="chatNotification">
+      <div class="notification-content">
+        <button class="notification-close" id="notificationClose" aria-label="Закрыть">×</button>
+        <p><strong>Нужна помощь?</strong></p>
+        <p class="notification-text">Задайте вопрос нашему боту</p>
+      </div>
+    </div>
+    
     <section class="chat-window" aria-label="Чат поддержки">
       <header class="chat-header">
         <div>
@@ -1044,6 +1059,7 @@
 
     chatLauncher.addEventListener('click', () => {
       chatWidget.classList.toggle('open');
+      chatNotification.classList.remove('show');
       if (chatWidget.classList.contains('open')) {
         chatInput.focus();
       } else {
@@ -1054,6 +1070,31 @@
     chatClose.addEventListener('click', () => {
       chatWidget.classList.remove('open');
       hideSuggestions();
+    });
+    
+    // Автоматическое показ уведомления через 15-20 секунд
+    const chatNotification = document.getElementById('chatNotification');
+    const notificationClose = document.getElementById('notificationClose');
+    
+    const showNotificationDelay = 15000 + Math.random() * 5000; // 15-20 секунд
+    
+    setTimeout(() => {
+      if (!chatWidget.classList.contains('open')) {
+        chatNotification.classList.add('show');
+      }
+    }, showNotificationDelay);
+    
+    // Закрытие уведомления
+    notificationClose.addEventListener('click', (e) => {
+      e.stopPropagation();
+      chatNotification.classList.remove('show');
+    });
+    
+    // Открытие чата при клике на уведомление
+    chatNotification.addEventListener('click', () => {
+      chatNotification.classList.remove('show');
+      chatWidget.classList.add('open');
+      chatInput.focus();
     });
 
     chatInput.addEventListener('input', () => {
