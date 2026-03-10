@@ -480,8 +480,7 @@ h2 {
 .about-photo {
   border-radius: var(--radius-lg);
   min-height: 600px;
-  background: url('/static/images/about/accountant.jpg') center/contain no-repeat;
-  background-color: #f8f9fb;
+  background: url('/static/images/about/accountant.jpg') center/cover no-repeat;
   box-shadow: var(--shadow-lg);
 }
 .about-modal {
