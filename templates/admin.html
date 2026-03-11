@@ -702,44 +702,330 @@
       const data = await apiRequest('/api/content');
       const container = document.getElementById('content-container');
       
+      // Хелпер для безопасного вывода
+      const safe = (val) => val || '';
+      const safeArr = (arr) => Array.isArray(arr) ? arr.join(', ') : '';
+      
       container.innerHTML = `
+        <!-- Компания -->
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">Информация о компании</h3>
+            <h3 class="card-title">📋 Информация о компании</h3>
           </div>
           <div class="form-group">
             <label class="form-label">Название</label>
-            <input type="text" class="form-input" id="company-name" value="${data.company?.name || ''}">
+            <input type="text" class="form-input" data-path="company.name" value="${safe(data.company?.name)}">
           </div>
           <div class="form-group">
             <label class="form-label">Слоган</label>
-            <input type="text" class="form-input" id="company-tagline" value="${data.company?.tagline || ''}">
+            <input type="text" class="form-input" data-path="company.tagline" value="${safe(data.company?.tagline)}">
           </div>
           <div class="form-group">
             <label class="form-label">Описание</label>
-            <textarea class="form-textarea" id="company-description">${data.company?.description || ''}</textarea>
+            <textarea class="form-textarea" data-path="company.description">${safe(data.company?.description)}</textarea>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
+            <div class="form-group">
+              <label class="form-label">Опыт (лет)</label>
+              <input type="text" class="form-input" data-path="company.experience_years" value="${safe(data.company?.experience_years)}">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Клиенты</label>
+              <input type="text" class="form-input" data-path="company.clients_count" value="${safe(data.company?.clients_count)}">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Вовремя (%)</label>
+              <input type="text" class="form-input" data-path="company.on_time_percent" value="${safe(data.company?.on_time_percent)}">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Поддержка</label>
+              <input type="text" class="form-input" data-path="company.support_24_7" value="${safe(data.company?.support_24_7)}">
+            </div>
           </div>
         </div>
 
+        <!-- Контакты -->
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">Контакты</h3>
+            <h3 class="card-title">📞 Контакты</h3>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+            <div class="form-group">
+              <label class="form-label">Город</label>
+              <input type="text" class="form-input" data-path="contacts.city" value="${safe(data.contacts?.city)}">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Адрес</label>
+              <input type="text" class="form-input" data-path="contacts.address" value="${safe(data.contacts?.address)}">
+            </div>
           </div>
           <div class="form-group">
-            <label class="form-label">Город</label>
-            <input type="text" class="form-input" id="contacts-city" value="${data.contacts?.city || ''}">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Адрес</label>
-            <input type="text" class="form-input" id="contacts-address" value="${data.contacts?.address || ''}">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Email</label>
-            <input type="email" class="form-input" id="contacts-email" value="${data.contacts?.email || ''}">
+            <label class="form-label">Здание</label>
+            <input type="text" class="form-input" data-path="contacts.building" value="${safe(data.contacts?.building)}">
           </div>
           <div class="form-group">
             <label class="form-label">Телефоны (через запятую)</label>
-            <input type="text" class="form-input" id="contacts-phones" value="${data.contacts?.phones?.join(', ') || ''}">
+            <input type="text" class="form-input" data-path="contacts.phones" value="${safeArr(data.contacts?.phones)}">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-input" data-path="contacts.email" value="${safe(data.contacts?.email)}">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Режим работы</label>
+            <input type="text" class="form-input" data-path="contacts.working_hours" value="${safe(data.contacts?.working_hours)}">
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+            <div class="form-group">
+              <label class="form-label">VK</label>
+              <input type="text" class="form-input" data-path="contacts.social.vk" value="${safe(data.contacts?.social?.vk)}">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Telegram</label>
+              <input type="text" class="form-input" data-path="contacts.social.telegram" value="${safe(data.contacts?.social?.telegram)}">
+            </div>
+            <div class="form-group">
+              <label class="form-label">WhatsApp</label>
+              <input type="text" class="form-input" data-path="contacts.social.whatsapp" value="${safe(data.contacts?.social?.whatsapp)}">
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">🎯 Hero секция (главный экран)</h3>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Kicker (верхний текст)</label>
+            <input type="text" class="form-input" data-path="hero.kicker" value="${safe(data.hero?.kicker)}">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Заголовок (можно использовать &lt;br&gt;)</label>
+            <input type="text" class="form-input" data-path="hero.title" value="${safe(data.hero?.title)}">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Описание</label>
+            <textarea class="form-textarea" data-path="hero.description">${safe(data.hero?.description)}</textarea>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+            <div class="form-group">
+              <label class="form-label">Текст кнопки "Связаться"</label>
+              <input type="text" class="form-input" data-path="hero.btn_primary" value="${safe(data.hero?.btn_primary)}">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Текст кнопки "Услуги"</label>
+              <input type="text" class="form-input" data-path="hero.btn_secondary" value="${safe(data.hero?.btn_secondary)}">
+            </div>
+          </div>
+        </div>
+
+        <!-- О нас -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">ℹ️ О нас</h3>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Заголовок</label>
+            <input type="text" class="form-input" data-path="about.title" value="${safe(data.about?.title)}">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Описание 1</label>
+            <textarea class="form-textarea" data-path="about.description_1" rows="3">${safe(data.about?.description_1)}</textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Описание 2</label>
+            <textarea class="form-textarea" data-path="about.description_2" rows="2">${safe(data.about?.description_2)}</textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Описание 3 (жирный текст)</label>
+            <textarea class="form-textarea" data-path="about.description_3" rows="2">${safe(data.about?.description_3)}</textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Описание 4</label>
+            <textarea class="form-textarea" data-path="about.description_4" rows="2">${safe(data.about?.description_4)}</textarea>
+          </div>
+        </div>
+
+        <!-- Услуги -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">💼 Услуги</h3>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Заголовок</label>
+            <input type="text" class="form-input" data-path="services.title" value="${safe(data.services?.title)}">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Подзаголовок</label>
+            <input type="text" class="form-input" data-path="services.lead" value="${safe(data.services?.lead)}">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Текст кнопки "Посмотреть все"</label>
+            <input type="text" class="form-input" data-path="services.button" value="${safe(data.services?.button)}">
+          </div>
+          <p style="color: var(--text-muted); font-size: 14px; margin: 16px 0;">
+            ℹ️ Для редактирования отдельных услуг используйте JSON редактор или обратитесь к разработчику
+          </p>
+        </div>
+
+        <!-- CTA блок -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">📢 CTA блок (призыв к действию)</h3>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Заголовок</label>
+            <input type="text" class="form-input" data-path="cta_laptop.title" value="${safe(data.cta_laptop?.title)}">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Описание</label>
+            <input type="text" class="form-input" data-path="cta_laptop.description" value="${safe(data.cta_laptop?.description)}">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Текст кнопки</label>
+            <input type="text" class="form-input" data-path="cta_laptop.button" value="${safe(data.cta_laptop?.button)}">
+          </div>
+        </div>
+
+        <!-- Процесс работы -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">🔄 Как мы работаем</h3>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Заголовок</label>
+            <input type="text" class="form-input" data-path="process.title" value="${safe(data.process?.title)}">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Подзаголовок</label>
+            <input type="text" class="form-input" data-path="process.lead" value="${safe(data.process?.lead)}">
+          </div>
+          <p style="color: var(--text-muted); font-size: 14px; margin: 16px 0;">
+            ℹ️ Для редактирования шагов используйте JSON редактор или обратитесь к разработчику
+          </p>
+        </div>
+
+        <!-- Партнёры -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">🤝 Партнёры (Альфа-Банк)</h3>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Бейдж</label>
+            <input type="text" class="form-input" data-path="partner.badge" value="${safe(data.partner?.badge)}">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Заголовок</label>
+            <input type="text" class="form-input" data-path="partner.title" value="${safe(data.partner?.title)}">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Описание</label>
+            <textarea class="form-textarea" data-path="partner.description">${safe(data.partner?.description)}</textarea>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+            <div class="form-group">
+              <label class="form-label">Текст кнопки "Открыть счёт"</label>
+              <input type="text" class="form-input" data-path="partner.btn_primary" value="${safe(data.partner?.btn_primary)}">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Текст кнопки "Сертификаты"</label>
+              <input type="text" class="form-input" data-path="partner.btn_secondary" value="${safe(data.partner?.btn_secondary)}">
+            </div>
+          </div>
+        </div>
+
+        <!-- Масштабы бизнеса -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">📊 Работаем с бизнесом любого масштаба</h3>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Заголовок</label>
+            <input type="text" class="form-input" data-path="business_scales.title" value="${safe(data.business_scales?.title)}">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Подзаголовок</label>
+            <textarea class="form-textarea" data-path="business_scales.lead">${safe(data.business_scales?.lead)}</textarea>
+          </div>
+        </div>
+
+        <!-- Тарифы -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">💰 Тарифы</h3>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Заголовок</label>
+            <input type="text" class="form-input" data-path="tariffs.title" value="${safe(data.tariffs?.title)}">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Подзаголовок</label>
+            <input type="text" class="form-input" data-path="tariffs.lead" value="${safe(data.tariffs?.lead)}">
+          </div>
+        </div>
+
+        <!-- Форма заявки -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">📝 Форма заявки</h3>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Заголовок</label>
+            <input type="text" class="form-input" data-path="final_cta.title" value="${safe(data.final_cta?.title)}">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Подзаголовок</label>
+            <input type="text" class="form-input" data-path="final_cta.lead" value="${safe(data.final_cta?.lead)}">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Текст кнопки отправки</label>
+            <input type="text" class="form-input" data-path="final_cta.form.submit_button" value="${safe(data.final_cta?.form?.submit_button)}">
+          </div>
+        </div>
+
+        <!-- Карта -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">🗺️ Как нас найти</h3>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Заголовок</label>
+            <input type="text" class="form-input" data-path="map.title" value="${safe(data.map?.title)}">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Подзаголовок</label>
+            <textarea class="form-textarea" data-path="map.lead">${safe(data.map?.lead)}</textarea>
+          </div>
+        </div>
+
+        <!-- Футер -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">📄 Футер</h3>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Описание</label>
+            <textarea class="form-textarea" data-path="footer.description">${safe(data.footer?.description)}</textarea>
+          </div>
+        </div>
+
+        <!-- Чат-бот -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">💬 Чат-бот</h3>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Заголовок</label>
+            <input type="text" class="form-input" data-path="chat_bot.header.title" value="${safe(data.chat_bot?.header?.title)}">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Приветствие</label>
+            <textarea class="form-textarea" data-path="chat_bot.welcome" rows="4">${safe(data.chat_bot?.welcome)}</textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Placeholder ввода</label>
+            <input type="text" class="form-input" data-path="chat_bot.input_placeholder" value="${safe(data.chat_bot?.input_placeholder)}">
           </div>
         </div>
       `;
@@ -747,19 +1033,30 @@
 
     // Сохранение контента
     async function saveContent() {
-      const data = {
-        company: {
-          name: document.getElementById('company-name').value,
-          tagline: document.getElementById('company-tagline').value,
-          description: document.getElementById('company-description').value
-        },
-        contacts: {
-          city: document.getElementById('contacts-city').value,
-          address: document.getElementById('contacts-address').value,
-          email: document.getElementById('contacts-email').value,
-          phones: document.getElementById('contacts-phones').value.split(',').map(p => p.trim())
+      // Собираем все поля с data-path
+      const inputs = document.querySelectorAll('[data-path]');
+      const data = {};
+      
+      inputs.forEach(input => {
+        const path = input.getAttribute('data-path');
+        let value = input.value;
+        
+        // Обработка массивов (телефоны)
+        if (path === 'contacts.phones') {
+          value = value.split(',').map(p => p.trim()).filter(p => p);
         }
-      };
+        
+        // Создаём вложенную структуру
+        const keys = path.split('.');
+        let current = data;
+        
+        for (let i = 0; i < keys.length - 1; i++) {
+          if (!current[keys[i]]) current[keys[i]] = {};
+          current = current[keys[i]];
+        }
+        
+        current[keys[keys.length - 1]] = value;
+      });
       
       const result = await apiRequest('/api/content', 'PUT', data);
       
