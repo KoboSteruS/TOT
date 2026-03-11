@@ -87,6 +87,62 @@ a {
   height: 20px;
 }
 
+.about-mission {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin: 32px 0 40px;
+  padding: 0;
+}
+
+.mission-item {
+  background: linear-gradient(135deg, #fff 0%, #f8faff 100%);
+  border: 2px solid rgba(61, 90, 254, .15);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  transition: all .3s ease;
+}
+
+.mission-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(61, 90, 254, .15);
+  border-color: var(--primary);
+}
+
+.mission-icon {
+  font-size: 32px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.mission-item p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.mission-item strong {
+  color: var(--primary);
+  display: block;
+  margin-bottom: 4px;
+  font-size: 16px;
+}
+
+.modal-lead {
+  font-size: 18px;
+  color: var(--primary);
+  font-weight: 600;
+  line-height: 1.6;
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(61, 90, 254, .08) 0%, rgba(61, 90, 254, .03) 100%);
+  border-radius: var(--radius);
+  border-left: 4px solid var(--primary);
+}
+
 .alt {
   background: #fafbfd;
 }
