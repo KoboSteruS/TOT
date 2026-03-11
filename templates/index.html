@@ -795,8 +795,9 @@
       <div class="container">
         <h2>Оставьте заявку на консультацию</h2>
         <p class="lead">Мы свяжемся с вами в течение 30 минут</p>
-        <div class="final-layout-compact">
-          <form class="final-form-compact" action="#" method="post">
+        <div class="final-layout glass-card hover-lift">
+          <div class="final-image"></div>
+          <form class="final-form" action="#" method="post">
             <div class="form-row">
               <div class="form-group">
                 <input id="name" name="name" type="text" placeholder="Ваше имя *" required />
@@ -815,6 +816,10 @@
                 <option value="samozanyatyy">Самозанятый</option>
                 <option value="planning">Планирую открыть</option>
               </select>
+            </div>
+            
+            <div class="form-group">
+              <textarea id="comment" name="comment" placeholder="Комментарий (необязательно)" rows="3"></textarea>
             </div>
             
             <label class="checkbox-label privacy-checkbox">
