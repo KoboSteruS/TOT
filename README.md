@@ -1,202 +1,288 @@
-# ООО «ТОТ» — Официальный сайт бухгалтерских услуг
+# ООО «ТОТ» - Сайт и Админ-панель
 
-Современный лендинг для бухгалтерской компании ООО «ТОТ». Профессиональный, чистый дизайн с адаптивной вёрсткой и полным функционалом для привлечения клиентов.
+Официальный сайт бухгалтерской компании ООО «ТОТ» с мощной админ-панелью для управления контентом.
 
-## 🚀 Особенности
+## 🚀 Возможности
 
-- **Адаптивный дизайн**: Идеальное отображение на всех устройствах (desktop, tablet, mobile)
-- **Современный UI**: Градиенты, анимации, плавные переходы
-- **SEO-оптимизация**: Meta-теги, OpenGraph, семантическая разметка
-- **Интерактивный чат-бот**: FAQ-система с автоподсказками
-- **Яндекс.Карты**: Интеграция карты с меткой офиса
-- **Производительность**: Оптимизированные стили, плавная анимация
+### Публичный сайт
+- ✅ Современный дизайн с анимациями
+- ✅ Полностью адаптивный (mobile-first)
+- ✅ Чат-бот с FAQ
+- ✅ Интеграция с Яндекс.Картами
+- ✅ Модальные окна для услуг и сертификатов
+- ✅ Форма заявки
+- ✅ Партнёрство с Альфа-Банком
 
-## 📁 Структура проекта
-
-```
-TOT/
-├── app.py                      # Flask-приложение
-├── requirements.txt            # Зависимости Python
-├── static/
-│   ├── styles.css             # Основные стили
-│   ├── faq.json               # База знаний для чат-бота
-│   └── images/                # Изображения
-│       ├── hero/              # Hero-секция
-│       ├── about/             # Секция "О нас"
-│       ├── services/          # Иконки услуг
-│       ├── cta/               # CTA-блоки
-│       ├── partners/          # Партнёры (Альфа-Банк)
-│       ├── tariffs/           # Изображения тарифов
-│       └── Logo.png           # Логотип
-└── templates/
-    └── index.html             # Главная страница
-```
-
-## 🛠 Технологии
-
-- **Backend**: Flask 3.1.0
-- **Frontend**: HTML5, CSS3, Vanilla JavaScript
-- **Карты**: Яндекс.Карты API 2.1
-- **Шрифты**: Inter (Google Fonts)
-- **Иконки**: SVG (inline)
+### Админ-панель
+- 🔐 JWT-авторизация через URL
+- 📝 Полное управление контентом сайта
+- 🤖 Редактор FAQ для чат-бота
+- 🖼️ Загрузка и управление изображениями
+- ⚡ Современный интерфейс с темной темой
+- 📊 Дашборд со статистикой
 
 ## 📦 Установка
 
-### 1. Клонировать репозиторий
-
+### 1. Клонирование репозитория
 ```bash
-git clone https://github.com/yourusername/TOT.git
+git clone <repository-url>
 cd TOT
 ```
 
-### 2. Создать виртуальное окружение
-
+### 2. Создание виртуального окружения
 ```bash
 python -m venv venv
-source venv/bin/activate  # Linux/Mac
-venv\Scripts\activate     # Windows
+
+# Windows
+venv\Scripts\activate
+
+# Linux/Mac
+source venv/bin/activate
 ```
 
-### 3. Установить зависимости
-
+### 3. Установка зависимостей
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Настроить API-ключ Яндекс.Карт
-
-Откройте `templates/index.html` и замените `YOUR_API_KEY` на ваш ключ:
-
-```html
-<script src="https://api-maps.yandex.ru/2.1/?apikey=YOUR_API_KEY&lang=ru_RU"></script>
+### 4. Настройка переменных окружения
+Скопируйте `.env.example` в `.env` и измените значения:
+```bash
+cp .env.example .env
 ```
 
-Получить API-ключ: https://developer.tech.yandex.ru/services/
+**Важно!** Измените следующие значения в `.env`:
+- `JWT_SECRET` - секретный ключ для JWT (используйте случайную строку)
+- `ADMIN_TOKEN` - токен для доступа в админку (используйте надёжный токен)
+- `SECRET_KEY` - секретный ключ Flask
 
-### 5. Запустить приложение
-
+### 5. Запуск приложения
 ```bash
 python app.py
 ```
 
-Сайт будет доступен по адресу: `http://localhost:5000`
+Сайт будет доступен по адресу: http://localhost:5000
 
-## 🎨 Дизайн-система
+## 🔑 Доступ к админ-панели
 
-### Цветовая палитра
-
-```css
---primary: #3d5afe        /* Основной синий */
---primary-hover: #2948d8  /* Hover-состояние */
---text: #2c3e50           /* Основной текст */
---muted: #6b7c93          /* Вторичный текст */
---bg: #f5f7fb             /* Фон */
---surface: #ffffff        /* Карточки */
+### Способ 1: Через URL с токеном (рекомендуется)
+```
+http://localhost:5000/admin/<ваш-ADMIN_TOKEN>
 ```
 
-### Типографика
-
-- **Заголовки**: Inter (600-800)
-- **Основной текст**: Inter (400-500)
-- **Базовый размер**: 16px
-- **Высота строки**: 1.6
-
-### Отступы и радиусы
-
-- **Сетка**: 8px
-- **Радиус**: 12px (small), 16px (normal), 24px (large)
-- **Тени**: 3 уровня (shadow, shadow-md, shadow-lg)
-
-### Брейкпоинты
-
-- **Desktop**: 1024px+
-- **Tablet**: 860px–1024px
-- **Mobile**: 560px–860px
-- **Small mobile**: до 560px
-
-## 🔧 Настройка
-
-### Изменить контакты
-
-Отредактируйте в `templates/index.html`:
-
-```html
-<p>+7 (921) 460-46-46 · +7 (964) 319-46-46</p>
-<p>Пн–Пт 09:00–18:00 · ул. Федосовой, 31 (офис 6)</p>
+Пример:
+```
+http://localhost:5000/admin/tot-admin-2024-secure-token
 ```
 
-### Настроить координаты на карте
-
-В `templates/index.html` измените координаты:
-
-```javascript
-center: [59.893048, 30.318788],  // [широта, долгота]
+### Способ 2: Генерация токена (только для разработки)
+В режиме разработки можно получить ссылку на админку:
+```
+http://localhost:5000/api/generate-token
 ```
 
-### Добавить/изменить FAQ
+## 📖 API Документация
 
-Редактируйте файл `static/faq.json`:
+### Авторизация
+Все API endpoints требуют JWT токен в заголовке:
+```
+Authorization: Bearer <jwt-token>
+```
 
-```json
+### Контент сайта
+
+**Получить весь контент:**
+```http
+GET /api/content
+```
+
+**Обновить контент:**
+```http
+PUT /api/content
+Content-Type: application/json
+
 {
-  "intent": "your_intent",
-  "keywords": ["ключевое слово 1", "ключевое слово 2"],
-  "response": "Ответ бота",
-  "price": "от 1000 ₽",
-  "category": "general"
+  "company": {...},
+  "contacts": {...}
 }
 ```
 
-## 🚢 Деплой
-
-### Production с Gunicorn
-
-```bash
-gunicorn --bind 0.0.0.0:8000 app:app
+**Получить/обновить секцию:**
+```http
+GET /api/content/<section>
+PUT /api/content/<section>
 ```
 
-### Nginx конфигурация
+### FAQ бота
 
+**Получить все FAQ:**
+```http
+GET /api/faq
+```
+
+**Добавить новый FAQ:**
+```http
+POST /api/faq
+Content-Type: application/json
+
+{
+  "intent": "new_question",
+  "keywords": ["ключевое", "слово"],
+  "response": "Ответ бота",
+  "category": "general",
+  "price": "от 5 000 ₽"
+}
+```
+
+**Обновить FAQ:**
+```http
+PUT /api/faq/<index>
+```
+
+**Удалить FAQ:**
+```http
+DELETE /api/faq/<index>
+```
+
+### Изображения
+
+**Загрузить изображение:**
+```http
+POST /api/upload
+Content-Type: multipart/form-data
+
+file: <файл>
+```
+
+**Список изображений:**
+```http
+GET /api/images
+```
+
+**Удалить изображение:**
+```http
+DELETE /api/images/<filename>
+```
+
+## 📂 Структура проекта
+
+```
+TOT/
+├── app.py                 # Основное приложение Flask
+├── requirements.txt       # Python зависимости
+├── .env                   # Переменные окружения (не в git)
+├── .env.example          # Пример переменных окружения
+├── .gitignore            # Игнорируемые файлы
+├── README.md             # Документация
+├── static/
+│   ├── content.json      # Контент сайта
+│   ├── faq.json          # FAQ для чат-бота
+│   ├── styles.css        # Стили сайта
+│   └── images/           # Загруженные изображения
+└── templates/
+    ├── index.html        # Главная страница
+    └── admin.html        # Админ-панель
+```
+
+## 🎨 Возможности админ-панели
+
+### 1. Дашборд
+- Статистика по FAQ и изображениям
+- Быстрый доступ ко всем разделам
+
+### 2. Контент сайта
+- Редактирование информации о компании
+- Изменение контактных данных
+- Обновление описаний и слоганов
+
+### 3. FAQ бота
+- Добавление новых вопросов-ответов
+- Редактирование существующих FAQ
+- Удаление неактуальных FAQ
+- Категоризация по типам
+- Добавление цен к услугам
+
+### 4. Изображения
+- Drag & Drop загрузка
+- Предпросмотр изображений
+- Копирование URL изображения
+- Удаление изображений
+
+## 🔒 Безопасность
+
+### Рекомендации для production:
+
+1. **Измените все секретные ключи** в `.env`
+2. **Не коммитьте `.env` файл** (уже в .gitignore)
+3. **Используйте HTTPS** для доступа к админке
+4. **Регулярно меняйте** `ADMIN_TOKEN`
+5. **Ограничьте доступ** к админ-панели по IP (через nginx/apache)
+6. **Отключите** `/api/generate-token` в production (установите `FLASK_ENV=production`)
+
+### Генерация безопасных ключей:
+
+```python
+import secrets
+print(secrets.token_urlsafe(32))  # Для JWT_SECRET
+print(secrets.token_urlsafe(16))  # Для ADMIN_TOKEN
+```
+
+## 🚀 Деплой на production
+
+### 1. Через Gunicorn
+```bash
+gunicorn -w 4 -b 0.0.0.0:5000 app:app
+```
+
+### 2. Через systemd (Linux)
+Создайте файл `/etc/systemd/system/tot.service`:
+```ini
+[Unit]
+Description=TOT Website
+After=network.target
+
+[Service]
+User=www-data
+WorkingDirectory=/var/www/TOT
+Environment="PATH=/var/www/TOT/venv/bin"
+ExecStart=/var/www/TOT/venv/bin/gunicorn -w 4 -b 0.0.0.0:5000 app:app
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Затем:
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable tot
+sudo systemctl start tot
+```
+
+### 3. Nginx конфигурация
 ```nginx
 server {
     listen 80;
-    server_name oootot.ru www.oootot.ru;
+    server_name oootot.ru;
 
     location / {
-        proxy_pass http://127.0.0.1:8000;
+        proxy_pass http://localhost:5000;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
     }
 
     location /static {
-        alias /path/to/TOT/static;
+        alias /var/www/TOT/static;
     }
 }
 ```
 
-## 📊 Performance
+## 🆘 Поддержка
 
-- **Lighthouse Score**: 95+
-- **First Contentful Paint**: < 1.5s
-- **Time to Interactive**: < 3.5s
-- **Cumulative Layout Shift**: < 0.1
-
-## 🐛 Известные проблемы
-
-- Яндекс.Карты требуют API-ключ (получить бесплатно)
-- Форма обратной связи пока не отправляет данные (требуется backend)
-
-## 🤝 Контакты
-
-- **Email**: info@oootot.ru
-- **Телефон**: +7 (921) 460-46-46, +7 (964) 319-46-46
-- **VK**: https://vk.com/oootot
-- **Адрес**: ул. Федосовой, 31 (ЖК «Свой берег»), помещение 6
+Если возникли вопросы или проблемы:
+- Email: info@tot-ptz.ru
+- Телефон: +7 (964) 319-46-46
+- ВКонтакте: vk.com/oootot
 
 ## 📝 Лицензия
 
-© 2026 ООО «ТОТ». Все права защищены.
-
----
-
-**Сделано с ❤️ для профессиональной бухгалтерии**
+© 2024 ООО «ТОТ». Все права защищены.
