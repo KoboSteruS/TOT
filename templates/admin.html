@@ -593,7 +593,7 @@
             <h3 class="card-title">🖼️ Изображения на сайте</h3>
           </div>
           <p style="color: var(--text-muted); margin-bottom: 20px;">
-            Здесь вы можете заменить изображения, которые используются на сайте. Нажмите "Заменить" и загрузите новое изображение.
+            Здесь вы можете заменить все изображения, которые используются на сайте. Нажмите "Заменить" и загрузите новое изображение.
           </p>
           
           <div style="display: grid; gap: 16px;">
@@ -601,7 +601,7 @@
             <div style="display: flex; gap: 16px; padding: 16px; background: var(--bg-input); border-radius: 8px; align-items: center;">
               <img src="/static/images/Logo.png" alt="Логотип" style="width: 80px; height: 80px; object-fit: contain; background: white; border-radius: 8px; padding: 8px;">
               <div style="flex: 1;">
-                <div style="font-weight: 600; margin-bottom: 4px;">Логотип компании</div>
+                <div style="font-weight: 600; margin-bottom: 4px;">🏢 Логотип компании</div>
                 <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 8px;">Используется в шапке сайта и футере</div>
                 <div style="font-size: 12px; color: var(--text-muted);">Путь: /static/images/Logo.png</div>
               </div>
@@ -610,11 +610,89 @@
               </button>
             </div>
 
+            <!-- Hero фон -->
+            <div style="display: flex; gap: 16px; padding: 16px; background: var(--bg-input); border-radius: 8px; align-items: center;">
+              <img src="/static/images/hero/mountains.jpg" alt="Hero фон" style="width: 120px; height: 80px; object-fit: cover; border-radius: 8px;">
+              <div style="flex: 1;">
+                <div style="font-weight: 600; margin-bottom: 4px;">🏔️ Hero фон (горы)</div>
+                <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 8px;">Фоновое изображение главного экрана</div>
+                <div style="font-size: 12px; color: var(--text-muted);">Путь: /static/images/hero/mountains.jpg</div>
+              </div>
+              <button class="btn btn-primary" onclick="replaceImage('hero/mountains.jpg', 'Hero фон')">
+                Заменить
+              </button>
+            </div>
+
+            <!-- О нас - фото бухгалтера -->
+            <div style="display: flex; gap: 16px; padding: 16px; background: var(--bg-input); border-radius: 8px; align-items: center;">
+              <img src="/static/images/about/accountant.jpg" alt="Бухгалтер" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;">
+              <div style="flex: 1;">
+                <div style="font-weight: 600; margin-bottom: 4px;">👨‍💼 Фото бухгалтера</div>
+                <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 8px;">Используется в разделе "О нас"</div>
+                <div style="font-size: 12px; color: var(--text-muted);">Путь: /static/images/about/accountant.jpg</div>
+              </div>
+              <button class="btn btn-primary" onclick="replaceImage('about/accountant.jpg', 'Фото бухгалтера')">
+                Заменить
+              </button>
+            </div>
+
+            <!-- CTA блок - ноутбук -->
+            <div style="display: flex; gap: 16px; padding: 16px; background: var(--bg-input); border-radius: 8px; align-items: center;">
+              <img src="/static/images/cta/laptop.jpg" alt="Ноутбук" style="width: 120px; height: 80px; object-fit: cover; border-radius: 8px;">
+              <div style="flex: 1;">
+                <div style="font-weight: 600; margin-bottom: 4px;">💻 Ноутбук</div>
+                <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 8px;">Используется в CTA блоке (призыв к действию)</div>
+                <div style="font-size: 12px; color: var(--text-muted);">Путь: /static/images/cta/laptop.jpg</div>
+              </div>
+              <button class="btn btn-primary" onclick="replaceImage('cta/laptop.jpg', 'Ноутбук CTA')">
+                Заменить
+              </button>
+            </div>
+
+            <!-- Тариф Старт -->
+            <div style="display: flex; gap: 16px; padding: 16px; background: var(--bg-input); border-radius: 8px; align-items: center;">
+              <img src="/static/images/tariffs/start.jpg" alt="Тариф Старт" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;">
+              <div style="flex: 1;">
+                <div style="font-weight: 600; margin-bottom: 4px;">🚀 Тариф "Старт"</div>
+                <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 8px;">Фоновое изображение карточки тарифа "Старт"</div>
+                <div style="font-size: 12px; color: var(--text-muted);">Путь: /static/images/tariffs/start.jpg</div>
+              </div>
+              <button class="btn btn-primary" onclick="replaceImage('tariffs/start.jpg', 'Тариф Старт')">
+                Заменить
+              </button>
+            </div>
+
+            <!-- Тариф Бизнес -->
+            <div style="display: flex; gap: 16px; padding: 16px; background: var(--bg-input); border-radius: 8px; align-items: center;">
+              <img src="/static/images/tariffs/business.jpg" alt="Тариф Бизнес" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;">
+              <div style="flex: 1;">
+                <div style="font-weight: 600; margin-bottom: 4px;">💼 Тариф "Бизнес"</div>
+                <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 8px;">Фоновое изображение карточки тарифа "Бизнес" (популярный)</div>
+                <div style="font-size: 12px; color: var(--text-muted);">Путь: /static/images/tariffs/business.jpg</div>
+              </div>
+              <button class="btn btn-primary" onclick="replaceImage('tariffs/business.jpg', 'Тариф Бизнес')">
+                Заменить
+              </button>
+            </div>
+
+            <!-- Тариф Индивидуальный -->
+            <div style="display: flex; gap: 16px; padding: 16px; background: var(--bg-input); border-radius: 8px; align-items: center;">
+              <img src="/static/images/tariffs/individual.jpg" alt="Тариф Индивидуальный" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;">
+              <div style="flex: 1;">
+                <div style="font-weight: 600; margin-bottom: 4px;">👔 Тариф "Индивидуальный"</div>
+                <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 8px;">Фоновое изображение карточки тарифа "Индивидуальный"</div>
+                <div style="font-size: 12px; color: var(--text-muted);">Путь: /static/images/tariffs/individual.jpg</div>
+              </div>
+              <button class="btn btn-primary" onclick="replaceImage('tariffs/individual.jpg', 'Тариф Индивидуальный')">
+                Заменить
+              </button>
+            </div>
+
             <!-- Баннер Альфа-Банка -->
             <div style="display: flex; gap: 16px; padding: 16px; background: var(--bg-input); border-radius: 8px; align-items: center;">
               <img src="/static/images/partners/alfa-banner.png" alt="Альфа-Банк" style="width: 120px; height: 80px; object-fit: contain; background: white; border-radius: 8px; padding: 8px;">
               <div style="flex: 1;">
-                <div style="font-weight: 600; margin-bottom: 4px;">Баннер Альфа-Банк</div>
+                <div style="font-weight: 600; margin-bottom: 4px;">🏦 Баннер Альфа-Банк</div>
                 <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 8px;">Используется в разделе "Партнёры"</div>
                 <div style="font-size: 12px; color: var(--text-muted);">Путь: /static/images/partners/alfa-banner.png</div>
               </div>
@@ -627,7 +705,7 @@
             <div style="display: flex; gap: 16px; padding: 16px; background: var(--bg-input); border-radius: 8px; align-items: center;">
               <img src="/static/images/partners/alfa-certificate.png" alt="Сертификат" style="width: 80px; height: 80px; object-fit: contain; background: white; border-radius: 8px; padding: 8px;">
               <div style="flex: 1;">
-                <div style="font-weight: 600; margin-bottom: 4px;">Сертификат Альфа-Банк</div>
+                <div style="font-weight: 600; margin-bottom: 4px;">📜 Сертификат Альфа-Банк</div>
                 <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 8px;">Используется в модальном окне сертификатов</div>
                 <div style="font-size: 12px; color: var(--text-muted);">Путь: /static/images/partners/alfa-certificate.png</div>
               </div>
