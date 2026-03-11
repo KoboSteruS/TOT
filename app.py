@@ -234,12 +234,23 @@ def upload_image():
     
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
-        # Добавляем timestamp для уникальности
-        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        name, ext = os.path.splitext(filename)
-        filename = f"{name}_{timestamp}{ext}"
         
-        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        # Если filename содержит путь (partners/alfa-banner.png), создаём подпапки
+        filepath_parts = filename.split('/')
+        if len(filepath_parts) > 1:
+            # Создаём подпапки если нужно
+            subfolder = os.path.join(app.config['UPLOAD_FOLDER'], *filepath_parts[:-1])
+            os.makedirs(subfolder, exist_ok=True)
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        else:
+            # Обычная загрузка - добавляем timestamp только если файл не существует
+            if not os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], filename)):
+                timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+                name, ext = os.path.splitext(filename)
+                filename = f"{name}_{timestamp}{ext}"
+            
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        
         file.save(filepath)
         
         # Возвращаем относительный путь

@@ -587,7 +587,66 @@
           <h2>Изображения</h2>
         </div>
 
+        <!-- Текущие изображения на сайте -->
         <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">🖼️ Изображения на сайте</h3>
+          </div>
+          <p style="color: var(--text-muted); margin-bottom: 20px;">
+            Здесь вы можете заменить изображения, которые используются на сайте. Нажмите "Заменить" и загрузите новое изображение.
+          </p>
+          
+          <div style="display: grid; gap: 16px;">
+            <!-- Логотип -->
+            <div style="display: flex; gap: 16px; padding: 16px; background: var(--bg-input); border-radius: 8px; align-items: center;">
+              <img src="/static/images/Logo.png" alt="Логотип" style="width: 80px; height: 80px; object-fit: contain; background: white; border-radius: 8px; padding: 8px;">
+              <div style="flex: 1;">
+                <div style="font-weight: 600; margin-bottom: 4px;">Логотип компании</div>
+                <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 8px;">Используется в шапке сайта и футере</div>
+                <div style="font-size: 12px; color: var(--text-muted);">Путь: /static/images/Logo.png</div>
+              </div>
+              <button class="btn btn-primary" onclick="replaceImage('Logo.png', 'Логотип компании')">
+                Заменить
+              </button>
+            </div>
+
+            <!-- Баннер Альфа-Банка -->
+            <div style="display: flex; gap: 16px; padding: 16px; background: var(--bg-input); border-radius: 8px; align-items: center;">
+              <img src="/static/images/partners/alfa-banner.png" alt="Альфа-Банк" style="width: 120px; height: 80px; object-fit: contain; background: white; border-radius: 8px; padding: 8px;">
+              <div style="flex: 1;">
+                <div style="font-weight: 600; margin-bottom: 4px;">Баннер Альфа-Банк</div>
+                <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 8px;">Используется в разделе "Партнёры"</div>
+                <div style="font-size: 12px; color: var(--text-muted);">Путь: /static/images/partners/alfa-banner.png</div>
+              </div>
+              <button class="btn btn-primary" onclick="replaceImage('partners/alfa-banner.png', 'Баннер Альфа-Банк')">
+                Заменить
+              </button>
+            </div>
+
+            <!-- Сертификат Альфа-Банка -->
+            <div style="display: flex; gap: 16px; padding: 16px; background: var(--bg-input); border-radius: 8px; align-items: center;">
+              <img src="/static/images/partners/alfa-certificate.png" alt="Сертификат" style="width: 80px; height: 80px; object-fit: contain; background: white; border-radius: 8px; padding: 8px;">
+              <div style="flex: 1;">
+                <div style="font-weight: 600; margin-bottom: 4px;">Сертификат Альфа-Банк</div>
+                <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 8px;">Используется в модальном окне сертификатов</div>
+                <div style="font-size: 12px; color: var(--text-muted);">Путь: /static/images/partners/alfa-certificate.png</div>
+              </div>
+              <button class="btn btn-primary" onclick="replaceImage('partners/alfa-certificate.png', 'Сертификат Альфа-Банк')">
+                Заменить
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Загрузка новых изображений -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">📤 Загрузить новое изображение</h3>
+          </div>
+          <p style="color: var(--text-muted); margin-bottom: 20px;">
+            Загрузите изображения для использования в контенте. После загрузки скопируйте URL и вставьте его в нужное место.
+          </p>
+          
           <div class="upload-zone" id="upload-zone">
             <svg width="48" height="48" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin: 0 auto 16px;">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
@@ -1266,6 +1325,51 @@
     function copyUrl(url) {
       navigator.clipboard.writeText(window.location.origin + url);
       showAlert('URL скопирован в буфер обмена', 'success');
+    }
+
+    // Замена существующего изображения
+    function replaceImage(imagePath, imageName) {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'image/*';
+      
+      input.onchange = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        
+        if (!confirm(`Заменить изображение "${imageName}"?\n\nСтарое изображение будет перезаписано.`)) return;
+        
+        const formData = new FormData();
+        // Используем оригинальное имя файла из пути
+        const fileName = imagePath.split('/').pop();
+        formData.append('file', file, fileName);
+        
+        try {
+          const response = await fetch('/api/upload', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${JWT_TOKEN}`
+            },
+            body: formData
+          });
+          
+          const result = await response.json();
+          
+          if (result.success) {
+            showAlert(`Изображение "${imageName}" успешно заменено! Обновите страницу сайта.`, 'success');
+            // Обновляем превью на странице админки
+            setTimeout(() => {
+              location.reload();
+            }, 2000);
+          } else {
+            showAlert('Ошибка замены: ' + result.error, 'error');
+          }
+        } catch (error) {
+          showAlert('Ошибка загрузки: ' + error.message, 'error');
+        }
+      };
+      
+      input.click();
     }
 
     // Алерты
