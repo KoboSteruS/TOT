@@ -837,7 +837,7 @@
     <section class="section" id="map" data-animate>
       <div class="container">
         <h2>Как нас найти</h2>
-        <p class="lead">Наш офис находится в Санкт-Петербурге по адресу: ул. Федосовой, 31 (ЖК «Свой берег»), помещение 6</p>
+        <p class="lead">Наш офис находится в Петрозаводске по адресу: ул. Федосовой, 31 (ЖК «Свой берег»), помещение 6</p>
         
         <div class="contacts-wrapper">
           <!-- Левая колонка с виджетами -->
@@ -851,7 +851,7 @@
               </div>
               <div class="widget-content">
                 <h4>Адрес</h4>
-                <p>ул. Федосовой, 31<br>ЖК «Свой берег», помещение 6<br>Санкт-Петербург, 197198</p>
+                <p>ул. Федосовой, 31<br>ЖК «Свой берег», помещение 6<br>Петрозаводск</p>
               </div>
             </div>
             
@@ -898,7 +898,7 @@
               </div>
               <div class="widget-content">
                 <h4>Email</h4>
-                <p><a href="mailto:info@oootot.ru">info@oootot.ru</a></p>
+                <p><a href="mailto:info@tot-ptz.ru">info@tot-ptz.ru</a></p>
               </div>
             </div>
           </div>
@@ -972,7 +972,7 @@
             <ul>
               <li><a href="tel:+79214604646">+7 (921) 460-46-46</a></li>
               <li><a href="tel:+79643194646">+7 (964) 319-46-46</a></li>
-              <li><a href="mailto:info@oootot.ru">info@oootot.ru</a></li>
+              <li><a href="mailto:info@tot-ptz.ru">info@tot-ptz.ru</a></li>
               <li><a href="#map">ул. Федосовой, 31, офис 6</a></li>
             </ul>
           </div>
@@ -1050,7 +1050,7 @@
               </defs>
             </svg>
           </div>
-          <p class="welcome-text">Здравствуйте! Я чат-бот ООО «ТОТ». Выберите популярный вопрос или задайте свой:</p>
+          <p class="welcome-text">Здравствуйте! Я чат-бот ООО «ТОТ» — Вашей Идеальной Бухгалтерии. Доверьте бухгалтерию профессионалам! С нами любые горы по плечу! 📞 +7 (964) 319-46-46. Выберите популярный вопрос или задайте свой:</p>
           <div class="quick-questions" id="quickQuestions"></div>
         </div>
       </div>
@@ -1106,12 +1106,12 @@
 
     ymaps.ready(function() {
       const map = new ymaps.Map('yandex-map', {
-        center: [59.893048, 30.318788],
+        center: [61.785, 34.347],
         zoom: 16,
         controls: ['zoomControl', 'fullscreenControl']
       });
 
-      const placemark = new ymaps.Placemark([59.893048, 30.318788], {
+      const placemark = new ymaps.Placemark([61.785, 34.347], {
         balloonContent: '<strong>ООО «ТОТ»</strong><br>ул. Федосовой, 31, помещение 6<br>+7 (921) 460-46-46'
       }, {
         preset: 'islands#blueDotIcon'
