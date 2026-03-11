@@ -423,17 +423,20 @@
       </div>
     </div>
 
-    <section class="section" data-animate>
+    <section class="section" id="cta-consultation" data-animate>
       <div class="container">
-        <div class="cta-laptop glass-card hover-lift">
-          <div>
+        <div class="cta-modern">
+          <div class="cta-content">
             <h2>Не знаете, какой формат подойдёт?</h2>
-            <p>Подберём оптимальный формат сопровождения под ваш бизнес.</p>
-            <a class="btn btn-primary" href="#final-cta">Получить консультацию</a>
-            <ul>
+            <p class="cta-subtitle">Подберём оптимальный формат сопровождения<br>под ваш бизнес и систему налогообложения.</p>
+            <a class="btn-cta-white" href="#final-cta">Получить консультацию</a>
+            <ul class="cta-benefits">
               <li>Первая консультация бесплатно</li>
               <li>Ответ в течение рабочего дня</li>
             </ul>
+          </div>
+          <div class="cta-image">
+            <img src="{{ url_for('static', filename='images/cta/laptop.jpg') }}" alt="Консультация по бухгалтерии">
           </div>
         </div>
       </div>
