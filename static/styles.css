@@ -1836,11 +1836,19 @@ h2 {
 }
 
 /* ===== BUSINESS SCALES ===== */
+#business-scales .scale-grid,
 .scale-grid {
   margin-top: 40px;
   display: grid !important;
   grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   gap: 24px;
+}
+
+@media (min-width: 861px) {
+  #business-scales .scale-grid,
+  .scale-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
 }
 
 .scale-card {
@@ -2640,8 +2648,7 @@ h2 {
 
 @media (max-width: 1024px) {
   .steps-grid,
-  .tariffs-grid,
-  .scale-grid {
+  .tariffs-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   
