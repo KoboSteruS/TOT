@@ -835,7 +835,7 @@ h2 {
 
 .service-card {
   position: relative;
-  padding: 40px 32px;
+  padding: 32px;
   border-radius: 20px;
   background: #fff;
   box-shadow: 0 4px 20px rgba(0, 0, 0, .04);
@@ -843,8 +843,9 @@ h2 {
   transition: all .5s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
   display: flex;
-  flex-direction: column;
-  gap: 20px;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 24px;
 }
 
 .service-card::before {
@@ -875,6 +876,7 @@ h2 {
 .service-icon {
   width: 88px;
   height: 88px;
+  min-width: 88px;
   position: relative;
   z-index: 1;
   transition: all .5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -903,6 +905,7 @@ h2 {
   flex-direction: column;
   gap: 12px;
   flex: 1;
+  min-width: 0;
 }
 
 .service-content h3 {
@@ -3242,12 +3245,16 @@ h2 {
   }
   
   .service-card {
-    padding: 28px 24px;
+    padding: 24px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
   
   .service-icon {
     width: 72px;
     height: 72px;
+    min-width: 72px;
   }
   
   .service-content h3 {
@@ -3256,6 +3263,10 @@ h2 {
   
   .service-content p {
     font-size: 15px;
+  }
+  
+  .service-details-btn {
+    align-self: center;
   }
   
   .service-modal-content {
