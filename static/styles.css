@@ -364,7 +364,7 @@ h2 {
 .btn {
   border: 0;
   border-radius: 12px;
-  padding: 13px 22px;
+  padding: 20px 22px;
   font-size: 15px;
   font-weight: 600;
   transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease;
@@ -1835,25 +1835,121 @@ h2 {
   transform: scale(1.02);
 }
 
+/* ===== BUSINESS SCALES ===== */
 .scale-grid {
-  margin-top: 24px;
+  margin-top: 40px;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
 }
 
 .scale-card {
-  border-radius: var(--radius);
-  padding: 28px 24px;
+  position: relative;
+  border-radius: 20px;
+  padding: 32px 28px;
   background: #fff;
-  box-shadow: var(--shadow);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, .04);
   border: 1px solid #e8eaf6;
-  transition: all .3s ease;
+  transition: all .4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.scale-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(61, 90, 254, .05), transparent);
+  transition: left .6s ease;
+}
+
+.scale-card:hover::before {
+  left: 100%;
 }
 
 .scale-card:hover {
   border-color: var(--primary);
-  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(61, 90, 254, .12);
+  transform: translateY(-8px) scale(1.02);
+}
+
+.scale-icon {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 20px;
+  transition: all .4s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: drop-shadow(0 4px 12px rgba(61, 90, 254, .2));
+}
+
+.scale-card:hover .scale-icon {
+  transform: scale(1.1);
+  filter: drop-shadow(0 8px 20px rgba(61, 90, 254, .35));
+}
+
+.scale-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.scale-card h3 {
+  margin: 0 0 16px;
+  font-size: clamp(20px, 2.2vw, 24px);
+  color: var(--text);
+  font-weight: 700;
+  transition: color .3s ease;
+}
+
+.scale-card:hover h3 {
+  color: var(--primary);
+}
+
+.scale-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.scale-card li {
+  position: relative;
+  padding-left: 28px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.6;
+  transition: all .3s ease;
+}
+
+.scale-card li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  transition: all .3s ease;
+}
+
+.scale-card:hover li {
+  color: var(--text);
+}
+
+.scale-card:hover li::before {
+  transform: translateY(-50%) scale(1.15);
+  box-shadow: 0 4px 12px rgba(61, 90, 254, .3);
 }
 
 .tariffs-grid {
