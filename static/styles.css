@@ -58,6 +58,35 @@ a {
   transform: none;
 }
 
+.section-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, rgba(61, 90, 254, .1) 0%, rgba(61, 90, 254, .05) 100%);
+  border: 2px solid rgba(61, 90, 254, .2);
+  border-radius: 50px;
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 24px;
+  animation: badgePulse 2s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(61, 90, 254, .3);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(61, 90, 254, 0);
+  }
+}
+
+.section-badge svg {
+  width: 20px;
+  height: 20px;
+}
+
 .alt {
   background: #fafbfd;
 }
@@ -406,82 +435,153 @@ h2 {
 }
 
 .quality-text h3 {
-  margin: 0 0 4px;
-  font-size: 18px;
+  margin: 0 0 6px;
+  font-size: 19px;
   color: var(--text);
+  font-weight: 700;
 }
 
 .quality-text p {
   margin: 0;
   font-size: 14px;
   color: var(--muted);
+  line-height: 1.5;
 }
 
 .about-stats-compact {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  padding: 28px;
+  gap: 20px;
+  padding: 32px;
   background: linear-gradient(135deg, #f8faff 0%, #f0f4ff 100%);
-  border-radius: var(--radius);
-  border: 2px solid rgba(61, 90, 254, .1);
+  border-radius: var(--radius-lg);
+  border: 2px solid rgba(61, 90, 254, .15);
+  box-shadow: 0 4px 20px rgba(61, 90, 254, .08);
 }
 
 .stat-compact {
   text-align: center;
+  position: relative;
+}
+
+.stat-icon-mini {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 12px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, .25);
+}
+
+.stat-icon-mini svg {
+  width: 22px;
+  height: 22px;
 }
 
 .stat-compact .stat-number {
-  font-size: clamp(28px, 3.5vw, 36px);
-  font-weight: 700;
+  font-size: clamp(32px, 3.5vw, 40px);
+  font-weight: 800;
   background: var(--gradient-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
+  display: block;
 }
 
 .stat-compact .stat-label {
   font-size: 13px;
   color: var(--muted);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .btn-about-story {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 18px 24px;
+  gap: 16px;
+  padding: 24px 28px;
   background: #fff;
   border: 2px solid var(--primary);
-  border-radius: var(--radius);
+  border-radius: var(--radius-lg);
   color: var(--primary);
   font: inherit;
-  font-size: 15px;
-  font-weight: 600;
   cursor: pointer;
-  transition: all .3s ease;
+  transition: all .4s ease;
   text-align: left;
+  box-shadow: 0 4px 16px rgba(61, 90, 254, .1);
 }
 
 .btn-about-story svg {
   flex-shrink: 0;
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
+}
+
+.btn-about-story div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.btn-about-story strong {
+  font-size: 17px;
+  font-weight: 700;
+  display: block;
+}
+
+.btn-about-story span {
+  font-size: 14px;
+  opacity: .8;
+  font-weight: 500;
 }
 
 .btn-about-story:hover {
   background: var(--primary);
   color: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(61, 90, 254, .25);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(61, 90, 254, .3);
 }
 
 .about-photo {
+  position: relative;
   border-radius: var(--radius-lg);
   min-height: 600px;
   background: url('/static/images/about/accountant.jpg') center/cover no-repeat;
   box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+.about-photo-badge {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  background: rgba(255, 255, 255, .95);
+  backdrop-filter: blur(10px);
+  padding: 16px 20px;
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .15);
+  border: 2px solid rgba(61, 90, 254, .2);
+}
+
+.about-photo-badge svg {
+  width: 24px;
+  height: 24px;
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.about-photo-badge span {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.4;
 }
 .about-modal {
   position: fixed;
