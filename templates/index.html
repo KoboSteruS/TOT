@@ -516,23 +516,46 @@
 
     <section class="section section-partner" id="partner" data-animate>
       <div class="container">
-        <div class="partner-header">
-          <h2>Работаем с надёжным банком-партнёром</h2>
-          <p class="lead">Официальный статус партнёра Альфа-Банка подтверждён сертификатом</p>
-        </div>
-        
-        <div class="partner-compact">
-          <div class="partner-info">
-            <h3>Альфа-Банк — наш официальный партнёр</h3>
+        <div class="partner-modern">
+          <div class="partner-content">
+            <div class="partner-badge">Официальный партнёр</div>
+            <h2>Альфа-Банк — наш официальный партнёр</h2>
             <p>Помогаем открыть расчётный счёт для бизнеса быстро и без лишней бирократии.</p>
-            <ul class="partner-benefits-compact">
-              <li>Открытие счёта за 5 минут</li>
-              <li>Бесплатная консультация</li>
-              <li>Персональный менеджер</li>
-            </ul>
-            <div class="partner-actions">
-              <a class="btn btn-primary btn-partner-main" href="#final-cta">Открыть счёт</a>
-              <button class="btn-certificates" id="openCertificatesModal">
+            
+            <div class="partner-features">
+              <div class="partner-feature">
+                <div class="feature-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 14"/>
+                  </svg>
+                </div>
+                <span>Открытие счёта за 5 минут</span>
+              </div>
+              <div class="partner-feature">
+                <div class="feature-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                  </svg>
+                </div>
+                <span>Бесплатная консультация</span>
+              </div>
+              <div class="partner-feature">
+                <div class="feature-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                  </svg>
+                </div>
+                <span>Персональный менеджер</span>
+              </div>
+            </div>
+            
+            <div class="partner-actions-modern">
+              <a class="btn-partner-primary" href="#final-cta">Открыть счёт</a>
+              <button class="btn-partner-secondary" id="openCertificatesModal">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
                   <path d="M14 2v6h6"/>
@@ -543,8 +566,10 @@
             </div>
           </div>
           
-          <div class="partner-banner-compact">
-            <img src="{{ url_for('static', filename='images/partners/alfa-banner.png') }}" alt="Альфа-Банк">
+          <div class="partner-visual">
+            <div class="partner-banner-modern">
+              <img src="{{ url_for('static', filename='images/partners/alfa-banner.png') }}" alt="Альфа-Банк">
+            </div>
           </div>
         </div>
       </div>
