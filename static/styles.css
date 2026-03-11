@@ -87,49 +87,98 @@ a {
   height: 20px;
 }
 
-.about-mission {
+.about-principles {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  margin: 32px 0 40px;
-  padding: 0;
+  gap: 24px;
+  margin: 40px 0;
+  max-width: 1100px;
 }
 
-.mission-item {
+.principle-item {
   background: linear-gradient(135deg, #fff 0%, #f8faff 100%);
   border: 2px solid rgba(61, 90, 254, .15);
   border-radius: var(--radius-lg);
-  padding: 24px;
+  padding: 28px;
   display: flex;
-  gap: 16px;
-  align-items: flex-start;
-  transition: all .3s ease;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: all .4s ease;
+  position: relative;
+  overflow: hidden;
 }
 
-.mission-item:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(61, 90, 254, .15);
+.principle-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(61, 90, 254, .05) 0%, rgba(61, 90, 254, .02) 100%);
+  opacity: 0;
+  transition: opacity .4s ease;
+}
+
+.principle-item:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 40px rgba(61, 90, 254, .2);
   border-color: var(--primary);
 }
 
-.mission-icon {
-  font-size: 32px;
-  flex-shrink: 0;
-  line-height: 1;
+.principle-item:hover::before {
+  opacity: 1;
 }
 
-.mission-item p {
+.principle-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 20px;
+  background: var(--gradient-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 24px rgba(61, 90, 254, .3);
+  transition: all .4s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.principle-item:hover .principle-icon {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 12px 32px rgba(61, 90, 254, .4);
+}
+
+.principle-icon svg {
+  width: 36px;
+  height: 36px;
+}
+
+.principle-content {
+  position: relative;
+  z-index: 1;
+}
+
+.principle-content h3 {
+  margin: 0 0 12px;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  transition: color .3s ease;
+}
+
+.principle-item:hover .principle-content h3 {
+  color: var(--primary);
+}
+
+.principle-content p {
   margin: 0;
   font-size: 15px;
   line-height: 1.6;
-  color: var(--text);
-}
-
-.mission-item strong {
-  color: var(--primary);
-  display: block;
-  margin-bottom: 4px;
-  font-size: 16px;
+  color: var(--muted);
 }
 
 .modal-lead {
