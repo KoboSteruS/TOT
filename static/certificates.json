@@ -1,0 +1,11 @@
+{
+  "certificates": [
+    {
+      "id": "alfa-cert-1",
+      "title": "Сертификат партнёра Альфа-Банк",
+      "image": "/static/images/partners/alfa-certificate.png",
+      "description": "Официальное партнёрство с Альфа-Банком",
+      "date": "2024"
+    }
+  ]
+}

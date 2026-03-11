@@ -506,6 +506,14 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" data-section="certificates">
+              <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+              </svg>
+              Сертификаты
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" data-section="images">
               <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
@@ -578,6 +586,28 @@
 
         <div class="card">
           <div id="faq-list" class="faq-list"></div>
+        </div>
+      </section>
+
+      <!-- Сертификаты -->
+      <section id="certificates" class="section">
+        <div class="header">
+          <h2>Сертификаты</h2>
+          <div class="header-actions">
+            <button class="btn btn-primary" onclick="openAddCertificateModal()">
+              <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+              </svg>
+              Добавить сертификат
+            </button>
+          </div>
+        </div>
+
+        <div class="card">
+          <p style="color: var(--text-muted); margin-bottom: 20px;">
+            Управляйте сертификатами, которые отображаются в модальном окне на сайте. Сертификаты можно добавлять, редактировать и удалять.
+          </p>
+          <div id="certificates-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px;"></div>
         </div>
       </section>
 
@@ -791,6 +821,57 @@
     </div>
   </div>
 
+  <!-- Модальное окно для сертификатов -->
+  <div id="certificate-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="cert-modal-title">Добавить сертификат</h3>
+      </div>
+      
+      <form id="certificate-form">
+        <input type="hidden" id="cert-id">
+        
+        <div class="form-group">
+          <label class="form-label">Название сертификата</label>
+          <input type="text" class="form-input" id="cert-title" placeholder="Сертификат партнёра Альфа-Банк" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Описание</label>
+          <input type="text" class="form-input" id="cert-description" placeholder="Официальное партнёрство">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Год выдачи</label>
+          <input type="text" class="form-input" id="cert-date" placeholder="2024">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Изображение сертификата</label>
+          <div style="display: flex; gap: 12px; align-items: center;">
+            <input type="text" class="form-input" id="cert-image" placeholder="/static/images/partners/certificate.png" required style="flex: 1;">
+            <button type="button" class="btn btn-secondary" onclick="selectCertImage()">
+              Выбрать
+            </button>
+          </div>
+          <p style="font-size: 12px; color: var(--text-muted); margin-top: 8px;">
+            Нажмите "Выбрать" чтобы загрузить изображение или вставьте URL
+          </p>
+        </div>
+
+        <div id="cert-preview" style="margin-top: 16px; display: none;">
+          <label class="form-label">Превью:</label>
+          <img id="cert-preview-img" src="" alt="Превью" style="max-width: 100%; max-height: 200px; border-radius: 8px; border: 1px solid var(--border);">
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeCertificateModal()">Отмена</button>
+          <button type="submit" class="btn btn-primary">Сохранить</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <script>
     // JWT токен из шаблона
     const JWT_TOKEN = '{{ jwt_token }}';
@@ -830,6 +911,7 @@
         // Загружаем данные
         if (sectionId === 'content') loadContent();
         if (sectionId === 'faq') loadFaq();
+        if (sectionId === 'certificates') loadCertificates();
         if (sectionId === 'images') loadImages();
       });
     });
@@ -1310,6 +1392,183 @@
         }
       }
     });
+
+    // ======================
+    // СЕРТИФИКАТЫ
+    // ======================
+
+    // Загрузка сертификатов
+    async function loadCertificates() {
+      const data = await apiRequest('/api/certificates');
+      const grid = document.getElementById('certificates-grid');
+      
+      if (!data.certificates || data.certificates.length === 0) {
+        grid.innerHTML = '<p style="text-align: center; color: var(--text-muted); grid-column: 1/-1;">Сертификатов пока нет. Добавьте первый!</p>';
+        return;
+      }
+      
+      grid.innerHTML = data.certificates.map(cert => `
+        <div style="background: var(--bg-input); border: 1px solid var(--border); border-radius: 12px; overflow: hidden;">
+          <img src="${cert.image}" alt="${cert.title}" style="width: 100%; height: 200px; object-fit: cover; background: white;">
+          <div style="padding: 16px;">
+            <h4 style="margin-bottom: 8px; font-size: 16px;">${cert.title}</h4>
+            <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 8px;">${cert.description || ''}</p>
+            ${cert.date ? `<p style="font-size: 12px; color: var(--text-muted);">Год: ${cert.date}</p>` : ''}
+            <div style="display: flex; gap: 8px; margin-top: 12px;">
+              <button class="btn btn-secondary" style="flex: 1; padding: 8px;" onclick="editCertificate('${cert.id}')">
+                Редактировать
+              </button>
+              <button class="btn btn-danger" style="flex: 1; padding: 8px;" onclick="deleteCertificate('${cert.id}')">
+                Удалить
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Открыть модальное окно добавления сертификата
+    function openAddCertificateModal() {
+      document.getElementById('cert-modal-title').textContent = 'Добавить сертификат';
+      document.getElementById('certificate-form').reset();
+      document.getElementById('cert-id').value = '';
+      document.getElementById('cert-preview').style.display = 'none';
+      document.getElementById('certificate-modal').classList.add('active');
+    }
+
+    // Закрыть модальное окно сертификатов
+    function closeCertificateModal() {
+      document.getElementById('certificate-modal').classList.remove('active');
+    }
+
+    // Редактировать сертификат
+    async function editCertificate(certId) {
+      const data = await apiRequest('/api/certificates');
+      const cert = data.certificates.find(c => c.id === certId);
+      
+      if (!cert) return;
+      
+      document.getElementById('cert-modal-title').textContent = 'Редактировать сертификат';
+      document.getElementById('cert-id').value = cert.id;
+      document.getElementById('cert-title').value = cert.title;
+      document.getElementById('cert-description').value = cert.description || '';
+      document.getElementById('cert-date').value = cert.date || '';
+      document.getElementById('cert-image').value = cert.image;
+      
+      // Показать превью
+      const preview = document.getElementById('cert-preview');
+      const previewImg = document.getElementById('cert-preview-img');
+      previewImg.src = cert.image;
+      preview.style.display = 'block';
+      
+      document.getElementById('certificate-modal').classList.add('active');
+    }
+
+    // Удалить сертификат
+    async function deleteCertificate(certId) {
+      if (!confirm('Удалить этот сертификат?')) return;
+      
+      const result = await apiRequest(`/api/certificates/${certId}`, 'DELETE');
+      if (result.success) {
+        showAlert('Сертификат удалён', 'success');
+        loadCertificates();
+      }
+    }
+
+    // Выбрать изображение для сертификата
+    function selectCertImage() {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'image/*';
+      
+      input.onchange = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        
+        showAlert('Загружаю изображение...', 'success');
+        
+        const formData = new FormData();
+        formData.append('file', file);
+        
+        try {
+          const response = await fetch('/api/upload', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${JWT_TOKEN}`
+            },
+            body: formData
+          });
+          
+          const result = await response.json();
+          
+          if (result.success) {
+            document.getElementById('cert-image').value = result.url;
+            
+            // Показать превью
+            const preview = document.getElementById('cert-preview');
+            const previewImg = document.getElementById('cert-preview-img');
+            previewImg.src = result.url;
+            preview.style.display = 'block';
+            
+            showAlert('Изображение загружено!', 'success');
+          } else {
+            showAlert('Ошибка загрузки: ' + result.error, 'error');
+          }
+        } catch (error) {
+          showAlert('Ошибка: ' + error.message, 'error');
+        }
+      };
+      
+      input.click();
+    }
+
+    // Отправка формы сертификата
+    document.getElementById('certificate-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const certData = {
+        title: document.getElementById('cert-title').value,
+        description: document.getElementById('cert-description').value,
+        date: document.getElementById('cert-date').value,
+        image: document.getElementById('cert-image').value
+      };
+      
+      const certId = document.getElementById('cert-id').value;
+      
+      if (certId === '') {
+        // Добавление
+        const result = await apiRequest('/api/certificates', 'POST', certData);
+        if (result.success) {
+          showAlert('Сертификат добавлен', 'success');
+          closeCertificateModal();
+          loadCertificates();
+        }
+      } else {
+        // Обновление
+        certData.id = certId;
+        const result = await apiRequest(`/api/certificates/${certId}`, 'PUT', certData);
+        if (result.success) {
+          showAlert('Сертификат обновлён', 'success');
+          closeCertificateModal();
+          loadCertificates();
+        }
+      }
+    });
+
+    // Обновление превью при вводе URL
+    document.getElementById('cert-image').addEventListener('input', (e) => {
+      const url = e.target.value;
+      if (url) {
+        const preview = document.getElementById('cert-preview');
+        const previewImg = document.getElementById('cert-preview-img');
+        previewImg.src = url;
+        preview.style.display = 'block';
+      }
+    });
+
+    // ======================
+    // ИЗОБРАЖЕНИЯ
+    // ======================
 
     // Загрузка изображений
     async function loadImages() {

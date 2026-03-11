@@ -21,6 +21,7 @@ app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif', 'webp', 'svg'}
 # Пути к файлам данных
 CONTENT_FILE = 'static/content.json'
 FAQ_FILE = 'static/faq.json'
+CERTIFICATES_FILE = 'static/certificates.json'
 
 
 # Утилиты
@@ -214,6 +215,73 @@ def delete_faq(index):
             return jsonify({'success': True, 'message': 'FAQ удалён', 'deleted': deleted})
     
     return jsonify({'success': False, 'error': 'FAQ не найден'}), 404
+
+
+# ======================
+# API: СЕРТИФИКАТЫ
+# ======================
+
+@app.route('/api/certificates', methods=['GET'])
+@jwt_required
+def get_certificates():
+    """Получение всех сертификатов"""
+    cert_data = load_json(CERTIFICATES_FILE)
+    return jsonify(cert_data)
+
+
+@app.route('/api/certificates', methods=['POST'])
+@jwt_required
+def add_certificate():
+    """Добавление нового сертификата"""
+    new_cert = request.get_json()
+    cert_data = load_json(CERTIFICATES_FILE)
+    
+    if 'certificates' not in cert_data:
+        cert_data['certificates'] = []
+    
+    # Генерируем ID если не указан
+    if 'id' not in new_cert:
+        import uuid
+        new_cert['id'] = f"cert-{uuid.uuid4().hex[:8]}"
+    
+    cert_data['certificates'].append(new_cert)
+    
+    if save_json(CERTIFICATES_FILE, cert_data):
+        return jsonify({'success': True, 'message': 'Сертификат добавлен', 'certificate': new_cert})
+    return jsonify({'success': False, 'error': 'Ошибка сохранения'}), 500
+
+
+@app.route('/api/certificates/<cert_id>', methods=['PUT'])
+@jwt_required
+def update_certificate(cert_id):
+    """Обновление сертификата по ID"""
+    updated_cert = request.get_json()
+    cert_data = load_json(CERTIFICATES_FILE)
+    
+    if 'certificates' in cert_data:
+        for i, cert in enumerate(cert_data['certificates']):
+            if cert.get('id') == cert_id:
+                cert_data['certificates'][i] = updated_cert
+                if save_json(CERTIFICATES_FILE, cert_data):
+                    return jsonify({'success': True, 'message': 'Сертификат обновлён'})
+    
+    return jsonify({'success': False, 'error': 'Сертификат не найден'}), 404
+
+
+@app.route('/api/certificates/<cert_id>', methods=['DELETE'])
+@jwt_required
+def delete_certificate(cert_id):
+    """Удаление сертификата по ID"""
+    cert_data = load_json(CERTIFICATES_FILE)
+    
+    if 'certificates' in cert_data:
+        for i, cert in enumerate(cert_data['certificates']):
+            if cert.get('id') == cert_id:
+                deleted = cert_data['certificates'].pop(i)
+                if save_json(CERTIFICATES_FILE, cert_data):
+                    return jsonify({'success': True, 'message': 'Сертификат удалён', 'deleted': deleted})
+    
+    return jsonify({'success': False, 'error': 'Сертификат не найден'}), 404
 
 
 # ======================
