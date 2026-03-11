@@ -71,12 +71,6 @@
   <main>
     <section class="section" id="about" data-animate>
       <div class="container">
-        <div class="section-badge">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-          </svg>
-          <span>С 2013 года создаём идеальную бухгалтерию</span>
-        </div>
         
         <h2>Наша мечта — ваш спокойный бизнес</h2>
         
@@ -799,41 +793,23 @@
 
     <section class="section alt" id="final-cta" data-animate>
       <div class="container">
-        <h2>Передайте бухгалтерию профессионалам — сосредоточьтесь на бизнесе</h2>
-        <div class="final-layout glass-card hover-lift">
-          <div class="final-image"></div>
-          <form class="final-form" action="#" method="post">
-            <h3>Получите бесплатную консультацию</h3>
-            <p class="form-description">Заполните форму, и мы свяжемся с вами в течение 30 минут</p>
-            
+        <h2>Оставьте заявку на консультацию</h2>
+        <p class="lead">Мы свяжемся с вами в течение 30 минут</p>
+        <div class="final-layout-compact">
+          <form class="final-form-compact" action="#" method="post">
             <div class="form-row">
               <div class="form-group">
-                <label for="name">Имя <span class="required">*</span></label>
-                <input id="name" name="name" type="text" placeholder="Введите ваше имя" required />
+                <input id="name" name="name" type="text" placeholder="Ваше имя *" required />
               </div>
               
               <div class="form-group">
-                <label for="company">Компания</label>
-                <input id="company" name="company" type="text" placeholder="Название компании" />
-              </div>
-            </div>
-            
-            <div class="form-row">
-              <div class="form-group">
-                <label for="phone">Телефон <span class="required">*</span></label>
-                <input id="phone" name="phone" type="tel" placeholder="+7 (___) ___-__-__" required />
-              </div>
-              
-              <div class="form-group">
-                <label for="email">Email</label>
-                <input id="email" name="email" type="email" placeholder="your@email.com" />
+                <input id="phone" name="phone" type="tel" placeholder="Телефон *" required />
               </div>
             </div>
             
             <div class="form-group">
-              <label for="business-type">Форма бизнеса</label>
               <select id="business-type" name="business-type">
-                <option value="">Выберите форму</option>
+                <option value="">Форма бизнеса</option>
                 <option value="ip">ИП</option>
                 <option value="ooo">ООО</option>
                 <option value="samozanyatyy">Самозанятый</option>
@@ -841,60 +817,13 @@
               </select>
             </div>
             
-            <div class="form-group">
-              <label>Интересующие услуги</label>
-              <div class="checkbox-group">
-                <label class="checkbox-label">
-                  <input type="checkbox" name="services" value="accounting" />
-                  <span class="checkbox-custom"></span>
-                  <span>Бухгалтерское сопровождение</span>
-                </label>
-                <label class="checkbox-label">
-                  <input type="checkbox" name="services" value="tax" />
-                  <span class="checkbox-custom"></span>
-                  <span>Налоговый учёт</span>
-                </label>
-                <label class="checkbox-label">
-                  <input type="checkbox" name="services" value="hr" />
-                  <span class="checkbox-custom"></span>
-                  <span>Кадровый учёт</span>
-                </label>
-                <label class="checkbox-label">
-                  <input type="checkbox" name="services" value="consulting" />
-                  <span class="checkbox-custom"></span>
-                  <span>Консультация</span>
-                </label>
-                <label class="checkbox-label">
-                  <input type="checkbox" name="services" value="registration" />
-                  <span class="checkbox-custom"></span>
-                  <span>Регистрация бизнеса</span>
-                </label>
-                <label class="checkbox-label">
-                  <input type="checkbox" name="services" value="other" />
-                  <span class="checkbox-custom"></span>
-                  <span>Другое</span>
-                </label>
-              </div>
-            </div>
-            
-            <div class="form-group">
-              <label for="comment">Комментарий</label>
-              <textarea id="comment" name="comment" placeholder="Расскажите подробнее о вашей задаче..." rows="4"></textarea>
-            </div>
-            
             <label class="checkbox-label privacy-checkbox">
               <input type="checkbox" name="privacy" required />
               <span class="checkbox-custom"></span>
-              <span class="privacy-text">Я согласен с <a href="#" target="_blank">политикой конфиденциальности</a></span>
+              <span class="privacy-text">Согласен с <a href="#" target="_blank">политикой конфиденциальности</a></span>
             </label>
             
-            <button class="btn btn-primary btn-submit" type="button">Отправить заявку</button>
-            
-            <ul class="form-benefits">
-              <li>Работаем по договору</li>
-              <li>Несём ответственность</li>
-              <li>Персональный специалист</li>
-            </ul>
+            <button class="btn btn-primary btn-submit" type="button">Получить консультацию</button>
           </form>
         </div>
       </div>
