@@ -45,6 +45,14 @@ a {
   margin: 0 auto;
 }
 
+/* SCALE GRID - ВАЖНО! */
+.scale-grid {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
 .section {
   padding: clamp(72px, 8vw, 80px) 0;
   opacity: 0;
@@ -1836,17 +1844,8 @@ h2 {
 }
 
 /* ===== BUSINESS SCALES ===== */
-#business-scales .scale-grid,
-.scale-grid {
-  margin-top: 40px;
-  display: grid !important;
-  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  gap: 24px;
-}
-
 /* Только на мобильных делаем 1 колонку */
 @media (max-width: 860px) {
-  #business-scales .scale-grid,
   .scale-grid {
     grid-template-columns: 1fr !important;
   }
