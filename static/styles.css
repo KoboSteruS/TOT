@@ -149,50 +149,19 @@ a {
   margin-bottom: 32px;
 }
 
-.subtitle-text {
-  font-size: clamp(17px, 2vw, 19px);
+.about-subtitle p {
+  font-size: clamp(15px, 1.8vw, 17px);
   line-height: 1.7;
   color: var(--muted);
-  margin: 0 0 28px;
+  margin: 0 0 16px;
 }
 
-.about-values {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
+.about-subtitle p:last-child {
+  margin-bottom: 0;
 }
 
-.value-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  padding: 18px 20px;
-  background: linear-gradient(135deg, rgba(61, 90, 254, .04) 0%, rgba(61, 90, 254, .02) 100%);
-  border-radius: var(--radius);
-  border-left: 3px solid var(--primary);
-  transition: all .3s ease;
-}
-
-.value-item:hover {
-  background: linear-gradient(135deg, rgba(61, 90, 254, .08) 0%, rgba(61, 90, 254, .04) 100%);
-  transform: translateX(4px);
-}
-
-.value-icon {
-  font-size: 24px;
-  flex-shrink: 0;
-  line-height: 1;
-}
-
-.value-item p {
-  margin: 0;
-  font-size: 15px;
-  line-height: 1.6;
+.about-subtitle p strong {
   color: var(--text);
-}
-
-.value-item strong {
-  color: var(--primary);
   font-weight: 700;
 }
 
