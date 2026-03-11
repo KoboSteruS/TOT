@@ -3588,6 +3588,10 @@ h2 {
   }
   
   /* Исправления для scale-card на мобильных */
+  .scale-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
   .scale-card {
     padding: 24px 20px;
   }
