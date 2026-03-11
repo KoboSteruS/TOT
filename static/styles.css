@@ -1228,6 +1228,27 @@ h2 {
   font-weight: 700;
 }
 
+.btn-cta-white-special {
+  display: inline-block;
+  padding: 16px 36px;
+  background: #fff;
+  color: var(--text);
+  font-weight: 700;
+  font-size: 16px;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all .3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .2);
+  border: none;
+  cursor: pointer;
+}
+
+.btn-cta-white-special:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, .3);
+  background: #f8f9fb;
+}
+
 /* Timeline процесса работы */
 .process-timeline {
   max-width: 920px;
