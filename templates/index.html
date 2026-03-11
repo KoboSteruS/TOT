@@ -581,14 +581,8 @@
         
         <h2>Наши сертификаты</h2>
         
-        <div class="certificates-grid">
-          <div class="certificate-item" data-cert="alfa">
-            <img src="{{ url_for('static', filename='images/partners/alfa-certificate.png') }}" alt="Сертификат партнёра Альфа-Банк">
-            <div class="certificate-overlay">
-              <span>Нажмите для увеличения</span>
-            </div>
-          </div>
-          <!-- Здесь можно добавить больше сертификатов -->
+        <div class="certificates-grid" id="certificates-grid-site">
+          <!-- Сертификаты загружаются динамически из админки -->
         </div>
       </div>
     </div>
@@ -1574,12 +1568,6 @@
     const certificateViewOverlay = document.querySelector('.certificate-view-overlay');
     const certificateViewImage = document.getElementById('certificateViewImage');
 
-    // Открытие галереи сертификатов
-    openCertificatesBtn.addEventListener('click', () => {
-      certificatesModal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    });
-
     // Закрытие галереи сертификатов
     const closeCertificatesModal = () => {
       certificatesModal.classList.remove('active');
@@ -1608,6 +1596,50 @@
 
     closeCertificateViewBtn.addEventListener('click', closeCertificateView);
     certificateViewOverlay.addEventListener('click', closeCertificateView);
+
+    // Загрузка сертификатов из API
+    async function loadSiteCertificates() {
+      try {
+        const response = await fetch('/api/certificates');
+        const data = await response.json();
+        
+        const grid = document.getElementById('certificates-grid-site');
+        
+        if (!data.certificates || data.certificates.length === 0) {
+          grid.innerHTML = '<p style="text-align: center; color: #94A3B8; padding: 40px;">Сертификатов пока нет</p>';
+          return;
+        }
+        
+        grid.innerHTML = data.certificates.map(cert => `
+          <div class="certificate-item" data-cert="${cert.id}">
+            <img src="${cert.image}" alt="${cert.title}">
+            <div class="certificate-overlay">
+              <span>Нажмите для увеличения</span>
+            </div>
+          </div>
+        `).join('');
+        
+        // Добавляем обработчики кликов для новых сертификатов
+        document.querySelectorAll('.certificate-item').forEach(item => {
+          item.addEventListener('click', () => {
+            const img = item.querySelector('img');
+            certificateViewImage.src = img.src;
+            certificateViewImage.alt = img.alt;
+            certificateViewModal.classList.add('active');
+            certificatesModal.classList.remove('active');
+          });
+        });
+      } catch (error) {
+        console.error('Ошибка загрузки сертификатов:', error);
+      }
+    }
+
+    // Загружаем сертификаты при открытии модального окна
+    openCertificatesBtn.addEventListener('click', () => {
+      certificatesModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      loadSiteCertificates();
+    });
   </script>
 </body>
 </html>
