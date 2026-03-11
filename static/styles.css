@@ -3586,4 +3586,83 @@ h2 {
   .timeline-text p {
     font-size: 14px;
   }
+  
+  /* Исправления для scale-card на мобильных */
+  .scale-card {
+    padding: 24px 20px;
+  }
+  
+  .scale-icon {
+    width: 56px;
+    height: 56px;
+  }
+  
+  .scale-card h3 {
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+  
+  .scale-card li {
+    font-size: 14px;
+    padding-left: 26px;
+  }
+  
+  .scale-card li::before {
+    width: 18px;
+    height: 18px;
+    font-size: 11px;
+    line-height: 18px;
+  }
+  
+  /* Статистика О нас */
+  .about-stats-compact {
+    padding: 20px 16px;
+    gap: 16px;
+  }
+  
+  .stat-compact {
+    padding: 16px 12px;
+  }
+  
+  .stat-compact .stat-number {
+    font-size: 28px;
+  }
+  
+  .stat-compact .stat-label {
+    font-size: 13px;
+  }
+  
+  /* Плашки принципов */
+  .about-principles-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .principle-badge {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  
+  /* Hero секция */
+  .hero-content h1 {
+    font-size: 32px;
+    line-height: 1.2;
+  }
+  
+  .hero-content .subtitle {
+    font-size: 16px;
+    margin-bottom: 24px;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
+  
+  .hero-buttons .btn {
+    width: 100%;
+    justify-content: center;
+  }
 }
