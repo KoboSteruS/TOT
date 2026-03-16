@@ -1203,6 +1203,22 @@
           </div>
         </div>
 
+        <!-- Уведомления -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">🔔 Уведомления (Telegram)</h3>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Токен бота Telegram</label>
+            <input type="text" class="form-input" data-path="notifications.telegram_bot_token" value="${safe(data.notifications?.telegram_bot_token)}" placeholder="123456:ABC-DEF...">
+          </div>
+          <div class="form-group">
+            <label class="form-label">ID чата для заявок</label>
+            <input type="text" class="form-input" data-path="notifications.telegram_chat_id" value="${safe(data.notifications?.telegram_chat_id)}" placeholder="Например, 123456789">
+          </div>
+          <p class="form-hint">Укажите ID чата (пользователь, группа или канал), куда бот будет отправлять новые заявки с формы.</p>
+        </div>
+
         <!-- Карта -->
         <div class="card">
           <div class="card-header">

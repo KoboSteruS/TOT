@@ -237,6 +237,10 @@
       "submit_button": "Получить консультацию"
     }
   },
+  "notifications": {
+    "telegram_bot_token": "8634317989:AAHd_lUCyFTGDzMFgVRKwvKeGdzsnGt4T-Q",
+    "telegram_chat_id": ""
+  },
   "map": {
     "title": "Как нас найти",
     "lead": "Наш офис находится в Петрозаводске по адресу: ул. Федосовой, 31 (ЖК «Свой берег»), помещение 6",

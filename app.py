@@ -1,8 +1,11 @@
 import os
 import json
 import jwt
+import threading
+import time
 from datetime import datetime, timedelta
 from functools import wraps
+from urllib import request as urlrequest, parse as urlparse
 from flask import Flask, render_template, request, jsonify, send_from_directory
 from werkzeug.utils import secure_filename
 from dotenv import load_dotenv
@@ -23,6 +26,7 @@ CONTENT_FILE = 'static/content.json'
 FAQ_FILE = 'static/faq.json'
 CERTIFICATES_FILE = 'static/certificates.json'
 DATA_FOLDER = 'data'
+TELEGRAM_CHATS_FILE = 'static/telegram_chats.json'
 
 # Разрешённые файлы для скачивания (slug -> (имя файла, имя для скачивания))
 DOWNLOAD_FILES = {
@@ -78,6 +82,204 @@ def generate_jwt_token():
         'iat': datetime.utcnow()
     }
     return jwt.encode(payload, app.config['JWT_SECRET'], algorithm='HS256')
+
+
+def _load_telegram_chat_ids() -> list[str]:
+    """Загрузка chat_id из локального файла."""
+    data = load_json(TELEGRAM_CHATS_FILE) or {}
+    return [str(cid) for cid in data.get('chat_ids', [])]
+
+
+def _save_telegram_chat_ids(chat_ids: list[str]) -> None:
+    """Сохранение chat_id в локальный файл."""
+    data = {'chat_ids': sorted({str(cid) for cid in chat_ids})}
+    save_json(TELEGRAM_CHATS_FILE, data)
+
+
+def _fetch_chat_ids_from_updates(token: str) -> list[str]:
+    """Пробегаемся по getUpdates и вытаскиваем все chat_id, которые писали боту (fallback)."""
+    api_url = f'https://api.telegram.org/bot{token}/getUpdates'
+    try:
+        with urlrequest.urlopen(api_url, timeout=10) as resp:
+            if resp.status != 200:
+                print(f'[Telegram] getUpdates status={resp.status}')
+                return []
+            payload = json.loads(resp.read().decode('utf-8'))
+    except Exception as e:
+        print(f'[Telegram] getUpdates error: {e}')
+        return []
+
+    result = payload.get('result', [])
+    chat_ids_all: set[str] = set()
+    chat_ids_start: set[str] = set()
+
+    for update in result:
+        message = update.get('message') or update.get('channel_post')
+        if not message:
+            continue
+        chat = message.get('chat') or {}
+        cid = chat.get('id')
+        if cid is None:
+            continue
+        cid_str = str(cid)
+        chat_ids_all.add(cid_str)
+        text = (message.get('text') or '').strip()
+        if text.startswith('/start'):
+            chat_ids_start.add(cid_str)
+
+    # Если есть /start — используем их, иначе все найденные
+    return sorted(chat_ids_start or chat_ids_all)
+
+
+def _get_telegram_token_from_content() -> str | None:
+    """Возвращает токен Telegram из content.json или .env."""
+    content = load_json(CONTENT_FILE)
+    notifications = content.get('notifications', {})
+    token = notifications.get('telegram_bot_token') or os.getenv('TELEGRAM_BOT_TOKEN')
+    return token or None
+
+
+def telegram_bot_loop():
+    """Фоновый поток: опрашивает getUpdates и реагирует на /start.
+
+    При /start:
+    - сохраняет chat_id в локальный файл
+    - отправляет пользователю сообщение, что chat_id зарегистрирован
+    """
+    token = _get_telegram_token_from_content()
+    if not token:
+        print('[Telegram] токен не задан, бот не запущен')
+        return
+
+    print('[Telegram] бот запущен в режиме long polling')
+    api_url = f'https://api.telegram.org/bot{token}'
+    offset = 0
+
+    while True:
+        try:
+            url = f'{api_url}/getUpdates?timeout=25&offset={offset}'
+            with urlrequest.urlopen(url, timeout=30) as resp:
+                if resp.status != 200:
+                    time.sleep(5)
+                    continue
+                payload = json.loads(resp.read().decode('utf-8'))
+        except Exception as e:
+            print(f'[Telegram] getUpdates error: {e}')
+            time.sleep(5)
+            continue
+
+        for update in payload.get('result', []):
+            offset = max(offset, update.get('update_id', 0) + 1)
+            message = update.get('message') or update.get('channel_post')
+            if not message:
+                continue
+            chat = message.get('chat') or {}
+            cid = chat.get('id')
+            if cid is None:
+                continue
+
+            text = (message.get('text') or '').strip()
+            if text.startswith('/start'):
+                cid_str = str(cid)
+                current = _load_telegram_chat_ids()
+                if cid_str not in current:
+                    current.append(cid_str)
+                    _save_telegram_chat_ids(current)
+                    print(f'[Telegram] зарегистрирован chat_id={cid_str}')
+
+                welcome_text = (
+                    '👋 Здравствуйте!\n\n'
+                    'Ваш chat_id зарегистрирован. Теперь заявки с формы на сайте ООО «ТОТ» '
+                    'будут приходить в этот чат.'
+                )
+                payload_send = {
+                    'chat_id': cid_str,
+                    'text': welcome_text,
+                }
+                data = urlparse.urlencode(payload_send).encode('utf-8')
+                req = urlrequest.Request(f'{api_url}/sendMessage', data=data, method='POST')
+                try:
+                    with urlrequest.urlopen(req, timeout=10) as resp:
+                        if resp.status != 200:
+                            print(f'[Telegram] ошибка отправки приветствия: {resp.status}')
+                except Exception as e:
+                    print(f'[Telegram] ошибка отправки приветствия: {e}')
+
+        # небольшая пауза между циклами, чтобы не крутить впустую
+        time.sleep(1)
+
+
+def send_lead_to_telegram(name: str, phone: str, business_type: str, comment: str) -> tuple[bool, str | None]:
+    """Отправка заявки из формы в Telegram-бота.
+
+    Токен бота и chat_id читаются из блока notifications в content.json
+    """
+    content = load_json(CONTENT_FILE)
+    notifications = content.get('notifications', {})
+    token = notifications.get('telegram_bot_token') or os.getenv('TELEGRAM_BOT_TOKEN')
+    explicit_chat_id = notifications.get('telegram_chat_id') or os.getenv('TELEGRAM_CHAT_ID')
+
+    if not token:
+        return False, 'Не настроен токен бота'
+
+    # Список чатов: все, кто писал боту + явный chat_id (если указан)
+    chat_ids: list[str] = _load_telegram_chat_ids()
+    if explicit_chat_id:
+        chat_ids.append(str(explicit_chat_id))
+        chat_ids = list(dict.fromkeys(chat_ids))  # dedupe, preserve order
+
+    # Если ещё ни одного chat_id не знаем — попробуем вытащить их через getUpdates
+    if not chat_ids:
+        fetched = _fetch_chat_ids_from_updates(token)
+        if fetched:
+            chat_ids.extend(fetched)
+            _save_telegram_chat_ids(chat_ids)
+
+    if not chat_ids:
+        return False, 'Нет ни одного получателя (chat_id). Напишите боту /start и повторите отправку.'
+
+    text_lines = [
+        '🆕 <b>Новая заявка с сайта ООО «ТОТ»</b>',
+        '',
+        f'👤 Имя: <b>{name}</b>',
+        f'📞 Телефон: <b>{phone}</b>',
+    ]
+    if business_type:
+        text_lines.append(f'🏢 Форма бизнеса: <b>{business_type}</b>')
+    if comment:
+        text_lines.append('')
+        text_lines.append(f'💬 Комментарий:\n{comment}')
+
+    text = '\n'.join(text_lines)
+
+    api_url = f'https://api.telegram.org/bot{token}/sendMessage'
+    errors: list[str] = []
+
+    for cid in chat_ids:
+        payload = {
+            'chat_id': cid,
+            'text': text,
+            'parse_mode': 'HTML',
+        }
+
+        data = urlparse.urlencode(payload).encode('utf-8')
+        req = urlrequest.Request(api_url, data=data, method='POST')
+        try:
+            with urlrequest.urlopen(req, timeout=10) as resp:
+                if resp.status != 200:
+                    err = f'Ошибка Telegram API для chat_id={cid}: {resp.status}'
+                    print(err)
+                    errors.append(err)
+        except Exception as e:
+            err = f'Ошибка отправки для chat_id={cid}: {e}'
+            print(err)
+            errors.append(str(e))
+
+    if errors and len(errors) == len(chat_ids):
+        # Не удалось отправить ни в один чат
+        return False, '; '.join(errors[:3])
+
+    return True, None
 
 
 # Декоратор для защиты API endpoints
@@ -143,6 +345,51 @@ def download_file(slug):
         as_attachment=True,
         download_name=download_as
     )
+
+
+@app.route('/telegram/webhook', methods=['POST'])
+def telegram_webhook():
+    """Webhook для Telegram‑бота: сохраняем chat_id всех, кто написал боту."""
+    update = request.get_json() or {}
+    message = update.get('message') or update.get('channel_post')
+    if not message:
+        return jsonify({'ok': True})
+
+    chat = message.get('chat') or {}
+    chat_id = chat.get('id')
+    if not chat_id:
+        return jsonify({'ok': True})
+
+    chats_path = 'static/telegram_chats.json'
+    data = load_json(chats_path) or {}
+    ids = set(str(cid) for cid in data.get('chat_ids', []))
+    ids.add(str(chat_id))
+    data['chat_ids'] = sorted(ids)
+    if save_json(chats_path, data):
+        print(f"[Telegram] зарегистрирован chat_id={chat_id}")
+    else:
+        print(f"[Telegram] не удалось сохранить chat_id={chat_id}")
+
+    return jsonify({'ok': True})
+
+
+@app.route('/api/lead', methods=['POST'])
+def submit_lead():
+    """Приём заявки с формы и отправка в Telegram"""
+    data = request.get_json() or {}
+    name = (data.get('name') or '').strip()
+    phone = (data.get('phone') or '').strip()
+    business_type = (data.get('business_type') or '').strip()
+    comment = (data.get('comment') or '').strip()
+
+    if not name or not phone:
+        return jsonify({'success': False, 'error': 'Имя и телефон обязательны'}), 400
+
+    ok, error = send_lead_to_telegram(name, phone, business_type, comment)
+    if not ok:
+        return jsonify({'success': False, 'error': error or 'Ошибка отправки в Telegram'}), 500
+
+    return jsonify({'success': True})
 
 
 # ======================
@@ -419,11 +666,15 @@ def generate_token():
 if __name__ == '__main__':
     # Создаём папку для загрузок, если её нет
     os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
-    
+
+    # Запускаем Telegram-бота в отдельном потоке
+    bot_thread = threading.Thread(target=telegram_bot_loop, daemon=True)
+    bot_thread.start()
+
     print("=" * 50)
-    print("ООО «ТОТ» - Админ-панель запущена!")
+    print("ООО «ТОТ» - сервер запущен!")
     print("=" * 50)
     print(f"URL админки: http://localhost:5000/admin/{app.config['ADMIN_TOKEN']}")
     print("=" * 50)
-    
+
     app.run(host='0.0.0.0', port=5000, debug=True)

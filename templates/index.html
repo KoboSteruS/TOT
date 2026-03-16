@@ -510,59 +510,128 @@
 
     <section class="section section-partner" id="partner" data-animate>
       <div class="container">
-        <div class="partner-modern">
-          <div class="partner-content">
-            <div class="partner-badge">Официальный партнёр</div>
-            <h2>Альфа-Банк — наш официальный партнёр</h2>
-            <p>Помогаем открыть расчётный счёт для бизнеса быстро и без лишней бирократии.</p>
-            
-            <div class="partner-features">
-              <div class="partner-feature">
-                <div class="feature-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10"/>
-                    <polyline points="12 6 12 12 16 14"/>
-                  </svg>
+        <div class="partner-tabs" aria-label="Партнёры банков">
+          <button class="partner-tab active" data-partner="alfa" type="button">Альфа‑Банк</button>
+          <button class="partner-tab" data-partner="tbank" type="button">Т‑Банк</button>
+        </div>
+
+        <div class="partner-slides">
+          <!-- Слайд: Альфа-Банк -->
+          <div class="partner-modern partner-slide active" data-partner="alfa">
+            <div class="partner-content">
+              <div class="partner-badge">Официальный партнёр</div>
+              <h2>Альфа-Банк — наш официальный партнёр</h2>
+              <p>Помогаем открыть расчётный счёт для бизнеса быстро и без лишней бирократии.</p>
+
+              <div class="partner-features">
+                <div class="partner-feature">
+                  <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="10"/>
+                      <polyline points="12 6 12 12 16 14"/>
+                    </svg>
+                  </div>
+                  <span>Открытие счёта за 5 минут</span>
                 </div>
-                <span>Открытие счёта за 5 минут</span>
+                <div class="partner-feature">
+                  <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                  </div>
+                  <span>Бесплатная консультация</span>
+                </div>
+                <div class="partner-feature">
+                  <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                      <circle cx="9" cy="7" r="4"/>
+                      <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                      <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                  </div>
+                  <span>Персональный менеджер</span>
+                </div>
               </div>
-              <div class="partner-feature">
-                <div class="feature-icon">
+
+              <div class="partner-actions-modern">
+                <a class="btn-partner-primary" href="#final-cta">Оставить заявку на сопровождение</a>
+                <button class="btn-partner-secondary" id="openCertificatesModal">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <path d="M14 2v6h6"/>
+                    <path d="M9 15l2 2 4-4"/>
                   </svg>
-                </div>
-                <span>Бесплатная консультация</span>
-              </div>
-              <div class="partner-feature">
-                <div class="feature-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                    <circle cx="9" cy="7" r="4"/>
-                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                  </svg>
-                </div>
-                <span>Персональный менеджер</span>
+                  Наши сертификаты
+                </button>
               </div>
             </div>
-            
-            <div class="partner-actions-modern">
-              <a class="btn-partner-primary" href="#final-cta">Открыть счёт</a>
-              <button class="btn-partner-secondary" id="openCertificatesModal">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                  <path d="M14 2v6h6"/>
-                  <path d="M9 15l2 2 4-4"/>
-                </svg>
-                Наши сертификаты
-              </button>
+
+            <div class="partner-visual">
+              <div class="partner-banner-modern">
+                <img src="{{ url_for('static', filename='images/partners/alfa-banner.png') }}" alt="Альфа-Банк">
+              </div>
             </div>
           </div>
-          
-          <div class="partner-visual">
-            <div class="partner-banner-modern">
-              <img src="{{ url_for('static', filename='images/partners/alfa-banner.png') }}" alt="Альфа-Банк">
+
+          <!-- Слайд: Т‑Банк -->
+          <div class="partner-modern partner-slide" data-partner="tbank">
+            <div class="partner-content">
+              <div class="partner-badge">Партнёр по банковским продуктам</div>
+              <h2>Т‑Банк — решения для бизнеса</h2>
+              <p>Помогаем открыть счёт, зарегистрировать ООО/ИП и подключить эквайринг на выгодных условиях через Т‑Банк.</p>
+
+              <div class="partner-features">
+                <div class="partner-feature">
+                  <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="3" y="4" width="18" height="14" rx="2"/>
+                      <path d="M3 10h18"/>
+                    </svg>
+                  </div>
+                  <span>Расчётный счёт для бизнеса</span>
+                </div>
+                <div class="partner-feature">
+                  <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M3 7h18M6 11h12M8 15h8M10 19h4"/>
+                    </svg>
+                  </div>
+                  <span>Регистрация ООО и ИП онлайн</span>
+                </div>
+                <div class="partner-feature">
+                  <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="3" y="4" width="18" height="14" rx="2"/>
+                      <path d="M8 10h8M10 14h4"/>
+                    </svg>
+                  </div>
+                  <span>Эквайринг и приём оплаты</span>
+                </div>
+              </div>
+
+              <div class="partner-actions-modern">
+                <a class="btn-partner-primary" href="https://www.tbank.ru/business/rko/form?utm_medium=ptr.act&utm_campaign=sme.partners&partnerId=5-ICGW0RYU&agentId=5-3543GXX2E&agentSsoId=2098460a-bfb7-4d4c-885b-81d519734b4f&utm_source=partner_rko_a_sme" target="_blank" rel="noopener">
+                  Открыть расчётный счёт
+                </a>
+                <a class="btn-partner-secondary" href="https://www.tbank.ru/business/registration-ooo/form?utm_medium=ptr.act&utm_campaign=sme.partners&partnerId=5-ICGW0RYU&agentId=5-3543GXX2E&agentSsoId=2098460a-bfb7-4d4c-885b-81d519734b4f&utm_source=partner_rko_a_sme" target="_blank" rel="noopener">
+                  Регистрация ООО
+                </a>
+                <a class="btn-partner-secondary" href="https://www.tbank.ru/business/registration-ip/?utm_medium=ptr.act&utm_campaign=sme.partners&partnerId=5-ICGW0RYU&agentId=5-3543GXX2E&agentSsoId=2098460a-bfb7-4d4c-885b-81d519734b4f&utm_source=partner_rko_a_sme" target="_blank" rel="noopener">
+                  Регистрация ИП
+                </a>
+                <a class="btn-partner-secondary" href="https://www.tbank.ru/business/acquiring/form/rent?utm_medium=ptr.act&utm_campaign=sme.partners&partnerId=5-ICGW0RYU&agentId=5-3543GXX2E&agentSsoId=2098460a-bfb7-4d4c-885b-81d519734b4f&utm_source=partner_rko_a_sme" target="_blank" rel="noopener">
+                  Эквайринг
+                </a>
+              </div>
+            </div>
+
+            <div class="partner-visual">
+              <div class="partner-banner-modern partner-banner-modern--placeholder">
+                <div class="partner-placeholder">
+                  <span class="partner-placeholder-label">Баннер Т‑Банк появится позже</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -1010,6 +1079,13 @@
     </div>
   </footer>
 
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-live="polite" aria-label="Уведомление об использовании файлов cookie">
+    <div class="cookie-banner__text">
+      <p>Мы используем файлы cookie, чтобы сайт работал стабильно и удобнее для вас. Продолжая пользоваться сайтом, вы соглашаетесь с <a href="{{ url_for('privacy') }}" target="_blank" rel="noopener">политикой конфиденциальности</a>.</p>
+    </div>
+    <button class="cookie-banner__button" id="cookieAcceptBtn" type="button">Хорошо, согласен</button>
+  </div>
+
   <div class="chat-widget" id="chatWidget">
     <button class="chat-launcher" id="chatLauncher" aria-label="Открыть чат">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1082,6 +1158,69 @@
     document.querySelectorAll('a[href^="#"]').forEach((link) => {
       link.addEventListener('click', () => nav.classList.remove('open'));
     });
+
+    // Отправка формы заявки в Telegram
+    const finalForm = document.querySelector('.final-form');
+    const submitBtn = finalForm?.querySelector('.btn-submit');
+    const successClass = 'final-form-success';
+
+    const showFormMessage = (message, isError = false) => {
+      let msg = finalForm.querySelector('.form-message');
+      if (!msg) {
+        msg = document.createElement('p');
+        msg.className = 'form-message';
+        finalForm.appendChild(msg);
+      }
+      msg.textContent = message;
+      msg.classList.toggle('error', isError);
+    };
+
+    if (finalForm && submitBtn) {
+      submitBtn.addEventListener('click', async () => {
+        const nameInput = finalForm.querySelector('#name');
+        const phoneInput = finalForm.querySelector('#phone');
+        const businessSelect = finalForm.querySelector('#business-type');
+        const commentInput = finalForm.querySelector('#comment');
+        const privacyInput = finalForm.querySelector('input[name="privacy"]');
+
+        if (!nameInput.value.trim() || !phoneInput.value.trim() || !privacyInput.checked) {
+          showFormMessage('Пожалуйста, заполните имя, телефон и согласитесь с политикой конфиденциальности.', true);
+          return;
+        }
+
+        const payload = {
+          name: nameInput.value.trim(),
+          phone: phoneInput.value.trim(),
+          business_type: businessSelect.value,
+          comment: commentInput.value.trim(),
+        };
+
+        submitBtn.disabled = true;
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Отправляем...';
+
+        try {
+          const response = await fetch('/api/lead', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+
+          const result = await response.json();
+          if (!response.ok || !result.success) {
+            showFormMessage(result.error || 'Не удалось отправить заявку. Попробуйте ещё раз.', true);
+          } else {
+            finalForm.reset();
+            showFormMessage('Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.', false);
+          }
+        } catch (e) {
+          showFormMessage('Произошла ошибка при отправке. Попробуйте ещё раз позже.', true);
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+        }
+      });
+    }
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -1648,6 +1787,40 @@
       document.body.style.overflow = 'hidden';
       loadSiteCertificates();
     });
+
+    // Слайдер партнёров (Альфа-Банк / Т‑Банк)
+    const partnerTabs = document.querySelectorAll('.partner-tab');
+    const partnerSlides = document.querySelectorAll('.partner-slide');
+
+    partnerTabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const target = tab.getAttribute('data-partner');
+
+        partnerTabs.forEach((t) => t.classList.toggle('active', t === tab));
+        partnerSlides.forEach((slide) => {
+          slide.classList.toggle('active', slide.getAttribute('data-partner') === target);
+        });
+      });
+    });
+
+    // Плашка об использовании cookie
+    const cookieBanner = document.getElementById('cookieBanner');
+    const cookieAcceptBtn = document.getElementById('cookieAcceptBtn');
+
+    if (cookieBanner && cookieAcceptBtn) {
+      const consent = localStorage.getItem('cookieConsent');
+      if (consent === 'accepted') {
+        cookieBanner.style.display = 'none';
+      } else {
+        cookieBanner.classList.add('visible');
+      }
+
+      cookieAcceptBtn.addEventListener('click', () => {
+        localStorage.setItem('cookieConsent', 'accepted');
+        cookieBanner.classList.remove('visible');
+        cookieBanner.style.display = 'none';
+      });
+    }
   </script>
 </body>
 </html>
