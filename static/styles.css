@@ -2615,6 +2615,16 @@ h2 {
   color: #8a9fb8;
 }
 
+.footer-legal .made-by-atii {
+  color: #ef4444;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.footer-legal .made-by-atii:hover {
+  text-decoration: underline;
+}
+
 .cookie-banner {
   position: fixed;
   left: 50%;
