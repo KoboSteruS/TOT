@@ -819,7 +819,7 @@
             <label class="checkbox-label privacy-checkbox">
               <input type="checkbox" name="privacy" required />
               <span class="checkbox-custom"></span>
-              <span class="privacy-text">Согласен с <a href="#" target="_blank">политикой конфиденциальности</a></span>
+              <span class="privacy-text">Согласен с <a href="{{ url_for('privacy') }}" target="_blank" rel="noopener">политикой конфиденциальности</a></span>
             </label>
             
             <button class="btn btn-primary btn-submit" type="button">Получить консультацию</button>
@@ -878,7 +878,6 @@
               </div>
               <div class="widget-content">
                 <h4>Телефон</h4>
-                <p><a href="tel:+79214604646">+7 (921) 460-46-46</a><br>
                 <a href="tel:+79643194646">+7 (964) 319-46-46</a></p>
               </div>
             </div>
@@ -964,12 +963,24 @@
           <div class="footer-column">
             <h4>Контакты</h4>
             <ul>
-              <li><a href="tel:+79214604646">+7 (921) 460-46-46</a></li>
               <li><a href="tel:+79643194646">+7 (964) 319-46-46</a></li>
               <li><a href="mailto:info@tot-ptz.ru">info@tot-ptz.ru</a></li>
               <li><a href="#map">ул. Федосовой, 31, офис 6</a></li>
             </ul>
           </div>
+        </div>
+      </div>
+
+      <div class="footer-downloads">
+        <div class="footer-download-block">
+          <h4 class="footer-download-title">Реквизиты компании</h4>
+          <p class="footer-download-desc">ООО «ТОТ» · ОГРН: 1131001008874 · ИНН: 1001272104 · КПП: 100101001<br>Республика Карелия, г. Петрозаводск, ул. Федосовой, 31, ЖК «Свой берег», пом. 6</p>
+          <a href="{{ url_for('download_file', slug='requisites') }}" class="footer-download-btn" download>Скачать реквизиты</a>
+        </div>
+        <div class="footer-download-block">
+          <h4 class="footer-download-title">Ведомость спецоценки</h4>
+          <p class="footer-download-desc">Сводная ведомость проведения специальной оценки условий труда</p>
+          <a href="{{ url_for('download_file', slug='vedomost') }}" class="footer-download-btn" download>Скачать ведомость</a>
         </div>
       </div>
       
@@ -992,12 +1003,9 @@
           </a>
         </div>
         <div class="footer-copyright">
-          <p>&copy; 2026 ООО «ТОТ». Все права защищены.</p>
-          <p class="footer-legal">ИНН: 7801234567 · ОГРН: 1187800123456</p>
+          <p>&copy; 2026 ООО «ТОТ». Все права защищены. <a href="{{ url_for('privacy') }}">Политика конфиденциальности</a></p>
+          <p class="footer-legal">ИНН: 1001272104 · ОГРН: 1131001008874</p>
         </div>
-      </div>
-    </div>
-  </footer>
       </div>
     </div>
   </footer>

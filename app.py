@@ -22,6 +22,13 @@ app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif', 'webp', 'svg'}
 CONTENT_FILE = 'static/content.json'
 FAQ_FILE = 'static/faq.json'
 CERTIFICATES_FILE = 'static/certificates.json'
+DATA_FOLDER = 'data'
+
+# Разрешённые файлы для скачивания (slug -> (имя файла, имя для скачивания))
+DOWNLOAD_FILES = {
+    'requisites': ('Реквизиты-ТОТ (1).doc', 'Реквизиты-ООО-ТОТ.doc'),
+    'vedomost': ('Svodnaya_vedomost_provedenia_spetsotsenki_ot_18_10_2018.pdf', 'Ведомость-спецоценки-ТОТ.pdf'),
+}
 
 
 # Утилиты
@@ -113,6 +120,29 @@ def admin_panel(token):
         return render_template('admin.html', jwt_token=jwt_token)
     else:
         return "Доступ запрещён", 403
+
+
+@app.route('/privacy')
+def privacy():
+    """Страница политики конфиденциальности"""
+    return render_template('privacy.html')
+
+
+@app.route('/download/<slug>')
+def download_file(slug):
+    """Скачивание файла из папки data (безопасный список)"""
+    if slug not in DOWNLOAD_FILES:
+        return "Файл не найден", 404
+    filename, download_as = DOWNLOAD_FILES[slug]
+    filepath = os.path.join(DATA_FOLDER, filename)
+    if not os.path.isfile(filepath):
+        return "Файл не найден", 404
+    return send_from_directory(
+        DATA_FOLDER,
+        filename,
+        as_attachment=True,
+        download_name=download_as
+    )
 
 
 # ======================
