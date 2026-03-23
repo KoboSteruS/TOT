@@ -10,6 +10,7 @@ from urllib import request as urlrequest, parse as urlparse
 from flask import Flask, render_template, request, jsonify, send_from_directory
 from werkzeug.utils import secure_filename
 from werkzeug.exceptions import RequestEntityTooLarge
+from werkzeug.exceptions import HTTPException
 from dotenv import load_dotenv
 
 # Загрузка переменных окружения
@@ -21,7 +22,24 @@ app.config['JWT_SECRET'] = os.getenv('JWT_SECRET', 'jwt-secret-key')
 app.config['ADMIN_TOKEN'] = os.getenv('ADMIN_TOKEN', 'admin-token')
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
 app.config['UPLOAD_FOLDER'] = 'static/images'
-app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif', 'webp', 'svg'}
+app.config['ALLOWED_EXTENSIONS'] = {
+    'png', 'jpg', 'jpeg', 'gif', 'webp', 'svg',
+    'bmp', 'tif', 'tiff', 'heic', 'heif', 'avif', 'jfif'
+}
+
+
+MIMETYPE_TO_EXT = {
+    'image/jpeg': '.jpg',
+    'image/png': '.png',
+    'image/gif': '.gif',
+    'image/webp': '.webp',
+    'image/svg+xml': '.svg',
+    'image/bmp': '.bmp',
+    'image/tiff': '.tiff',
+    'image/heic': '.heic',
+    'image/heif': '.heif',
+    'image/avif': '.avif',
+}
 
 
 @app.errorhandler(RequestEntityTooLarge)
@@ -31,6 +49,29 @@ def handle_file_too_large(_e):
         'success': False,
         'error': 'Файл слишком большой. Максимум 16MB.'
     }), 413
+
+
+@app.errorhandler(Exception)
+def handle_api_exceptions(e):
+    """Для API всегда возвращаем JSON, а не HTML-страницы ошибок."""
+    if request.path.startswith('/api/'):
+        if isinstance(e, HTTPException):
+            status = e.code or 500
+            message = e.description or 'Ошибка запроса'
+        else:
+            status = 500
+            message = 'Внутренняя ошибка сервера'
+            print(f'[API] Unhandled exception on {request.path}: {e}')
+
+        return jsonify({
+            'success': False,
+            'error': message
+        }), status
+
+    # Для не-API маршрутов оставляем стандартное поведение.
+    if isinstance(e, HTTPException):
+        return e
+    raise e
 
 # Пути к файлам данных
 CONTENT_FILE = 'static/content.json'
@@ -47,8 +88,22 @@ DOWNLOAD_FILES = {
 
 
 # Утилиты
-def allowed_file(filename):
-    """Проверка разрешённых расширений файлов"""
+def allowed_file(file_or_name):
+    """Проверка, что это изображение.
+
+    Поддерживаем как filename-строку, так и FileStorage.
+    Для устойчивости сначала доверяем mimetype (если он image/*),
+    затем fallback на расширение файла.
+    """
+    if hasattr(file_or_name, 'mimetype'):
+        mimetype = (getattr(file_or_name, 'mimetype', '') or '').lower()
+        if mimetype.startswith('image/'):
+            return True
+
+        filename = getattr(file_or_name, 'filename', '') or ''
+    else:
+        filename = str(file_or_name or '')
+
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 
 
@@ -707,7 +762,7 @@ def upload_image():
     if file.filename == '':
         return jsonify({'success': False, 'error': 'Файл не выбран'}), 400
 
-    if not (file and allowed_file(file.filename)):
+    if not (file and allowed_file(file)):
         return jsonify({'success': False, 'error': 'Недопустимый тип файла'}), 400
 
     # Если фронтенд прислал target_path — делаем точечную замену конкретного файла,
@@ -746,6 +801,9 @@ def upload_image():
 
     # Обычная загрузка (без target_path) - добавляем timestamp только если файл не существует
     filename = secure_filename(file.filename)
+    if filename and '.' not in filename:
+        guessed_ext = MIMETYPE_TO_EXT.get((file.mimetype or '').lower(), '.img')
+        filename = f'{filename}{guessed_ext}'
     if not filename:
         return jsonify({'success': False, 'error': 'Недопустимое имя файла'}), 400
 
