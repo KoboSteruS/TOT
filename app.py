@@ -9,6 +9,7 @@ from functools import wraps
 from urllib import request as urlrequest, parse as urlparse
 from flask import Flask, render_template, request, jsonify, send_from_directory
 from werkzeug.utils import secure_filename
+from werkzeug.exceptions import RequestEntityTooLarge
 from dotenv import load_dotenv
 
 # Загрузка переменных окружения
@@ -21,6 +22,15 @@ app.config['ADMIN_TOKEN'] = os.getenv('ADMIN_TOKEN', 'admin-token')
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
 app.config['UPLOAD_FOLDER'] = 'static/images'
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif', 'webp', 'svg'}
+
+
+@app.errorhandler(RequestEntityTooLarge)
+def handle_file_too_large(_e):
+    """Единый JSON-ответ для слишком больших файлов."""
+    return jsonify({
+        'success': False,
+        'error': 'Файл слишком большой. Максимум 16MB.'
+    }), 413
 
 # Пути к файлам данных
 CONTENT_FILE = 'static/content.json'
@@ -715,14 +725,6 @@ def upload_image():
         parts = [p for p in rel.split('/') if p]
         if not parts or any(p == '..' for p in parts):
             return jsonify({'success': False, 'error': 'Некорректный target_path'}), 400
-
-        upload_ext = os.path.splitext(file.filename)[1].lstrip('.').lower()
-        target_ext = os.path.splitext(parts[-1])[1].lstrip('.').lower()
-        if upload_ext and target_ext and upload_ext != target_ext:
-            return jsonify({
-                'success': False,
-                'error': f'Расширение файла должно быть .{target_ext}, получено .{upload_ext}'
-            }), 400
 
         # secure_filename применяем к каждой части пути, но оставляем структуру папок.
         safe_parts = [secure_filename(p) for p in parts]

@@ -875,6 +875,18 @@
   <script>
     // JWT токен из шаблона
     const JWT_TOKEN = '{{ jwt_token }}';
+
+    async function parseJsonResponse(response) {
+      const raw = await response.text();
+      if (!raw) return {};
+
+      try {
+        return JSON.parse(raw);
+      } catch (e) {
+        const snippet = raw.slice(0, 180).replace(/\s+/g, ' ').trim();
+        throw new Error(`Сервер вернул не JSON (HTTP ${response.status}). ${snippet || 'Пустой ответ'}`);
+      }
+    }
     
     // API запросы
     async function apiRequest(url, method = 'GET', data = null) {
@@ -891,7 +903,11 @@
       }
       
       const response = await fetch(url, options);
-      return response.json();
+      const payload = await parseJsonResponse(response);
+      if (!response.ok) {
+        throw new Error(payload?.error || payload?.message || `HTTP ${response.status}`);
+      }
+      return payload;
     }
 
     // Навигация
@@ -1523,9 +1539,9 @@
             body: formData
           });
           
-          const result = await response.json();
+          const result = await parseJsonResponse(response);
           
-          if (result.success) {
+          if (response.ok && result.success) {
             document.getElementById('cert-image').value = result.url;
             
             // Показать превью
@@ -1655,21 +1671,25 @@
       const formData = new FormData();
       formData.append('file', file);
       
-      const response = await fetch('/api/upload', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${JWT_TOKEN}`
-        },
-        body: formData
-      });
-      
-      const result = await response.json();
-      
-      if (result.success) {
-        showAlert('Файл загружен: ' + result.filename, 'success');
-        loadImages();
-      } else {
-        showAlert('Ошибка загрузки: ' + result.error, 'error');
+      try {
+        const response = await fetch('/api/upload', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${JWT_TOKEN}`
+          },
+          body: formData
+        });
+        
+        const result = await parseJsonResponse(response);
+        
+        if (response.ok && result.success) {
+          showAlert('Файл загружен: ' + result.filename, 'success');
+          loadImages();
+        } else {
+          showAlert('Ошибка загрузки: ' + (result.error || `HTTP ${response.status}`), 'error');
+        }
+      } catch (error) {
+        showAlert('Ошибка загрузки: ' + error.message, 'error');
       }
     }
 
@@ -1715,16 +1735,16 @@
             body: formData
           });
           
-          const result = await response.json();
+          const result = await parseJsonResponse(response);
           
-          if (result.success) {
+          if (response.ok && result.success) {
             showAlert(`Изображение "${imageName}" успешно заменено! Обновите страницу сайта.`, 'success');
             // Обновляем превью на странице админки
             setTimeout(() => {
               location.reload();
             }, 2000);
           } else {
-            showAlert('Ошибка замены: ' + result.error, 'error');
+            showAlert('Ошибка замены: ' + (result.error || `HTTP ${response.status}`), 'error');
           }
         } catch (error) {
           showAlert('Ошибка загрузки: ' + error.message, 'error');

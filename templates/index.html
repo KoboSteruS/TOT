@@ -1909,7 +1909,25 @@
     async function loadSiteCertificates() {
       try {
         const response = await fetch(`/api/certificates?v=${Date.now()}`);
-        const data = await response.json();
+        const raw = await response.text();
+        let data = {};
+        try {
+          data = raw ? JSON.parse(raw) : {};
+        } catch (e) {
+          console.error('Сервер вернул не JSON для сертификатов:', raw.slice(0, 200));
+          const grid = document.getElementById('certificates-grid-site');
+          if (grid) {
+            grid.innerHTML = '<p style="text-align: center; color: #94A3B8; padding: 40px;">Ошибка загрузки сертификатов</p>';
+          }
+          return;
+        }
+        if (!response.ok) {
+          const grid = document.getElementById('certificates-grid-site');
+          if (grid) {
+            grid.innerHTML = '<p style="text-align: center; color: #94A3B8; padding: 40px;">Сертификаты временно недоступны</p>';
+          }
+          return;
+        }
         
         const grid = document.getElementById('certificates-grid-site');
         
