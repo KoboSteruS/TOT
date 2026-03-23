@@ -620,9 +620,8 @@ def delete_faq(index):
 # ======================
 
 @app.route('/api/certificates', methods=['GET'])
-@jwt_required
 def get_certificates():
-    """Получение всех сертификатов"""
+    """Получение всех сертификатов (публично для вывода на сайте)."""
     cert_data = load_json(CERTIFICATES_FILE)
     return jsonify(cert_data)
 

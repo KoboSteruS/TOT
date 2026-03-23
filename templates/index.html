@@ -1908,7 +1908,7 @@
     // Загрузка сертификатов из API
     async function loadSiteCertificates() {
       try {
-        const response = await fetch('/api/certificates');
+        const response = await fetch(`/api/certificates?v=${Date.now()}`);
         const data = await response.json();
         
         const grid = document.getElementById('certificates-grid-site');
