@@ -1427,7 +1427,38 @@
       handleUserMessage(message);
     });
 
-    fetch('/static/faq.json')
+    // Кэш может не обновиться после замены файлов (URL прежний). Принудительно добавляем ?v=...
+    const cacheBuster = `v=${Date.now()}`;
+    const withCacheBuster = (url) => `${url}${url.includes('?') ? '&' : '?'}${cacheBuster}`;
+
+    // img[src] (логотип, баннер партнёра, изображения в карточках и т.п.)
+    document.querySelectorAll('img[src^="/static/images/"]').forEach((img) => {
+      const src = img.getAttribute('src');
+      if (!src) return;
+      img.src = withCacheBuster(src);
+    });
+
+    // Фоновые картинки (CSS background url(...))
+    const setBgImage = (selector, url) => {
+      const el = document.querySelector(selector);
+      if (!el) return;
+      el.style.backgroundImage = `url('${withCacheBuster(url)}')`;
+    };
+    setBgImage('.hero', '/static/images/hero/mountains.jpg');
+    setBgImage('.about-photo', '/static/images/about/accountant.jpg');
+    setBgImage('.final-image', '/static/images/cta/laptop.jpg');
+
+    document.querySelectorAll('.tariff-img.start').forEach((el) => {
+      el.style.backgroundImage = `url('${withCacheBuster('/static/images/tariffs/start.jpg')}')`;
+    });
+    document.querySelectorAll('.tariff-img.business').forEach((el) => {
+      el.style.backgroundImage = `url('${withCacheBuster('/static/images/tariffs/business.jpg')}')`;
+    });
+    document.querySelectorAll('.tariff-img.individual').forEach((el) => {
+      el.style.backgroundImage = `url('${withCacheBuster('/static/images/tariffs/individual.jpg')}')`;
+    });
+
+    fetch(`/static/faq.json?${cacheBuster}`)
       .then((r) => r.json())
       .then((data) => {
         faqItems = data.faq || [];
@@ -1858,7 +1889,7 @@
     document.querySelectorAll('.certificate-item').forEach(item => {
       item.addEventListener('click', () => {
         const img = item.querySelector('img');
-        certificateViewImage.src = img.src;
+        certificateViewImage.src = withCacheBuster(img.src);
         certificateViewImage.alt = img.alt;
         certificateViewModal.classList.add('active');
         certificatesModal.classList.remove('active');
@@ -1900,7 +1931,7 @@
         document.querySelectorAll('.certificate-item').forEach(item => {
           item.addEventListener('click', () => {
             const img = item.querySelector('img');
-            certificateViewImage.src = img.src;
+            certificateViewImage.src = withCacheBuster(img.src);
             certificateViewImage.alt = img.alt;
             certificateViewModal.classList.add('active');
             certificatesModal.classList.remove('active');

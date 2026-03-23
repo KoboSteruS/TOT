@@ -697,38 +697,73 @@ def upload_image():
     
     if file.filename == '':
         return jsonify({'success': False, 'error': 'Файл не выбран'}), 400
-    
-    if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
-        
-        # Если filename содержит путь (partners/alfa-banner.png), создаём подпапки
-        filepath_parts = filename.split('/')
-        if len(filepath_parts) > 1:
-            # Создаём подпапки если нужно
-            subfolder = os.path.join(app.config['UPLOAD_FOLDER'], *filepath_parts[:-1])
-            os.makedirs(subfolder, exist_ok=True)
-            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        else:
-            # Обычная загрузка - добавляем timestamp только если файл не существует
-            if not os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], filename)):
-                timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-                name, ext = os.path.splitext(filename)
-                filename = f"{name}_{timestamp}{ext}"
-            
-            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        
+
+    if not (file and allowed_file(file.filename)):
+        return jsonify({'success': False, 'error': 'Недопустимый тип файла'}), 400
+
+    # Если фронтенд прислал target_path — делаем точечную замену конкретного файла,
+    # включая подпапки (например: hero/mountains.jpg).
+    target_path = request.form.get('target_path')
+    if target_path:
+        # Нормализуем относительный путь: убираем /static/images/ и ведущие /
+        rel = str(target_path).strip().replace('\\', '/').lstrip('/')
+        if rel.startswith('static/images/'):
+            rel = rel[len('static/images/'):]
+        if rel.startswith('images/'):
+            rel = rel[len('images/'):]
+
+        # Защита от path traversal
+        parts = [p for p in rel.split('/') if p]
+        if not parts or any(p == '..' for p in parts):
+            return jsonify({'success': False, 'error': 'Некорректный target_path'}), 400
+
+        upload_ext = os.path.splitext(file.filename)[1].lstrip('.').lower()
+        target_ext = os.path.splitext(parts[-1])[1].lstrip('.').lower()
+        if upload_ext and target_ext and upload_ext != target_ext:
+            return jsonify({
+                'success': False,
+                'error': f'Расширение файла должно быть .{target_ext}, получено .{upload_ext}'
+            }), 400
+
+        # secure_filename применяем к каждой части пути, но оставляем структуру папок.
+        safe_parts = [secure_filename(p) for p in parts]
+        safe_parts = [p for p in safe_parts if p]
+        if not safe_parts:
+            return jsonify({'success': False, 'error': 'Некорректный target_path'}), 400
+
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], *safe_parts)
+        os.makedirs(os.path.dirname(filepath), exist_ok=True)
         file.save(filepath)
-        
-        # Возвращаем относительный путь
-        relative_path = f"/static/images/{filename}"
+
+        relative_url = f"/static/images/{'/'.join(safe_parts)}"
         return jsonify({
             'success': True,
-            'message': 'Файл загружен',
-            'url': relative_path,
-            'filename': filename
+            'message': 'Файл заменён',
+            'url': relative_url,
+            'filename': '/'.join(safe_parts)
         })
-    
-    return jsonify({'success': False, 'error': 'Недопустимый тип файла'}), 400
+
+    # Обычная загрузка (без target_path) - добавляем timestamp только если файл не существует
+    filename = secure_filename(file.filename)
+    if not filename:
+        return jsonify({'success': False, 'error': 'Недопустимое имя файла'}), 400
+
+    filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    if not os.path.exists(filepath):
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        name, ext = os.path.splitext(filename)
+        filename = f"{name}_{timestamp}{ext}"
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+
+    file.save(filepath)
+
+    relative_path = f"/static/images/{filename}"
+    return jsonify({
+        'success': True,
+        'message': 'Файл загружен',
+        'url': relative_path,
+        'filename': filename
+    })
 
 
 @app.route('/api/images', methods=['GET'])

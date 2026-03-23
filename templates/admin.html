@@ -1701,9 +1701,10 @@
         if (!confirm(`Заменить изображение "${imageName}"?\n\nСтарое изображение будет перезаписано.`)) return;
         
         const formData = new FormData();
-        // Используем оригинальное имя файла из пути
-        const fileName = imagePath.split('/').pop();
-        formData.append('file', file, fileName);
+        // Важно: target_path нужно передать целиком, включая подпапки (hero/mountains.jpg),
+        // иначе бэкенд заменит файл не по тому пути.
+        formData.append('file', file, file.name);
+        formData.append('target_path', imagePath);
         
         try {
           const response = await fetch('/api/upload', {
