@@ -1206,7 +1206,7 @@
         <!-- Уведомления -->
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">🔔 Уведомления (Telegram)</h3>
+            <h3 class="card-title">🔔 Уведомления (Telegram + VK)</h3>
           </div>
           <div class="form-group">
             <label class="form-label">Токен бота Telegram</label>
@@ -1215,6 +1215,14 @@
           <div class="form-group">
             <label class="form-label">ID чата для заявок</label>
             <input type="text" class="form-input" data-path="notifications.telegram_chat_id" value="${safe(data.notifications?.telegram_chat_id)}" placeholder="Например, 123456789">
+          </div>
+          <div class="form-group">
+            <label class="form-label">VK API токен</label>
+            <input type="text" class="form-input" data-path="notifications.vk_api_token" value="${safe(data.notifications?.vk_api_token)}" placeholder="vk1.a.xxxxx">
+          </div>
+          <div class="form-group">
+            <label class="form-label">VK admin IDs (через запятую)</label>
+            <input type="text" class="form-input" data-path="notifications.vk_admin_ids" value="${safeArr(data.notifications?.vk_admin_ids)}" placeholder="260239850, 1055522441, 611228535">
           </div>
           <p class="form-hint">Укажите ID чата (пользователь, группа или канал), куда бот будет отправлять новые заявки с формы.</p>
         </div>
@@ -1276,8 +1284,8 @@
         const path = input.getAttribute('data-path');
         let value = input.value;
         
-        // Обработка массивов (телефоны)
-        if (path === 'contacts.phones') {
+        // Обработка массивов (телефоны, VK admin IDs)
+        if (path === 'contacts.phones' || path === 'notifications.vk_admin_ids') {
           value = value.split(',').map(p => p.trim()).filter(p => p);
         }
         

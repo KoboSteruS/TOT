@@ -1700,6 +1700,141 @@
     aboutModalClose.addEventListener('click', closeAboutModal);
     aboutModalOverlay.addEventListener('click', closeAboutModal);
 
+    // Подтягиваем контент с сервера (из админки)
+    async function loadDynamicContent() {
+      try {
+        const response = await fetch(`/static/content.json?v=${Date.now()}`);
+        const c = await response.json();
+
+        const setText = (selector, value) => {
+          const el = document.querySelector(selector);
+          if (el && value !== undefined && value !== null) el.textContent = value;
+        };
+        const setHTML = (selector, value) => {
+          const el = document.querySelector(selector);
+          if (el && value !== undefined && value !== null) el.innerHTML = value;
+        };
+
+        // Бренд/hero
+        setText('.brand strong', c.company?.name);
+        setText('.brand small', c.company?.tagline);
+        setText('.hero-kicker', c.hero?.kicker);
+        setHTML('.hero h1', c.hero?.title);
+        setText('.hero-description', c.hero?.description);
+        const heroActions = document.querySelectorAll('.hero .actions .btn');
+        if (heroActions[0] && c.hero?.btn_primary) heroActions[0].textContent = c.hero.btn_primary;
+        if (heroActions[1] && c.hero?.btn_secondary) heroActions[1].textContent = c.hero.btn_secondary;
+
+        // About
+        setText('#about h2', c.about?.title);
+        const aboutParagraphs = document.querySelectorAll('.about-subtitle p');
+        if (aboutParagraphs.length >= 4) {
+          if (c.about?.description_1) aboutParagraphs[0].innerHTML = c.about.description_1;
+          if (c.about?.description_2) aboutParagraphs[1].innerHTML = c.about.description_2;
+          if (c.about?.description_3) aboutParagraphs[2].innerHTML = c.about.description_3;
+          if (c.about?.description_4) aboutParagraphs[3].innerHTML = c.about.description_4;
+        }
+
+        // Статистика "О нас":
+        // 1) приоритетно из company (что меняется в админке в блоке "Информация о компании")
+        // 2) fallback из about.stats, если он заполнен
+        const statsFromCompany = [
+          { number: c.company?.experience_years, label: 'лет на рынке' },
+          { number: c.company?.clients_count, label: 'довольных клиентов' },
+          { number: c.company?.on_time_percent, label: 'отчётность вовремя' },
+          { number: c.company?.support_24_7, label: 'поддержка' },
+        ];
+        const stats = (c.about?.stats && Array.isArray(c.about.stats) && c.about.stats.length > 0)
+          ? c.about.stats
+          : statsFromCompany;
+        const statCards = document.querySelectorAll('.about-stats-compact .stat-compact');
+        statCards.forEach((card, idx) => {
+          if (!stats[idx]) return;
+          const num = card.querySelector('.stat-number');
+          const lbl = card.querySelector('.stat-label');
+          if (num && stats[idx].number) num.textContent = stats[idx].number;
+          if (lbl && stats[idx].label) lbl.textContent = stats[idx].label;
+        });
+
+        // Контент секций
+        setText('#services h2', c.services?.title);
+        setText('#services .lead', c.services?.lead);
+        setText('#showAllServicesBtn', c.services?.button);
+        setText('.cta-laptop h2', c.cta_laptop?.title);
+        setText('.cta-laptop p', c.cta_laptop?.description);
+        setText('.cta-laptop .btn-cta-white-special', c.cta_laptop?.button);
+        setText('#process h2', c.process?.title);
+        setText('#process .lead', c.process?.lead);
+        setText('#partner .partner-slide[data-partner="alfa"] .partner-badge', c.partner?.badge);
+        setText('#partner .partner-slide[data-partner="alfa"] h2', c.partner?.title);
+        setText('#partner .partner-slide[data-partner="alfa"] .partner-content > p', c.partner?.description);
+        setText('#partner .partner-slide[data-partner="alfa"] .btn-partner-primary', c.partner?.btn_primary);
+        const certBtn = document.querySelector('#partner .partner-slide[data-partner="alfa"] #openCertificatesModal');
+        if (certBtn && c.partner?.btn_secondary) {
+          const certBtnIcon = certBtn.querySelector('svg');
+          certBtn.textContent = '';
+          if (certBtnIcon) certBtn.appendChild(certBtnIcon);
+          certBtn.append(` ${c.partner.btn_secondary}`);
+        }
+        setText('#business-scales h2', c.business_scales?.title);
+        setText('#business-scales .lead', c.business_scales?.lead);
+        setText('#tariffs h2', c.tariffs?.title);
+        setText('#tariffs .lead', c.tariffs?.lead);
+        setText('#final-cta h2', c.final_cta?.title);
+        setText('#final-cta .lead', c.final_cta?.lead);
+        const submitBtnEl = document.querySelector('.final-form .btn-submit');
+        if (submitBtnEl && c.final_cta?.form?.submit_button) submitBtnEl.textContent = c.final_cta.form.submit_button;
+
+        // Контакты и карта
+        setText('#map h2', c.map?.title);
+        setText('#map .lead', c.map?.lead);
+        const phones = c.contacts?.phones || [];
+        const phoneWidget = document.querySelector('#map .contacts-sidebar.right .contact-widget:nth-child(1) .widget-content a');
+        if (phoneWidget && phones[0]) {
+          phoneWidget.textContent = phones[0];
+          phoneWidget.setAttribute('href', `tel:${phones[0].replace(/[^\d+]/g, '')}`);
+        }
+        const emailWidget = document.querySelector('#map .contacts-sidebar.right .contact-widget:nth-child(2) .widget-content a');
+        if (emailWidget && c.contacts?.email) {
+          emailWidget.textContent = c.contacts.email;
+          emailWidget.setAttribute('href', `mailto:${c.contacts.email}`);
+        }
+        const socialBtns = document.querySelectorAll('#map .social-buttons a');
+        if (socialBtns[0] && c.contacts?.social?.vk) socialBtns[0].setAttribute('href', c.contacts.social.vk);
+        if (socialBtns[1] && c.contacts?.social?.telegram) socialBtns[1].setAttribute('href', c.contacts.social.telegram);
+
+        // Футер
+        setText('.footer-brand strong', c.company?.name);
+        setText('.footer-tagline', c.footer?.tagline);
+        setText('.footer-description', c.footer?.description);
+        const footerContactItems = document.querySelectorAll('.footer-column:nth-child(3) a');
+        if (footerContactItems[0] && phones[0]) {
+          footerContactItems[0].textContent = phones[0];
+          footerContactItems[0].setAttribute('href', `tel:${phones[0].replace(/[^\d+]/g, '')}`);
+        }
+        if (footerContactItems[1] && c.contacts?.email) {
+          footerContactItems[1].textContent = c.contacts.email;
+          footerContactItems[1].setAttribute('href', `mailto:${c.contacts.email}`);
+        }
+        if (footerContactItems[2] && c.contacts?.address) footerContactItems[2].textContent = c.contacts.address;
+        const footerSocials = document.querySelectorAll('.footer-bottom .footer-social a');
+        if (footerSocials[0] && c.contacts?.social?.vk) footerSocials[0].setAttribute('href', c.contacts.social.vk);
+        if (footerSocials[1] && c.contacts?.social?.telegram) footerSocials[1].setAttribute('href', c.contacts.social.telegram);
+
+        // Чат-бот
+        setText('.chat-header strong', c.chat_bot?.header?.title);
+        setText('.chat-welcome .welcome-text', c.chat_bot?.welcome);
+        const chatInput = document.getElementById('chatInput');
+        if (chatInput && c.chat_bot?.input_placeholder) chatInput.setAttribute('placeholder', c.chat_bot.input_placeholder);
+      } catch (e) {
+        console.error('Ошибка загрузки динамического контента:', e);
+      }
+    }
+
+    loadDynamicContent();
+    // Повторная попытка через 1с на случай медленной загрузки/кэша
+    setTimeout(loadDynamicContent, 1000);
+
     // Модальные окна сертификатов
     const certificatesModal = document.getElementById('certificatesModal');
     const certificateViewModal = document.getElementById('certificateViewModal');

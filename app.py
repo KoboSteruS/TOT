@@ -3,6 +3,7 @@ import json
 import jwt
 import threading
 import time
+import ssl
 from datetime import datetime, timedelta
 from functools import wraps
 from urllib import request as urlrequest, parse as urlparse
@@ -61,6 +62,20 @@ def save_json(filepath, data):
     except Exception as e:
         print(f"Error saving {filepath}: {e}")
         return False
+
+
+def deep_merge_dict(base, patch):
+    """Рекурсивное объединение словарей без потери существующих ключей."""
+    if not isinstance(base, dict) or not isinstance(patch, dict):
+        return patch
+
+    result = dict(base)
+    for key, value in patch.items():
+        if key in result and isinstance(result[key], dict) and isinstance(value, dict):
+            result[key] = deep_merge_dict(result[key], value)
+        else:
+            result[key] = value
+    return result
 
 
 def verify_jwt_token(token):
@@ -282,6 +297,94 @@ def send_lead_to_telegram(name: str, phone: str, business_type: str, comment: st
     return True, None
 
 
+def send_lead_to_vk(name: str, phone: str, business_type: str, comment: str) -> tuple[bool, str | None]:
+    """Отправка заявки админам ВКонтакте через messages.send."""
+    content = load_json(CONTENT_FILE)
+    notifications = content.get('notifications', {})
+
+    vk_token = notifications.get('vk_api_token') or os.getenv('VK_API_TOKEN')
+    vk_admin_ids = notifications.get('vk_admin_ids') or os.getenv('VK_ADMIN_IDS', '')
+
+    if not vk_token:
+        return False, 'Не настроен VK API токен'
+
+    # Разрешаем как массив, так и строку с ID через запятую
+    if isinstance(vk_admin_ids, list):
+        admin_ids = [str(x).strip() for x in vk_admin_ids if str(x).strip()]
+    else:
+        admin_ids = [x.strip() for x in str(vk_admin_ids).split(',') if x.strip()]
+
+    if not admin_ids:
+        return False, 'Не настроены VK admin IDs'
+
+    lines = [
+        'Новая заявка с сайта ООО «ТОТ»',
+        '',
+        f'Имя: {name}',
+        f'Телефон: {phone}',
+    ]
+    if business_type:
+        lines.append(f'Форма бизнеса: {business_type}')
+    if comment:
+        lines.extend(['', f'Комментарий: {comment}'])
+    message = '\n'.join(lines)
+
+    errors: list[str] = []
+    vk_api_url = 'https://api.vk.com/method/messages.send'
+
+    for idx, user_id in enumerate(admin_ids):
+        payload = {
+            'access_token': vk_token,
+            'v': '5.199',
+            'user_id': user_id,
+            'random_id': int(time.time()) + idx,
+            'message': message,
+        }
+        data = urlparse.urlencode(payload).encode('utf-8')
+        req = urlrequest.Request(vk_api_url, data=data, method='POST')
+
+        try:
+            with urlrequest.urlopen(req, timeout=12) as resp:
+                raw = resp.read().decode('utf-8')
+                body = json.loads(raw)
+                if 'error' in body:
+                    vk_err = body['error']
+                    err_msg = f"VK error user_id={user_id}: {vk_err.get('error_msg', 'unknown')}"
+                    print(f"[VK] {err_msg}")
+                    errors.append(err_msg)
+        except Exception as e:
+            # Частая проблема на Windows/корпоративных сетях: self-signed cert в цепочке.
+            # Для VK делаем безопасный fallback: повтор с unverified SSL контекстом только
+            # если стандартная валидация сертификата провалилась.
+            if 'CERTIFICATE_VERIFY_FAILED' in str(e):
+                try:
+                    insecure_ctx = ssl._create_unverified_context()
+                    with urlrequest.urlopen(req, timeout=12, context=insecure_ctx) as resp:
+                        raw = resp.read().decode('utf-8')
+                        body = json.loads(raw)
+                        if 'error' in body:
+                            vk_err = body['error']
+                            err_msg = f"VK error user_id={user_id}: {vk_err.get('error_msg', 'unknown')}"
+                            print(f"[VK] {err_msg}")
+                            errors.append(err_msg)
+                        else:
+                            print(f"[VK] delivered (SSL fallback) user_id={user_id}")
+                    continue
+                except Exception as fallback_err:
+                    err_msg = f'VK send failed user_id={user_id} (ssl fallback): {fallback_err}'
+                    print(f"[VK] {err_msg}")
+                    errors.append(err_msg)
+                    continue
+
+            err_msg = f'VK send failed user_id={user_id}: {e}'
+            print(f"[VK] {err_msg}")
+            errors.append(err_msg)
+
+    if errors and len(errors) == len(admin_ids):
+        return False, '; '.join(errors[:2])
+    return True, None
+
+
 # Декоратор для защиты API endpoints
 def jwt_required(f):
     """Декоратор для проверки JWT токена в заголовках"""
@@ -347,6 +450,12 @@ def download_file(slug):
     )
 
 
+@app.route('/api/public-content', methods=['GET'])
+def get_public_content():
+    """Публичный контент сайта (без авторизации)."""
+    return jsonify(load_json(CONTENT_FILE))
+
+
 @app.route('/telegram/webhook', methods=['POST'])
 def telegram_webhook():
     """Webhook для Telegram‑бота: сохраняем chat_id всех, кто написал боту."""
@@ -375,7 +484,7 @@ def telegram_webhook():
 
 @app.route('/api/lead', methods=['POST'])
 def submit_lead():
-    """Приём заявки с формы и отправка в Telegram"""
+    """Приём заявки с формы и отправка в Telegram и VK"""
     data = request.get_json() or {}
     name = (data.get('name') or '').strip()
     phone = (data.get('phone') or '').strip()
@@ -385,9 +494,19 @@ def submit_lead():
     if not name or not phone:
         return jsonify({'success': False, 'error': 'Имя и телефон обязательны'}), 400
 
-    ok, error = send_lead_to_telegram(name, phone, business_type, comment)
-    if not ok:
-        return jsonify({'success': False, 'error': error or 'Ошибка отправки в Telegram'}), 500
+    tg_ok, tg_error = send_lead_to_telegram(name, phone, business_type, comment)
+    vk_ok, vk_error = send_lead_to_vk(name, phone, business_type, comment)
+
+    if not tg_ok:
+        print(f'[Telegram] lead send error: {tg_error}')
+    if not vk_ok:
+        print(f'[VK] lead send error: {vk_error}')
+
+    if not tg_ok and not vk_ok:
+        return jsonify({
+            'success': False,
+            'error': f'Не удалось отправить заявку. Telegram: {tg_error or "ошибка"}, VK: {vk_error or "ошибка"}'
+        }), 500
 
     return jsonify({'success': True})
 
@@ -408,8 +527,10 @@ def get_content():
 @jwt_required
 def update_content():
     """Обновление контента сайта"""
-    data = request.get_json()
-    if save_json(CONTENT_FILE, data):
+    data = request.get_json() or {}
+    current_content = load_json(CONTENT_FILE)
+    merged_content = deep_merge_dict(current_content, data)
+    if save_json(CONTENT_FILE, merged_content):
         return jsonify({'success': True, 'message': 'Контент обновлён'})
     return jsonify({'success': False, 'error': 'Ошибка сохранения'}), 500
 
